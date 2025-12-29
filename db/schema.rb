@@ -20,10 +20,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "order"
+    t.string "name_tc"
     t.index ["name_de"], name: "index_achievement_categories_on_name_de"
     t.index ["name_en"], name: "index_achievement_categories_on_name_en"
     t.index ["name_fr"], name: "index_achievement_categories_on_name_fr"
     t.index ["name_ja"], name: "index_achievement_categories_on_name_ja"
+    t.index ["name_tc"], name: "index_achievement_categories_on_name_tc"
     t.index ["order"], name: "index_achievement_categories_on_order"
     t.index ["type_id"], name: "index_achievement_categories_on_type_id"
   end
@@ -36,10 +38,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "order"
+    t.string "name_tc"
     t.index ["name_de"], name: "index_achievement_types_on_name_de"
     t.index ["name_en"], name: "index_achievement_types_on_name_en"
     t.index ["name_fr"], name: "index_achievement_types_on_name_fr"
     t.index ["name_ja"], name: "index_achievement_types_on_name_ja"
+    t.index ["name_tc"], name: "index_achievement_types_on_name_tc"
     t.index ["order"], name: "index_achievement_types_on_order"
   end
 
@@ -60,11 +64,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
     t.string "icon_id", limit: 6
+    t.string "name_tc"
+    t.string "description_tc"
     t.index ["category_id"], name: "index_achievements_on_category_id"
     t.index ["name_de"], name: "index_achievements_on_name_de"
     t.index ["name_en"], name: "index_achievements_on_name_en"
     t.index ["name_fr"], name: "index_achievements_on_name_fr"
     t.index ["name_ja"], name: "index_achievements_on_name_ja"
+    t.index ["name_tc"], name: "index_achievements_on_name_tc"
     t.index ["order"], name: "index_achievements_on_order"
     t.index ["patch"], name: "index_achievements_on_patch"
   end
@@ -77,10 +84,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "order", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
     t.index ["name_de"], name: "index_armoire_categories_on_name_de"
     t.index ["name_en"], name: "index_armoire_categories_on_name_en"
     t.index ["name_fr"], name: "index_armoire_categories_on_name_fr"
     t.index ["name_ja"], name: "index_armoire_categories_on_name_ja"
+    t.index ["name_tc"], name: "index_armoire_categories_on_name_tc"
     t.index ["order"], name: "index_armoire_categories_on_order"
   end
 
@@ -101,6 +110,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "description_ja"
     t.integer "item_id", null: false
     t.integer "order_group"
+    t.string "name_tc"
+    t.string "description_tc"
     t.index ["category_id"], name: "index_armoires_on_category_id"
     t.index ["gender"], name: "index_armoires_on_gender"
     t.index ["item_id"], name: "index_armoires_on_item_id"
@@ -108,6 +119,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.index ["name_en"], name: "index_armoires_on_name_en"
     t.index ["name_fr"], name: "index_armoires_on_name_fr"
     t.index ["name_ja"], name: "index_armoires_on_name_ja"
+    t.index ["name_tc"], name: "index_armoires_on_name_tc"
     t.index ["order"], name: "index_armoires_on_order"
     t.index ["order_group"], name: "index_armoires_on_order_group"
     t.index ["patch"], name: "index_armoires_on_patch"
@@ -127,10 +139,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "description_fr"
     t.string "description_ja"
     t.integer "order"
+    t.string "name_tc"
+    t.string "description_tc"
     t.index ["name_de"], name: "index_bardings_on_name_de"
     t.index ["name_en"], name: "index_bardings_on_name_en"
     t.index ["name_fr"], name: "index_bardings_on_name_fr"
     t.index ["name_ja"], name: "index_bardings_on_name_ja"
+    t.index ["name_tc"], name: "index_bardings_on_name_tc"
     t.index ["order"], name: "index_bardings_on_order"
     t.index ["patch"], name: "index_bardings_on_patch"
   end
@@ -142,10 +157,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_de", null: false
     t.string "name_fr", null: false
     t.string "name_ja", null: false
+    t.string "name_tc"
     t.index ["name_de"], name: "index_card_types_on_name_de", unique: true
     t.index ["name_en"], name: "index_card_types_on_name_en", unique: true
     t.index ["name_fr"], name: "index_card_types_on_name_fr", unique: true
     t.index ["name_ja"], name: "index_card_types_on_name_ja", unique: true
+    t.index ["name_tc"], name: "index_card_types_on_name_tc"
   end
 
   create_table "cards", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -173,6 +190,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "deck_order"
     t.string "formatted_number", null: false
     t.integer "item_id"
+    t.string "name_tc"
+    t.text "description_tc"
     t.index ["card_type_id"], name: "index_cards_on_card_type_id"
     t.index ["deck_order"], name: "index_cards_on_deck_order"
     t.index ["item_id"], name: "index_cards_on_item_id"
@@ -180,6 +199,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.index ["name_en"], name: "index_cards_on_name_en"
     t.index ["name_fr"], name: "index_cards_on_name_fr"
     t.index ["name_ja"], name: "index_cards_on_name_ja"
+    t.index ["name_tc"], name: "index_cards_on_name_tc"
     t.index ["order"], name: "index_cards_on_order"
     t.index ["order_group"], name: "index_cards_on_order_group"
     t.index ["patch"], name: "index_cards_on_patch"
@@ -477,6 +497,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_tc"
   end
 
   create_table "deck_cards", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -513,10 +534,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
     t.index ["name_de"], name: "index_emote_categories_on_name_de"
     t.index ["name_en"], name: "index_emote_categories_on_name_en"
     t.index ["name_fr"], name: "index_emote_categories_on_name_fr"
     t.index ["name_ja"], name: "index_emote_categories_on_name_ja"
+    t.index ["name_tc"], name: "index_emote_categories_on_name_tc"
   end
 
   create_table "emotes", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -534,11 +557,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "command_fr"
     t.string "command_ja"
     t.integer "order"
+    t.string "name_tc"
+    t.string "command_tc"
     t.index ["category_id"], name: "index_emotes_on_category_id"
     t.index ["name_de"], name: "index_emotes_on_name_de"
     t.index ["name_en"], name: "index_emotes_on_name_en"
     t.index ["name_fr"], name: "index_emotes_on_name_fr"
     t.index ["name_ja"], name: "index_emotes_on_name_ja"
+    t.index ["name_tc"], name: "index_emotes_on_name_tc"
     t.index ["order"], name: "index_emotes_on_order"
     t.index ["patch"], name: "index_emotes_on_patch"
   end
@@ -554,10 +580,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "lodestone_name"
+    t.string "name_tc"
     t.index ["name_de"], name: "index_facewear_on_name_de"
     t.index ["name_en"], name: "index_facewear_on_name_en"
     t.index ["name_fr"], name: "index_facewear_on_name_fr"
     t.index ["name_ja"], name: "index_facewear_on_name_ja"
+    t.index ["name_tc"], name: "index_facewear_on_name_tc"
     t.index ["order"], name: "index_facewear_on_order"
     t.index ["patch"], name: "index_facewear_on_patch"
   end
@@ -576,10 +604,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "item_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
+    t.string "description_tc", limit: 1000
     t.index ["name_de"], name: "index_fashions_on_name_de"
     t.index ["name_en"], name: "index_fashions_on_name_en"
     t.index ["name_fr"], name: "index_fashions_on_name_fr"
     t.index ["name_ja"], name: "index_fashions_on_name_ja"
+    t.index ["name_tc"], name: "index_fashions_on_name_tc"
     t.index ["order"], name: "index_fashions_on_order"
     t.index ["patch"], name: "index_fashions_on_patch"
   end
@@ -595,11 +626,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "updated_at", null: false
     t.integer "order"
     t.boolean "portrait_only", default: false
+    t.string "name_tc"
     t.index ["item_id"], name: "index_frames_on_item_id"
     t.index ["name_de"], name: "index_frames_on_name_de"
     t.index ["name_en"], name: "index_frames_on_name_en"
     t.index ["name_fr"], name: "index_frames_on_name_fr"
     t.index ["name_ja"], name: "index_frames_on_name_ja"
+    t.index ["name_tc"], name: "index_frames_on_name_tc"
     t.index ["order"], name: "index_frames_on_order"
     t.index ["patch"], name: "index_frames_on_patch"
   end
@@ -653,11 +686,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "image_count", default: 0
     t.boolean "hrothable", default: false
     t.boolean "femhrothable", default: false
+    t.string "name_tc"
+    t.string "description_tc", limit: 1000
     t.index ["gender"], name: "index_hairstyles_on_gender"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"
     t.index ["name_fr"], name: "index_hairstyles_on_name_fr"
     t.index ["name_ja"], name: "index_hairstyles_on_name_ja"
+    t.index ["name_tc"], name: "index_hairstyles_on_name_tc"
     t.index ["patch"], name: "index_hairstyles_on_patch"
   end
 
@@ -670,6 +706,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "content_type_id", null: false
     t.integer "content_id"
+    t.string "name_tc"
     t.index ["name_en"], name: "index_instances_on_name_en"
   end
 
@@ -696,10 +733,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "plural_fr"
     t.string "plural_ja"
     t.integer "quest_id"
+    t.string "name_tc"
+    t.string "description_tc", limit: 1000
+    t.string "plural_tc"
     t.index ["name_de"], name: "index_items_on_name_de"
     t.index ["name_en"], name: "index_items_on_name_en"
     t.index ["name_fr"], name: "index_items_on_name_fr"
     t.index ["name_ja"], name: "index_items_on_name_ja"
+    t.index ["name_tc"], name: "index_items_on_name_tc"
     t.index ["quest_id"], name: "index_items_on_quest_id"
     t.index ["unlock_type"], name: "index_items_on_unlock_type"
   end
@@ -717,14 +758,18 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.boolean "items", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_tc"
+    t.string "craft_tc"
     t.index ["craft_de"], name: "index_leve_categories_on_craft_de"
     t.index ["craft_en"], name: "index_leve_categories_on_craft_en"
     t.index ["craft_fr"], name: "index_leve_categories_on_craft_fr"
     t.index ["craft_ja"], name: "index_leve_categories_on_craft_ja"
+    t.index ["craft_tc"], name: "index_leve_categories_on_craft_tc"
     t.index ["name_de"], name: "index_leve_categories_on_name_de"
     t.index ["name_en"], name: "index_leve_categories_on_name_en"
     t.index ["name_fr"], name: "index_leve_categories_on_name_fr"
     t.index ["name_ja"], name: "index_leve_categories_on_name_ja"
+    t.index ["name_tc"], name: "index_leve_categories_on_name_tc"
     t.index ["order"], name: "index_leve_categories_on_order"
   end
 
@@ -749,6 +794,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "updated_at", null: false
     t.boolean "limited", default: false
     t.integer "cost", default: 1
+    t.string "name_tc"
+    t.string "issuer_name_tc"
     t.index ["category_id"], name: "index_leves_on_category_id"
     t.index ["item_id"], name: "index_leves_on_item_id"
     t.index ["location_id"], name: "index_leves_on_location_id"
@@ -756,6 +803,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.index ["name_en"], name: "index_leves_on_name_en"
     t.index ["name_fr"], name: "index_leves_on_name_fr"
     t.index ["name_ja"], name: "index_leves_on_name_ja"
+    t.index ["name_tc"], name: "index_leves_on_name_tc"
     t.index ["patch"], name: "index_leves_on_patch"
   end
 
@@ -770,14 +818,18 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "region_ja", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
+    t.string "region_tc"
     t.index ["name_de"], name: "index_locations_on_name_de", unique: true
     t.index ["name_en"], name: "index_locations_on_name_en", unique: true
     t.index ["name_fr"], name: "index_locations_on_name_fr", unique: true
     t.index ["name_ja"], name: "index_locations_on_name_ja", unique: true
+    t.index ["name_tc"], name: "index_locations_on_name_tc"
     t.index ["region_de"], name: "index_locations_on_region_de"
     t.index ["region_en"], name: "index_locations_on_region_en"
     t.index ["region_fr"], name: "index_locations_on_region_fr"
     t.index ["region_ja"], name: "index_locations_on_region_ja"
+    t.index ["region_tc"], name: "index_locations_on_region_tc"
   end
 
   create_table "minion_behaviors", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -787,6 +839,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
   end
 
   create_table "minion_races", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -796,6 +849,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
   end
 
   create_table "minion_skill_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -805,6 +859,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
   end
 
   create_table "minions", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -852,11 +907,18 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "enhanced_description_ja", limit: 1000, null: false
     t.integer "item_id"
     t.integer "order"
+    t.string "name_tc"
+    t.string "description_tc", limit: 1000
+    t.string "tooltip_tc"
+    t.string "skill_tc"
+    t.string "skill_description_tc"
+    t.string "enhanced_description_tc", limit: 1000
     t.index ["behavior_id"], name: "index_minions_on_behavior_id"
     t.index ["name_de"], name: "index_minions_on_name_de"
     t.index ["name_en"], name: "index_minions_on_name_en"
     t.index ["name_fr"], name: "index_minions_on_name_fr"
     t.index ["name_ja"], name: "index_minions_on_name_ja"
+    t.index ["name_tc"], name: "index_minions_on_name_tc"
     t.index ["order"], name: "index_minions_on_order"
     t.index ["patch"], name: "index_minions_on_patch"
     t.index ["race_id"], name: "index_minions_on_race_id"
@@ -890,10 +952,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "video"
     t.integer "order_group"
     t.boolean "custom_music", default: false
+    t.string "name_tc"
+    t.string "description_tc"
+    t.string "enhanced_description_tc", limit: 1000
+    t.string "tooltip_tc"
     t.index ["name_de"], name: "index_mounts_on_name_de"
     t.index ["name_en"], name: "index_mounts_on_name_en"
     t.index ["name_fr"], name: "index_mounts_on_name_fr"
     t.index ["name_ja"], name: "index_mounts_on_name_ja"
+    t.index ["name_tc"], name: "index_mounts_on_name_tc"
     t.index ["order"], name: "index_mounts_on_order"
     t.index ["patch"], name: "index_mounts_on_patch"
   end
@@ -932,11 +999,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "location_id", null: false
     t.decimal "difficulty", precision: 3, scale: 2
     t.boolean "excluded", default: false
+    t.string "name_tc"
     t.index ["location_id"], name: "index_npcs_on_location_id"
     t.index ["name_de"], name: "index_npcs_on_name_de", unique: true
     t.index ["name_en"], name: "index_npcs_on_name_en", unique: true
     t.index ["name_fr"], name: "index_npcs_on_name_fr", unique: true
     t.index ["name_ja"], name: "index_npcs_on_name_ja", unique: true
+    t.index ["name_tc"], name: "index_npcs_on_name_tc"
     t.index ["patch"], name: "index_npcs_on_patch"
   end
 
@@ -960,10 +1029,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "patch"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_tc"
+    t.text "description_tc"
     t.index ["name_de"], name: "index_occult_records_on_name_de"
     t.index ["name_en"], name: "index_occult_records_on_name_en"
     t.index ["name_fr"], name: "index_occult_records_on_name_fr"
     t.index ["name_ja"], name: "index_occult_records_on_name_ja"
+    t.index ["name_tc"], name: "index_occult_records_on_name_tc"
     t.index ["patch"], name: "index_occult_records_on_patch"
   end
 
@@ -975,10 +1047,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "order"
+    t.string "name_tc"
     t.index ["name_de"], name: "index_orchestrion_categories_on_name_de"
     t.index ["name_en"], name: "index_orchestrion_categories_on_name_en"
     t.index ["name_fr"], name: "index_orchestrion_categories_on_name_fr"
     t.index ["name_ja"], name: "index_orchestrion_categories_on_name_ja"
+    t.index ["name_tc"], name: "index_orchestrion_categories_on_name_tc"
     t.index ["order"], name: "index_orchestrion_categories_on_order"
   end
 
@@ -998,11 +1072,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
     t.string "details"
+    t.string "name_tc"
+    t.string "description_tc"
     t.index ["category_id"], name: "index_orchestrions_on_category_id"
     t.index ["name_de"], name: "index_orchestrions_on_name_de"
     t.index ["name_en"], name: "index_orchestrions_on_name_en"
     t.index ["name_fr"], name: "index_orchestrions_on_name_fr"
     t.index ["name_ja"], name: "index_orchestrions_on_name_ja"
+    t.index ["name_tc"], name: "index_orchestrions_on_name_tc"
     t.index ["order"], name: "index_orchestrions_on_order"
     t.index ["patch"], name: "index_orchestrions_on_patch"
   end
@@ -1026,12 +1103,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "tradeable", default: false
+    t.string "name_tc"
     t.index ["armoireable"], name: "index_outfits_on_armoireable"
     t.index ["gender"], name: "index_outfits_on_gender"
     t.index ["name_de"], name: "index_outfits_on_name_de"
     t.index ["name_en"], name: "index_outfits_on_name_en"
     t.index ["name_fr"], name: "index_outfits_on_name_fr"
     t.index ["name_ja"], name: "index_outfits_on_name_ja"
+    t.index ["name_tc"], name: "index_outfits_on_name_tc"
     t.index ["patch"], name: "index_outfits_on_patch"
   end
 
@@ -1053,11 +1132,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_fr", null: false
     t.string "name_ja", null: false
     t.integer "item_id"
+    t.string "name_tc"
     t.index ["item_id"], name: "index_packs_on_item_id"
     t.index ["name_de"], name: "index_packs_on_name_de", unique: true
     t.index ["name_en"], name: "index_packs_on_name_en", unique: true
     t.index ["name_fr"], name: "index_packs_on_name_fr", unique: true
     t.index ["name_ja"], name: "index_packs_on_name_ja", unique: true
+    t.index ["name_tc"], name: "index_packs_on_name_tc"
   end
 
   create_table "quests", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1068,6 +1149,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "event"
+    t.string "name_tc"
     t.index ["name_en"], name: "index_quests_on_name_en"
   end
 
@@ -1086,11 +1168,14 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "location"
+    t.string "name_tc"
+    t.text "description_tc"
     t.index ["linked_record_id"], name: "index_records_on_linked_record_id"
     t.index ["name_de"], name: "index_records_on_name_de"
     t.index ["name_en"], name: "index_records_on_name_en"
     t.index ["name_fr"], name: "index_records_on_name_fr"
     t.index ["name_ja"], name: "index_records_on_name_ja"
+    t.index ["name_tc"], name: "index_records_on_name_tc"
   end
 
   create_table "relic_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1104,6 +1189,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "expansion"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_tc"
     t.index ["expansion"], name: "index_relic_types_on_expansion"
     t.index ["order"], name: "index_relic_types_on_order"
   end
@@ -1118,6 +1204,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "order"
     t.integer "type_id"
     t.integer "achievement_id"
+    t.string "name_tc"
     t.index ["achievement_id"], name: "index_relics_on_achievement_id"
     t.index ["order"], name: "index_relics_on_order"
     t.index ["type_id"], name: "index_relics_on_type_id"
@@ -1134,10 +1221,13 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "description_ja", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
+    t.string "description_tc"
     t.index ["name_de"], name: "index_rules_on_name_de", unique: true
     t.index ["name_en"], name: "index_rules_on_name_en", unique: true
     t.index ["name_fr"], name: "index_rules_on_name_fr", unique: true
     t.index ["name_ja"], name: "index_rules_on_name_ja", unique: true
+    t.index ["name_tc"], name: "index_rules_on_name_tc"
   end
 
   create_table "source_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1147,6 +1237,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_de"
     t.string "name_fr"
     t.string "name_ja"
+    t.string "name_tc"
     t.index ["name_en"], name: "index_source_types_on_name_en", unique: true
   end
 
@@ -1164,6 +1255,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "text_de"
     t.string "text_fr"
     t.string "text_ja"
+    t.string "text_tc"
     t.index ["collectable_id", "collectable_type"], name: "index_sources_on_collectable_id_and_collectable_type"
     t.index ["limited"], name: "index_sources_on_limited"
     t.index ["premium"], name: "index_sources_on_premium"
@@ -1178,10 +1270,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
     t.index ["name_de"], name: "index_spell_aspects_on_name_de"
     t.index ["name_en"], name: "index_spell_aspects_on_name_en"
     t.index ["name_fr"], name: "index_spell_aspects_on_name_fr"
     t.index ["name_ja"], name: "index_spell_aspects_on_name_ja"
+    t.index ["name_tc"], name: "index_spell_aspects_on_name_tc"
   end
 
   create_table "spell_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1191,10 +1285,12 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
     t.index ["name_de"], name: "index_spell_types_on_name_de"
     t.index ["name_en"], name: "index_spell_types_on_name_en"
     t.index ["name_fr"], name: "index_spell_types_on_name_fr"
     t.index ["name_ja"], name: "index_spell_types_on_name_ja"
+    t.index ["name_tc"], name: "index_spell_types_on_name_tc"
   end
 
   create_table "spells", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1217,11 +1313,15 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "aspect_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
+    t.string "description_tc", limit: 1000
+    t.string "tooltip_tc", limit: 1000
     t.index ["aspect_id"], name: "index_spells_on_aspect_id"
     t.index ["name_de"], name: "index_spells_on_name_de"
     t.index ["name_en"], name: "index_spells_on_name_en"
     t.index ["name_fr"], name: "index_spells_on_name_fr"
     t.index ["name_ja"], name: "index_spells_on_name_ja"
+    t.index ["name_tc"], name: "index_spells_on_name_tc"
     t.index ["order"], name: "index_spells_on_order"
     t.index ["type_id"], name: "index_spells_on_type_id"
   end
@@ -1233,6 +1333,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "name_ja"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_tc"
   end
 
   create_table "survey_records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1253,6 +1354,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.string "solution_de", limit: 1000
     t.string "solution_fr", limit: 1000
     t.string "solution_ja", limit: 1000
+    t.string "name_tc"
+    t.text "description_tc"
+    t.string "solution_tc", limit: 1000
     t.index ["order"], name: "index_survey_records_on_order"
     t.index ["series_id"], name: "index_survey_records_on_series_id"
   end
@@ -1270,6 +1374,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
     t.integer "achievement_id", null: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.string "name_tc"
+    t.string "female_name_tc"
     t.index ["achievement_id"], name: "index_titles_on_achievement_id"
   end
 
