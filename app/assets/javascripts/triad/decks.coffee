@@ -29,7 +29,7 @@ $(document).on 'turbolinks:load', ->
 
     button = $(".deck-toggle[data-card-id=#{id}]")
     if button != undefined
-      button.html('<i class="fa fa-minus"></i> Remove')
+      button.html("<i class=\"fa fa-minus\"></i> #{I18n.t('remove')}")
       button.find('i').attr('class', 'fa fa-minus')
       button.attr('data-action', 'remove')
 
@@ -48,7 +48,7 @@ $(document).on 'turbolinks:load', ->
 
     button = $(".deck-toggle[data-card-id=#{id}]")
     if button != undefined
-      button.html('<i class="fa fa-plus"></i> Add')
+      button.html("<i class=\"fa fa-plus\"></i> #{I18n.t('add')}")
       button.find('i').attr('class', 'fa fa-plus')
       button.attr('data-action', 'add')
 
