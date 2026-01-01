@@ -63,6 +63,7 @@
                 <%= far_icon('clock', data: { toggle: 'tooltip' },
                              title: t('tooltips.time_limited_achievement')) %>
               <% end %>
+              <%= gender_symbol(collectable.try(:gender)) %>
             </td>
             <td class="orchestrion-source hide-xs" data-value="<%= source_sort_value(collectable) %>">
               <% if collectable.class == Achievement %>

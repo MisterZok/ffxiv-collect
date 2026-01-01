@@ -38,7 +38,10 @@
           <% if @sprite_key.present? %>
             <td><%= sprite(collectable, @sprite_key) %></td>
           <% end %>
-          <td><%= collectable.name %></td>
+          <td>
+            <%= collectable.name %>
+            <%= gender_symbol(collectable.try(:gender)) %>
+          </td>
           <td>
             <% if @model == SurveyRecord %>
               <%= collectable.solution %>
