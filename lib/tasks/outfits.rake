@@ -19,13 +19,12 @@ namespace :outfits do
 
       item = Item.find(outfit['#'])
 
-      data = { id: outfit['#'], item_ids: item_ids, gender: nil,
+      data = { id: outfit['#'], item_id: outfit['#'], item_ids: item_ids, gender: nil,
                armoireable: Armoire.exists?(item_id: item_ids.first),
                name_en: item.name_en, name_de: item.name_de, name_fr: item.name_fr, name_ja: item.name_ja }
 
       # Check the associated items for tradeability and gender restrictions
       Item.where(id: item_ids).each do |item|
-        data[:item_id] = outfit['#']
         data[:tradeable] ||= true if item.tradeable? # Consider the outfit tradeable if any item is tradeable
 
         gender = case item.description_en
