@@ -1,4 +1,3 @@
-require 'open-uri'
 require 'xiv_data'
 
 namespace :triad do
