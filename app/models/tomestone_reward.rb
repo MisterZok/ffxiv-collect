@@ -18,4 +18,6 @@ class TomestoneReward < ApplicationRecord
   scope :ordered, -> { order(cost: :desc) }
   scope :collectables, -> { where.not(collectable_type: 'Item') }
   scope :items, -> { where(collectable_type: 'Item') }
+
+  # TODO: Migrate the tomestone string foreign key to a proper item_id
 end

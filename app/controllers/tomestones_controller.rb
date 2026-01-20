@@ -18,15 +18,14 @@ class TomestonesController < ApplicationController
       .order(:created_at)
 
     if params[:action] == 'index'
-      @tomestone = @tomestones.last.tomestone_name
+      @tomestone = @tomestones.last
     else
-      item = Item.find_by(name_en: "Irregular Tomestone Of #{params[:id]}")
-      @tomestone = item&.tomestone_name || params[:id].titleize
+      @tomestone = Item.find_by(name_en: "Irregular Tomestone Of #{params[:id]}")
     end
 
-    @title = "#{t('tomestones.title')}: #{@tomestone}"
-    @collectables = collectables(@tomestone)
-    @items = items(@tomestone)
+    @title = "#{t('tomestones.title')}: #{@tomestone.tomestone_name(locale: I18n.locale)}"
+    @collectables = collectables(@tomestone.tomestone_name)
+    @items = items(@tomestone.tomestone_name)
   end
 
   # Leverage ID param to dynamically route to tomestone rewards by name
