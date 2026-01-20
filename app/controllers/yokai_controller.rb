@@ -15,7 +15,7 @@ class YokaiController < ApplicationController
     @achievement_ids = @character&.achievement_ids || []
 
     @details = @weapons.each_with_index.map do |weapon, i|
-      name = @minions[i].name_en.gsub(/Watch Me If You Can: /, '')
+      name = @minions[i].name_en.sub(/watch me if you can: /i, '')
       { minion: @minions[i], weapon: weapon, zones: yokai_zones[name] }
     end
   end
