@@ -18,10 +18,10 @@ class TomestonesController < ApplicationController
       .order(:created_at)
 
     if params[:action] == 'index'
-      @tomestone = @tomestones.last.tomestone_name(locale: I18n.locale)
+      @tomestone = @tomestones.last.tomestone_name
     else
       item = Item.find_by(name_en: "Irregular Tomestone Of #{params[:id]}")
-      @tomestone = item&.tomestone_name(locale: I18n.locale) || params[:id].titleize
+      @tomestone = item&.tomestone_name || params[:id].titleize
     end
 
     @title = "#{t('tomestones.title')}: #{@tomestone}"
