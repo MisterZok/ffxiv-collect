@@ -342,7 +342,7 @@ en:
     title: "Mounts"
   name: "Name"
   new: "New!"
-  "no": "no"
+  "no": "No"
   npcs:
     cards_tooltip: "Cards on the left are always used.<br>Cards on the right are chosen at random."
     defeated: "Defeated"
@@ -608,7 +608,7 @@ en:
     strengths: "Strengths"
     title: "Verminion"
   view: "View"
-  "yes": "yes"
+  "yes": "Yes"
   yokai:
     locations: "Legendary Medal Locations"
     minion: "Minion"

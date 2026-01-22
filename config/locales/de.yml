@@ -342,7 +342,7 @@ de:
     title: "Reittiere"
   name: "Name"
   new: "Neu!"
-  "no": "nein"
+  "no": "Nein"
   npcs:
     cards_tooltip: "Die Karten auf der linken Seite werden immer benutzt.<br>Karten auf der rechten Seite werden zufällig ausgewählt."
     defeated: "Besiegt"
@@ -609,7 +609,7 @@ de:
     strengths: "Stärke"
     title: "Trabanten"
   view: "Ansehen"
-  "yes": "ja"
+  "yes": "Ja"
   yokai:
     locations: "Orte der Legendären Medaillen"
     minion: "Begleiter"

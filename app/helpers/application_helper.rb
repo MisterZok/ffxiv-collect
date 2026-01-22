@@ -48,7 +48,7 @@ module ApplicationHelper
   end
 
   def fa_check(condition, text = true)
-    condition ? fa_icon('check', text: ('Yes' if text)) : fa_icon('times', text: ('No' if text))
+    condition ? fa_icon('check', text: (t('yes') if text)) : fa_icon('times', text: (t('no') if text))
   end
 
   def gender_symbol(gender)

@@ -343,7 +343,7 @@ fr:
     title: "Montures"
   name: "Nom"
   new: "Nouveau !"
-  "no": "non"
+  "no": "Non"
   npcs:
     cards_tooltip: "Les cartes sur la gauche sont toujours utilisées.<br>Les cartes sur la droite sont choisies de manière aléatoire."
     defeated: "Battu"
@@ -609,7 +609,7 @@ fr:
     strengths: "Forces"
     title: "Choc des mascottes"
   view: "Voir"
-  "yes": "oui"
+  "yes": "Oui"
   yokai:
     locations: "Emplacements des médailles légendaires"
     minion: "Mascotte"
