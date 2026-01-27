@@ -74,7 +74,7 @@ namespace :items do
           the_item.update!(unlock_type: 'Facewear', unlock_id: facewear.id)
           facewear.update!(item_id: the_item.id)
         else
-          "Could not find matching facewear: #{name}"
+          puts "Could not find matching facewear: #{name}"
         end
       else
         h[action_id] = { id: item['#'], name_en: sanitize_name(item['Name']) }

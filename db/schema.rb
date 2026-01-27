@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_11_09_231558) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_27_225739) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -553,6 +553,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_11_09_231558) do
     t.integer "item_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lodestone_name"
     t.index ["name_de"], name: "index_facewear_on_name_de"
     t.index ["name_en"], name: "index_facewear_on_name_en"
     t.index ["name_fr"], name: "index_facewear_on_name_fr"

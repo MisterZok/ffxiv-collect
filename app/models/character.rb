@@ -49,6 +49,7 @@
 #  pricing_data_center          :string(255)
 #  outfits_count                :integer          default(0)
 #  occult_records_count         :integer          default(0)
+#  supporter                    :boolean          default(FALSE)
 #
 
 class Character < ApplicationRecord

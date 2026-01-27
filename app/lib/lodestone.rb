@@ -180,7 +180,7 @@ module Lodestone
       doc = character_document(endpoint: 'faceaccessory', character_id: data[:id])
       facewear = doc.css('.faceaccessory__name')
 
-      data[:facewear] = Facewear.where(name_en: facewear.map(&:text)).pluck(:id)
+      data[:facewear] = Facewear.where(lodestone_name: facewear.map(&:text)).pluck(:id)
       data[:public_facewear] = true
     rescue RestClient::NotFound
       data[:facewear] = []
