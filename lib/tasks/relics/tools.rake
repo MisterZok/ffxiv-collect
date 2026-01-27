@@ -71,10 +71,12 @@ namespace :relics do
                                           category: 'tools', order: 5, jobs: 11, expansion: 7)
 
       ids = (45679..45689).to_a + # Cosmic
-        (49053..49063).to_a # Stellar
+        (49053..49063).to_a + # Stellar
+        (49148..49158).to_a # Hyper
 
       achievement_ids = (3691..3701).to_a +
-        (3792..3802).to_a
+        (3792..3802).to_a +
+        (3877..3887).to_a
 
       create_relics(type, ids, achievement_ids)
 
