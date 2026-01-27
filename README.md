@@ -18,7 +18,6 @@ All of this application's data is made available through a RESTful JSON API. See
 git clone --recurse-submodules https://github.com/skyborn-industries/ffxiv-collect
 cd ffxiv-collect
 bundle install
-bundle exec rake app:update:bin
 ```
 
 #### Set up the database
@@ -44,8 +43,8 @@ discord:
 
 #### Load the database
 ```
-bundle exec rake db:schema:load
-bundle exec rake data:initialize
+bin/rake db:schema:load
+bin/rake data:initialize
 ```
 
 #### Schedule jobs
@@ -73,10 +72,10 @@ When new data becomes available on patch day, it can be loaded into the database
 
 ```
 git submodule update --remote
-bundle exec rake data:update
-bundle exec rake assets:precompile
+bin/rake data:update
+bin/rake assets:precompile
 # Restart the application
-bundle exec rails console
+bin/rails console
 [Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Outfit, Fashion, Facewear, Frame, Card, NPC].each { |model| count = model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH'); puts "#{model}: #{count}" if count != 0 }
 exit
 ```
