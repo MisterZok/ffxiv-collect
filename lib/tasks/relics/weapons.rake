@@ -143,7 +143,7 @@ namespace :relics do
 
       ## Deep Dungeon
       type = RelicType.find_or_create_by!(name_en: "Deep Dungeon Weapons", name_de: "Tiefes Gewölbe - Waffen",
-                                          name_fr: "Armes Donjons sans fond", category: 'weapons')
+                                          name_fr: "Armes des donjons sans fond", category: 'weapons')
       type.update(order: 2, jobs: 21)
 
       ids = (15181..15193).to_a + [20456, 20457, 27347, 27348, 35756, 35774, 43633, 43654] + # Padjali

@@ -10,21 +10,21 @@ namespace :relics do
       # Stormblood - Eureka Armor
       ## Eureka
       type = RelicType.find_or_create_by!(name_en: "Eureka Job Armor", name_de: "Eureka Job Rüstung",
-                                          name_fr: "Amure de classe d'Eurêka",
+                                          name_fr: "Armure de classe d'Eurêka",
                                           category: 'armor', order: 1, jobs: 15, expansion: 4)
       ids = 22006..22080
       create_relics(type, ids)
 
       ## Eureka +1
       type = RelicType.find_or_create_by!(name_en: "Eureka Job Armor +1", name_de: "Eureka Job Rüstung +1",
-                                          name_fr: "Amure de classe d'Eurêka +1",
+                                          name_fr: "Armure de classe d'Eurêka +1",
                                           category: 'armor', order: 2, jobs: 15, expansion: 4)
       ids = 22081..22155
       create_relics(type, ids)
 
       ## Eureka +2
       type = RelicType.find_or_create_by!(name_en: "Eureka Job Armor +2", name_de: "Eureka Job Rüstung +2",
-                                          name_fr: "Amure de classe d'Eurêka +2",
+                                          name_fr: "Armure de classe d'Eurêka +2",
                                           category: 'armor', order: 3, jobs: 15, expansion: 4)
       ids = 22156..22230
       create_relics(type, ids)
@@ -83,7 +83,7 @@ namespace :relics do
 
       ## Law's Order
       type = RelicType.find_or_create_by!(name_en: "Law's Order", name_de: "Richterspruch-Ausrüstung",
-                                          name_fr: "Armure du verdict des Juge",
+                                          name_fr: "Armure du verdict des Juges",
                                           category: 'armor', order: 4, jobs: 7, expansion: 5)
       ids = 32723..32757
       create_relics(type, ids)
