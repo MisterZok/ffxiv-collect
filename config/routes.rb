@@ -167,6 +167,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :items, only: :show
+
   get 'blank', to: 'static#blank'
   get 'commands', to: 'static#commands'
   get 'faq', to: 'static#faq'
