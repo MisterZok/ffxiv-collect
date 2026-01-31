@@ -44,7 +44,7 @@ namespace :hairstyles do
       path = Rails.root.join('public/images/hairstyles', data[:id])
       Dir.mkdir(path) unless Dir.exist?(path)
 
-      output_path = path.join("#{custom['Icon']}.png")
+      output_path = path.join("#{custom['#']}.png")
       create_image(nil, XIVData.image_path(custom['Icon']), output_path, hd: true)
 
       # Use the first image as a sample of the hairstyle

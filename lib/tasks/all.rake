@@ -207,7 +207,8 @@ end
 
 def create_hair_spritesheets
   Hairstyle.all.each do |hairstyle|
-    images = Dir.glob(Rails.root.join('public/images/hairstyles', hairstyle.id.to_s, '*.png')).sort
+    images = Dir.glob(Rails.root.join('public/images/hairstyles', hairstyle.id.to_s, '*.png'))
+      .sort_by { |filename| filename[/(\d+).png/].to_i }
     sheet = ChunkyPNG::Image.new(192 * images.size, 192)
 
     images.each_with_index do |image, i|
