@@ -43,8 +43,8 @@ namespace :survey_records do
     end
 
     records.values.each do |record|
-      create_image(record[:id], record.delete(:image), 'survey_records/large')
-      create_image(record[:id], record.delete(:icon), 'survey_records/small')
+      create_image(record[:id], XIVData.image_path(record.delete(:image)), 'survey_records/large')
+      create_image(record[:id], XIVData.image_path(record.delete(:icon)), 'survey_records/small')
 
       if existing = SurveyRecord.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)

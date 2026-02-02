@@ -40,8 +40,8 @@ namespace :records do
         end
       end
 
-      create_image(record[:id], record.delete(:image), 'records/large')
-      create_image(record[:id], record.delete(:icon), 'records/small')
+      create_image(record[:id], XIVData.image_path(record.delete(:image)), 'records/large')
+      create_image(record[:id], XIVData.image_path(record.delete(:icon)), 'records/small')
 
       if existing = Record.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)

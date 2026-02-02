@@ -102,7 +102,7 @@ namespace :frames do
           created.sources.create!(**texts, type: QUEST_TYPE, related_type: 'Quest',
                                   related_id: frame[:unlock_id])
         elsif frame[:unlock_type] == 'Instance'
-          instance = Instance.find(frame[:unlock_id])
+          instance = Instance.find_by(content_id: frame[:unlock_id])
           instance_type = instance.content_type.name_en
 
           texts = %w(en de fr ja).each_with_object({}) do |locale, h|

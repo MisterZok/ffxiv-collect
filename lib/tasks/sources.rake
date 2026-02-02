@@ -2,11 +2,11 @@ namespace :sources do
   desc 'Create the source types'
   task create_types: :environment do
     names = [
-      'Achievement', 'Bozja', 'Chaotic Raid', 'Cosmic Exploration' 'Crafting', 'Deep Dungeon',
+      'Achievement', 'Bozja', 'Chaotic Raid', 'Cosmic Exploration', 'Crafting', 'Deep Dungeon',
       'Dungeon', 'Eureka', 'Event', 'FATE', 'Gathering', 'Gold Saucer', 'Hunts',
-      'Island Sanctuary', 'NPC', 'Other', 'Premium', 'Purchase', 'PvP', 'Quest', 'Raid',
+      'Island Sanctuary', 'NPC', 'Occult Crescent', 'Other', 'Premium', 'Purchase', 'PvP', 'Quest', 'Raid',
       'Skybuilders', 'Treasure Hunt', 'Trial', 'Tribal', 'Ultimate Raid', 'V&C Dungeon', 'Venture',
-      'Voyages', 'Wondrous Tails', 'Occult Crescent'
+      'Voyages', 'Wondrous Tails'
     ]
 
     names.each do |name|

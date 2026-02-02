@@ -60,7 +60,8 @@ namespace :hairstyles do
 
     # Create the Eternal Bonding hairstyle which lacks an item unlock
     Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Eternal Bonding',
-                                 name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding')
+                                 name_fr: 'Eternal Bonding', name_ja: 'Eternal Bonding', vierable: true,
+                                 hrothable: true, femhrothable: true)
 
     # Cache hairstyle image counts in the database
     Hairstyle.all.each do |hairstyle|

@@ -57,8 +57,8 @@ namespace :triad do
 
       platinum = Pack.find_or_create_by!(id: 5, name_en: 'Platinum Triad Card', name_de: 'Boosterkarte (Platin)',
                                          name_fr: 'Pochette Triple Triade Platine', name_ja: 'トライアドパック・プラチナ',
-                                         cost: 0)
-      platinum.cards = Card.where(name_en: PLATINUM_CARDS, item_id: 10077)
+                                         cost: 0, item_id: 10077)
+      platinum.cards = Card.where(name_en: PLATINUM_CARDS)
       platinum.save
       create_card_sources(platinum)
 

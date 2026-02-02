@@ -20,7 +20,7 @@ namespace :occult_records do
     end
 
     records.values.each do |record|
-      create_image(record[:id], record.delete(:image), 'occult_records')
+      create_image(record[:id], XIVData.image_path(record.delete(:image)), 'occult_records')
 
       if existing = OccultRecord.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)
