@@ -6,7 +6,8 @@ module MountsHelper
   end
 
   def seat_count(mount, right: true)
-    fa_icon('couch', text: mount.seats, right: right, title: I18n.t('mounts.seats_tooltip', number: mount.seats),
+    person_count = I18n.t('mounts.person_count', count: mount.seats)
+    fa_icon('couch', text: mount.seats, right: right, title: I18n.t('mounts.seats_tooltip', person_count: person_count),
             data: { toggle: 'tooltip' })
   end
 end
