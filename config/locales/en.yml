@@ -522,6 +522,7 @@ en:
       remove_all: "Remove All"
       save: "Save Cards"
       total: "Total"
+    currency: "MGP"
     decks:
       after_5_5: "After 5.5"
       alerts:
@@ -584,6 +585,7 @@ en:
       user_not_found_explanation: "Progress could not be located for your user. Please enter your user's numeric Discord ID below. You can find this ID in the URL for your profile on Another Triple Triad Tracker."
     packs:
       title: "Packs"
+      tournament_reward: "Tournament Reward"
     title: "Triple Triad"
   type: "Type"
   users:

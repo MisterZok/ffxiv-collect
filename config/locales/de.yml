@@ -523,6 +523,7 @@ de:
       remove_all: "Entferne alle"
       save: "Speicher Karten"
       total: "Anzahl"
+    currency: "MGP"
     decks:
       after_5_5: "Nach Patch 5.5"
       alerts:
@@ -585,6 +586,7 @@ de:
       user_not_found_explanation: "Es konnten keine Daten für deinen aktuellen Nutzer gefunden werden. Bitte gib deine Discord ID ein. Du kannst die benötigte ID in der URL deines Nutzerprofils auf Another Triple Triad Tracker finden."
     packs:
       title: "Boosterkarten"
+      tournament_reward: "Turnier-Belohnung"
     title: "Triple Triad"
   type: "Techniktyp"
   users:
