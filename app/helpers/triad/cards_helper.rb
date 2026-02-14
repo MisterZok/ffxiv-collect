@@ -35,7 +35,7 @@ module Triad::CardsHelper
 
   def format_price(price)
     if price > 0
-      "#{number_with_delimiter(price)} MGP"
+      "#{number_with_delimiter(price)} #{t('triad.currency')}"
     else
       'N/A'
     end

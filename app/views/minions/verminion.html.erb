@@ -32,16 +32,16 @@
         <tr>
           <th scope="col">#</th> <!-- Image -->
           <th scope="col" class="hide-xs"><%= t('name') %></th>
-          <th scope="col" class="text-center">Type</th>
-          <th scope="col" class="text-center">HP</th>
-          <th scope="col" class="text-center">ATK</th>
-          <th scope="col" class="text-center">DEF</th>
-          <th scope="col">Speed</th>
-          <th scope="col" class="text-center">Cost</th>
-          <th scope="col" class="hide-md">Auto-attack</th>
-          <th scope="col" class="hide-xs">Strengths</th>
-          <th scope="col" class="hide-md">Special Type</th>
-          <th scope="col" class="text-center hide-md">Points</th>
+          <th scope="col" class="text-center"><%= t('type') %></th>
+          <th scope="col" class="text-center"><%= t('verminion.hp') %></th>
+          <th scope="col" class="text-center"><%= t('verminion.atk') %></th>
+          <th scope="col" class="text-center"><%= t('verminion.def') %></th>
+          <th scope="col"><%= t('verminion.spd') %></th>
+          <th scope="col" class="text-center"><%= t('verminion.cost') %></th>
+          <th scope="col" class="hide-md"><%= t('verminion.auto_attack') %></th>
+          <th scope="col" class="hide-xs"><%= t('verminion.strengths') %></th>
+          <th scope="col" class="hide-md"><%= t('verminion.special_type') %></th>
+          <th scope="col" class="text-center hide-md"><%= t('verminion.points') %></th>
           <% if character_selected? %>
             <th scope="col"></th><!-- Owned -->
           <% end %>

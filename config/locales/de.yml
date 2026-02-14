@@ -153,8 +153,8 @@ de:
     lodestone_id_validation: "Die numerische ID in der URL deines Lodestone-Charakterprofils (z.B. 7660136)"
     lodestone_verify: "Wenn die oben genannten Informationen stimmen, füge bitte den Text von unten in dein %{link}, und drücke im Anschluss auf <b>Verifizieren</b>."
     manage: "Verwalten des Charakters"
-    not_owned: "Dein Charakter besitzt dies noch nicht."
-    owned: "Dein Charakter besitzt dies bereits."
+    not_owned: "Dein Charakter besitzt dies noch nicht"
+    owned: "Dein Charakter besitzt dies bereits"
     private: "Privat"
     profile: "Profile"
     public: "Öffentlich"
@@ -170,7 +170,6 @@ de:
     select: "Auswählen"
     select_character: "Charakterauswahl"
     select_server: "Wähle einen Server"
-    server: "Server"
     server: "Stammwelt"
     set_to_private: "Auf privat eingestellt."
     statistics: "Statistiken"
@@ -332,13 +331,17 @@ de:
     behavior: "Verhalten"
     title: "Begleiter"
   mounts:
+    airborne: "Schwebend"
     custom_music: "Spezielle Musik"
     custom_music_tooltip: "Dieses Reittier spielt spezielle Musik"
-    flying: "Fliegen"
-    movement: "Bewegung"
+    movement: "Fortbewegung"
+    person_count:
+      one: "%{count} Sitzplatz"
+      other: "%{count} Sitzplätze"
     preview: "Video-Vorschau"
     seats: "Sitze"
-    seats_tooltip: "Dieses Reittier hat %{number} Sitzplätze."
+    seats_tooltip: "Dieses Reittier hat %{person_count}"
+    terrestrial: "Laufend"
     title: "Reittiere"
   name: "Name"
   new: "Neu!"
@@ -474,7 +477,7 @@ de:
   survey_records:
     hide_spoilers: "Spoiler ausblenden"
     solution: "Lösung"
-    title: "Erkundungsberichten"
+    title: "Erkundungsberichte"
   titles:
     title: "Titel"
   tomestones:
@@ -482,6 +485,7 @@ de:
     description: "Die folgenden Sammelobjekte können als Belohnung durch das das Event %{link} erhalten werden."
     original_source: "Ursprüngliche Quelle"
     other_items: "Andere Gegenstände"
+    page_title: "MogMog Kollektion: %{name}"
     source: "Ursprüngliche Quelle"
     title: "MogMog Kollektion"
   tools:
@@ -501,25 +505,26 @@ de:
   tooltip: "Kurzinfo"
   tooltips:
     limited_leve: "Dies ist ein Tutorial-Freibrief. Er kann nur angenommen werden, wenn dein Charakter in dieser Region gestartet hat."
-    ownership: "Öffentliche Charaktere in Besitz des %{collectable}"
+    ownership: "Öffentliche Charaktere, die dieses Collectable besitzen"
     time_limited: "Diese Quelle ist nur für eine begrenzte Zeit verfügbar"
     time_limited_achievement: "Dies ist eine zeitlich begrenzte Errungenschaft und beeinflusst die Ranglisten nicht."
   tradeable: "Handelbar"
   triad:
     card_select:
       add_all: "Alle hinzufügen"
-      help1: "Wenn du mehr als die Hälfte aller Karten besitzt, klicke den <b>Add All</b> Knopf."
-      help2: "Vergleiche jede Seite und füge Karten hinzu bzw. entferne sie, bis deine Sammlung deiner <b>Card List</b> im Spiel entspricht."
-      help3: "Überprüfe, ob die <b>Total</b> deiner Karten der Anzahl im Spiel entspricht."
-      help4: "Klicke auf <b>Save Cards</b>."
+      help1: "Wenn du mehr als die Hälfte aller Karten besitzt, klicke den <b>Alle hinzufügen</b> Knopf."
+      help2: "Vergleiche jede Seite und füge Karten hinzu bzw. entferne sie, bis deine Sammlung deiner <b>Kartenliste</b> im Spiel entspricht."
+      help3: "Überprüfe, ob die <b>Anzahl</b> deiner Karten der Anzahl im Spiel entspricht."
+      help4: "Klicke auf <b>Karten speichern</b>."
       how_to_use: "Anleitung"
       next: "Nächste"
       not_saved: "Deine Auswahl wurde nicht gespeichert! Bist du sicher, dass du die Seite verlassen möchtest?"
       page: "Seite %{number}"
       previous: "Vorherige"
       remove_all: "Entferne alle"
-      save: "Speicher Karten"
-      total: "Anzahl"
+      save: "Karten speichern"
+      total: "Anzahl: %{owned} / %{total}"
+    currency: "MGP"
     decks:
       after_5_5: "Nach Patch 5.5"
       alerts:
@@ -582,6 +587,7 @@ de:
       user_not_found_explanation: "Es konnten keine Daten für deinen aktuellen Nutzer gefunden werden. Bitte gib deine Discord ID ein. Du kannst die benötigte ID in der URL deines Nutzerprofils auf Another Triple Triad Tracker finden."
     packs:
       title: "Boosterkarten"
+      tournament_reward: "Turnier-Belohnung"
     title: "Triple Triad"
   type: "Techniktyp"
   users:
@@ -605,6 +611,7 @@ de:
     shields: "Schilde"
     single_target: "Einzelziel"
     spd: "GSW"
+    special_type: "Techniktyp"
     standard: "Standard"
     strengths: "Stärke"
     title: "Trabanten"

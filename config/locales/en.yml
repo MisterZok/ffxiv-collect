@@ -154,8 +154,8 @@ en:
     lodestone_id_validation: "The numeric ID from your Lodestone character profile URL (e.g. 7660136)"
     lodestone_verify: "If the information above is correct, please add the code below to your %{link}, then click <b>Verify</b>."
     manage: "Manage Characters"
-    not_owned: "Your character does not own this."
-    owned: "Your character owns this."
+    not_owned: "Your character does not own this"
+    owned: "Your character owns this"
     private: "Private"
     profile: "Profile"
     public: "Public"
@@ -332,13 +332,17 @@ en:
     behavior: "Behavior"
     title: "Minions"
   mounts:
+    airborne: "Airborne"
     custom_music: "Custom Music"
     custom_music_tooltip: "This mount plays custom music"
-    flying: "Flying"
     movement: "Movement"
+    person_count:
+      one: "%{count} person"
+      other: "%{count} people"
     preview: "Video Preview"
     seats: "Seats"
-    seats_tooltip: "This mount seats %{number} people."
+    seats_tooltip: "This mount seats %{person_count}"
+    terrestrial: "Terrestrial"
     title: "Mounts"
   name: "Name"
   new: "New!"
@@ -481,6 +485,7 @@ en:
     description: "The following collectables are available as rewards from the %{link} event."
     original_source: "Original Source"
     other_items: "Other Items"
+    page_title: "Moogle Treasure Trove: %{name}"
     source: "Original Source"
     title: "Moogle Treasure Trove"
   tools:
@@ -500,7 +505,7 @@ en:
   tooltip: "Tooltip"
   tooltips:
     limited_leve: "This is an introductory levequest. It can only be completed if you created your character in this region."
-    ownership: "Public characters who own this %{collectable}"
+    ownership: "Public characters who own this collectable"
     time_limited: "This source is available for a limited time only"
     time_limited_achievement: "This is a time limited achievement. It does not count towards rankings."
   tradeable: "Tradeable"
@@ -518,7 +523,8 @@ en:
       previous: "Prev"
       remove_all: "Remove All"
       save: "Save Cards"
-      total: "Total"
+      total: "Total: %{owned} / %{total}"
+    currency: "MGP"
     decks:
       after_5_5: "After 5.5"
       alerts:
@@ -581,6 +587,7 @@ en:
       user_not_found_explanation: "Progress could not be located for your user. Please enter your user's numeric Discord ID below. You can find this ID in the URL for your profile on Another Triple Triad Tracker."
     packs:
       title: "Packs"
+      tournament_reward: "Tournament Reward"
     title: "Triple Triad"
   type: "Type"
   users:
@@ -604,6 +611,7 @@ en:
     shields: "Shields"
     single_target: "Single-target"
     spd: "SPD"
+    special_type: "Special Type"
     standard: "Standard"
     strengths: "Strengths"
     title: "Verminion"
