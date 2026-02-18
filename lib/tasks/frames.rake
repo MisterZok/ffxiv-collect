@@ -30,7 +30,7 @@ namespace :frames do
         id = bg['UnlockCondition']
 
         if frames.key?(id)
-          frames[id]["name_#{locale}"] = sanitize_name(bg['Name'])
+          frames[id]["name_#{locale}"] = sanitize_name(bg['Name'], locale: locale)
         end
       end
     end
@@ -168,12 +168,12 @@ namespace :frames do
     FRAME_ELEMENTS = %i(base backing overlay plate_frame).freeze
 
     frames.each do |id, images|
+      frame = Frame.find(id)
+      frame.update!(portrait_only: !images.keys.intersect?(FRAME_ELEMENTS))
+
       output_path = FRAME_IMAGES_DIR.join("#{id}.png")
 
       unless output_path.exist?
-        frame = Frame.find(id)
-        frame.update!(portrait_only: !images.keys.intersect?(FRAME_ELEMENTS))
-
         begin
           # Download BLOBs for each image layer
           layers = images.each_with_object({}) do |(k, image), h|

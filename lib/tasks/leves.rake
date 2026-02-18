@@ -10,6 +10,7 @@ namespace :leves do
     field =  { craft_en: 'Fieldcraft', craft_de: 'Sammel', craft_fr: 'Récolte', craft_ja: '採集稼業' }
     item_categories = ['Carpenter', 'Blacksmith', 'Armorer', 'Goldsmith', 'Leatherworker',
                        'Weaver', 'Alchemist', 'Culinarian', 'Fisher']
+    location_categories = ['1', '13', '14', '15'] # Battlecraft, The Maelstrom, Order of the Twin Adder, Immortal Flames
 
     puts 'Creating leve categories'
     categories = %w(en de fr ja).each_with_object({}) do |locale, h|
@@ -35,7 +36,7 @@ namespace :leves do
           end
         end
 
-        data["name_#{locale}"] = category ['Name']
+        data["name_#{locale}"] = category['Name']
         h[data[:id]] = data
       end
     end
@@ -64,12 +65,12 @@ namespace :leves do
 
           data = { id: leve['#'], category_id: category_id, level: leve['ClassJobLevel'], cost: leve['AllowanceCost'] }
 
-          if category_id == '1' # Battlecraft
+          if location_categories.include?(category_id)
             data[:location] = leve['LevelLevemete']
           end
         end
 
-        data["name_#{locale}"] = sanitize_name(leve['Name'])
+        data["name_#{locale}"] = sanitize_name(leve['Name'], locale: locale)
 
         h[data[:id]] = data
       end
@@ -129,7 +130,7 @@ namespace :leves do
     npcs = %w(en fr de ja).each_with_object(Hash.new { |h, k| h[k] = {} }) do |locale, h|
       XIVData.sheet('ENpcResident', locale: locale).each do |npc|
         if npc_ids.include?(npc['#'])
-          h[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'])
+          h[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale)
         end
       end
     end
@@ -152,7 +153,7 @@ namespace :leves do
     %w(en fr de ja).each do |locale|
       XIVData.sheet('ENpcResident', locale: locale).each do |npc|
         if npc_ids.include?(npc['#'])
-          issuers[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'])
+          issuers[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale)
         end
       end
     end
