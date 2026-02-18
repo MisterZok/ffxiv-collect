@@ -13,7 +13,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'rack-cors', '~> 1.1.0'
-gem 'rack', '2.2.20'
+gem 'rack', '~> 2.2.22'
 gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
@@ -64,9 +64,9 @@ group :development do
   gem 'i18n_yaml_sorter'
 
   gem 'capistrano', '3.19.2'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-rails'
-  gem 'capistrano-sidekiq'
+  gem 'capistrano-bundler', '2.1.1'
+  gem 'capistrano-rbenv', '2.2.0'
+  gem 'capistrano-rails', '1.6.3'
+  gem 'capistrano-sidekiq', '2.3.1'
   gem 'bcrypt_pbkdf'
 end
