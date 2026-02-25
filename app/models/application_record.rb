@@ -1,5 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
-  before_save :nilify_blanks
+  normalizes :gender, :patch, :pricing_data_center, :text_en, :text_de, :text_fr, :text_ja,
+    with: -> value { value.present? ? value : nil }
 
   self.abstract_class = true
 
@@ -17,14 +18,5 @@ class ApplicationRecord < ActiveRecord::Base
 
   def self.ransackable_associations(auth_object = nil)
     %w(sources category type item)
-  end
-
-  private
-  def nilify_blanks
-    attributes.each do |attribute, value|
-      if %w(gender patch pricing_data_center).include?(attribute)
-        self[attribute] = nil unless value.present?
-      end
-    end
   end
 end
