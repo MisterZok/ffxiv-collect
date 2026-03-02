@@ -11,6 +11,8 @@ namespace :survey_records do
                                           name_fr: 'Le mont Rokkon', name_ja: '六根山')
     SurveyRecordSeries.find_or_create_by!(id: 3, name_en: 'Aloalo Island', name_de: 'Aloalo',
                                           name_fr: "L'île d'Aloalo", name_ja: 'アロアロ島')
+    SurveyRecordSeries.find_or_create_by!(id: 4, name_en: "The Merchant's Tale", name_de: 'Des Händlers Liebesmüh',
+                                          name_fr: 'Contes du Camelot', name_ja: '商客物語')
 
     series_record_ids = XIVData.sheet('VVDNotebookSeries').each_with_object({}) do |series, h|
       next unless series['Name'].present?
