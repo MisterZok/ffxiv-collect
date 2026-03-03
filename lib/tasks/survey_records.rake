@@ -18,7 +18,7 @@ namespace :survey_records do
       next unless series['Name'].present?
 
       h[series['#']] = series.filter_map do |k, v|
-        v if k =~ /Contents/
+        v if k =~ /Contents/ && v != '0'
       end
     end
 
