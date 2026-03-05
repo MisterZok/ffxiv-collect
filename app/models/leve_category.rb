@@ -15,6 +15,8 @@
 #  items      :boolean          default(FALSE)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  name_tc    :string(255)
+#  craft_tc   :string(255)
 #
 class LeveCategory < ApplicationRecord
   self.table_name = 'leve_categories'

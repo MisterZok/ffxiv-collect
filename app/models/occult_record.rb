@@ -14,6 +14,8 @@
 #  patch          :string(255)
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  name_tc        :string(255)
+#  description_tc :text(65535)
 #
 class OccultRecord < ApplicationRecord
   include Collectable

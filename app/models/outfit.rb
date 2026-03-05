@@ -14,6 +14,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  tradeable   :boolean          default(FALSE)
+#  name_tc     :string(255)
 #
 class Outfit < ApplicationRecord
   include Collectable

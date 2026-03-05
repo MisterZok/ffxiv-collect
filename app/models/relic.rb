@@ -12,6 +12,7 @@
 #  order          :integer
 #  type_id        :integer
 #  achievement_id :integer
+#  name_tc        :string(255)
 #
 class Relic < ApplicationRecord
   has_many "character_#{name.pluralize}".to_sym

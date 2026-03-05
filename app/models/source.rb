@@ -16,6 +16,7 @@
 #  text_de          :string(255)
 #  text_fr          :string(255)
 #  text_ja          :string(255)
+#  text_tc          :string(255)
 #
 
 class Source < ApplicationRecord

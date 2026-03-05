@@ -20,6 +20,8 @@
 #  image_count    :integer          default(0)
 #  hrothable      :boolean          default(FALSE)
 #  femhrothable   :boolean          default(FALSE)
+#  name_tc        :string(255)
+#  description_tc :string(1000)
 #
 
 class Hairstyle < ApplicationRecord

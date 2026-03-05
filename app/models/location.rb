@@ -13,6 +13,8 @@
 #  region_ja  :string(255)      not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  name_tc    :string(255)
+#  region_tc  :string(255)
 #
 
 class Location < ApplicationRecord

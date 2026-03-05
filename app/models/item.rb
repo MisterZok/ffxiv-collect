@@ -25,6 +25,9 @@
 #  plural_fr      :string(255)
 #  plural_ja      :string(255)
 #  quest_id       :integer
+#  name_tc        :string(255)
+#  description_tc :string(1000)
+#  plural_tc      :string(255)
 #
 class Item < ApplicationRecord
   translates :name, :description, :plural

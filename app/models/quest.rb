@@ -10,6 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  event      :boolean
+#  name_tc    :string(255)
 #
 
 class Quest < ApplicationRecord

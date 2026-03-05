@@ -9,6 +9,7 @@
 #  name_ja    :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  name_tc    :string(255)
 #
 
 class SpellAspect < ApplicationRecord

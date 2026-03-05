@@ -15,6 +15,8 @@
 #  achievement_id :integer          not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  name_tc        :string(255)
+#  female_name_tc :string(255)
 #
 
 class Title < ApplicationRecord

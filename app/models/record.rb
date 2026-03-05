@@ -17,6 +17,8 @@
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  location         :string(255)
+#  name_tc          :string(255)
+#  description_tc   :text(65535)
 #
 class Record < ApplicationRecord
   include Collectable

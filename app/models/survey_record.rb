@@ -20,6 +20,9 @@
 #  solution_de    :string(1000)
 #  solution_fr    :string(1000)
 #  solution_ja    :string(1000)
+#  name_tc        :string(255)
+#  description_tc :text(65535)
+#  solution_tc    :string(1000)
 #
 class SurveyRecord < ApplicationRecord
   include Collectable
