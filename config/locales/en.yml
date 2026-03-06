@@ -325,6 +325,7 @@ en:
     issuer: "Issuer"
     level: "Level"
     title: "Levequests"
+  locale_name: "English"
   materiel:
     3: "Possible loot from Materiel Container 3.0"
     4: "Possible loot from Materiel Container 4.0"

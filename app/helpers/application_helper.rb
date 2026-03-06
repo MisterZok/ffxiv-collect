@@ -75,7 +75,7 @@ module ApplicationHelper
   end
 
   def teamcraft_url(type, id)
-    locale = I18n.locale == :tc ? :zh : I18n.locale
+    locale = I18n.locale == :tc ? :tw : I18n.locale
     "https://ffxivteamcraft.com/db/#{locale}/#{type}/#{id}"
   end
 
