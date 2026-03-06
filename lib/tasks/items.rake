@@ -20,7 +20,7 @@ namespace :items do
       h[data[:id]] = data
     end
 
-    %w(de fr ja tc).each do |locale|
+    %w(de fr ja).each do |locale|
       XIVData.sheet('Item', locale: locale).each do |item|
         next unless item['Name'].present?
 
