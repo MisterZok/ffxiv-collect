@@ -15,7 +15,7 @@ namespace :hairstyles do
       data = { id: custom['UnlockLink'] }
 
       # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
-      %w(en de fr ja).each do |locale|
+      %w(en de fr ja tc).each do |locale|
         data["name_#{locale}"] = sanitize_name(item["name_#{locale}"], locale: locale)
           .gsub(/.*(?:[-,]\s|:\s*|[„“](?=\S))(.*)/, '\1')
           .delete('“”')

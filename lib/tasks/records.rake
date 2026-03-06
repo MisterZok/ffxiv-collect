@@ -8,7 +8,7 @@ namespace :records do
     count = Record.count
     links = Hash.new { [] }
 
-    records = %w(en de fr ja).each_with_object({}) do |locale, h|
+    records = %w(en de fr ja tc).each_with_object({}) do |locale, h|
       XIVData.sheet('MYCWarResultNotebook', locale: locale).each do |record|
         next unless record['Name'].present?
 
