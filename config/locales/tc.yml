@@ -335,9 +335,12 @@ tc:
     custom_music_tooltip: "此坐騎會播放自訂音樂"
     flying: "飛行"
     movement: "移動方式"
+    person_count:
+      one: "%{count} 人"
+      other: "%{count} 人們"
     preview: "影片預覽"
     seats: "座位"
-    seats_tooltip: "此坐騎可乘坐 %{number} 人。"
+    seats_tooltip: "此坐騎可乘坐 %{person_count} 人。"
     title: "坐騎"
   name: "名稱"
   new: "新！"

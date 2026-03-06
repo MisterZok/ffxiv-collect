@@ -41,10 +41,10 @@ class Item < ApplicationRecord
   scope :tradeable, -> { where(tradeable: true) }
 
   def tomestone_name(locale: :en)
-    name = attributes["name_#{locale}"]
+    name = I18n.with_locale(locale) { self.name }
 
     case locale
-    when :en
+    when :en, :tc
       name.sub(/.+ Of (.+)/i, '\1')
     when :de
       name.sub(/.+ De[rs] (.+)/i, '\1')

@@ -33,7 +33,7 @@
         <nav class="d-md-block collapse sidebar" id="sidebarMenu">
           <%= render 'layouts/sidebar' %>
         </nav>
-        <main role="main" class="col-12 mt-3 main<%= ' ja' if I18n.locale == :ja %><%= ' tc' if I18n.locale == :tc %>">
+        <main role="main" class="col-12 mt-3 main<%= ' ja' if I18n.locale == :ja %>">
           <%= render 'layouts/alerts' %>
           <%= yield %>
         </main>

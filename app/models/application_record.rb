@@ -6,10 +6,10 @@ class ApplicationRecord < ActiveRecord::Base
   def self.ransackable_attributes(auth_object = nil)
     %w(
       id name
-      name_en name_de name_fr name_ja
-      description_en description_de description_fr description_ja
-      enhanced_description_en enhanced_description_de enhanced_description_fr enhanced_description_ja
-      tooltip_en tooltip_de tooltip_fr tooltip_ja
+      name_en name_de name_fr name_ja name_tc
+      description_en description_de description_fr description_ja description_tc
+      enhanced_description_en enhanced_description_de enhanced_description_fr enhanced_description_ja enhanced_description_tc
+      tooltip_en tooltip_de tooltip_fr tooltip_ja tooltip_tc
       gender order order_group patch
       type_id item_id icon_id
     )
@@ -22,7 +22,7 @@ class ApplicationRecord < ActiveRecord::Base
   private
   def nilify_blanks
     attributes.each do |attribute, value|
-      if %w(gender patch pricing_data_center text_en text_de text_fr text_ja).include?(attribute)
+      if %w(gender patch pricing_data_center text_en text_de text_fr text_ja text_tc).include?(attribute)
         self[attribute] = nil unless value.present?
       end
     end
