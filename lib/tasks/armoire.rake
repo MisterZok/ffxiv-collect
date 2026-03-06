@@ -46,8 +46,8 @@ namespace :armoires do
                       when /♀/ then 'female'
                       end
 
-      data.merge!(item.slice(:name_en, :name_de, :name_fr, :name_ja,
-                             :description_en, :description_de, :description_fr, :description_ja))
+      data.merge!(item.slice(:name_en, :name_de, :name_fr, :name_ja, :name_tc,
+                             :description_en, :description_de, :description_fr, :description_ja, :description_tc))
 
       # Update the Item to indicate that it unlocks this Armoire
       item.update!(unlock_type: 'Armoire', unlock_id: data[:id])

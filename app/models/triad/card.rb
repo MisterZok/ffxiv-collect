@@ -27,6 +27,8 @@
 #  deck_order       :integer
 #  formatted_number :string(255)      not null
 #  item_id          :integer
+#  name_tc          :string(255)
+#  description_tc   :text(65535)
 #
 
 class Card < ApplicationRecord

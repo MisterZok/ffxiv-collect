@@ -19,6 +19,8 @@
 #  description_ja :string(255)
 #  item_id        :integer          not null
 #  order_group    :integer
+#  name_tc        :string(255)
+#  description_tc :string(255)
 #
 
 class Armoire < ApplicationRecord

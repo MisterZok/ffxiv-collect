@@ -47,6 +47,12 @@
 #  enhanced_description_ja :string(1000)     not null
 #  item_id                 :integer
 #  order                   :integer
+#  name_tc                 :string(255)
+#  description_tc          :string(1000)
+#  tooltip_tc              :string(255)
+#  skill_tc                :string(255)
+#  skill_description_tc    :string(255)
+#  enhanced_description_tc :string(1000)
 #
 
 class Minion < ApplicationRecord

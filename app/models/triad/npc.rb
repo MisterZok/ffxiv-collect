@@ -17,6 +17,7 @@
 #  location_id :integer          not null
 #  difficulty  :decimal(3, 2)
 #  excluded    :boolean          default(FALSE)
+#  name_tc     :string(255)
 #
 
 class NPC < ApplicationRecord

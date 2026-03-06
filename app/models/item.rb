@@ -25,6 +25,9 @@
 #  plural_fr      :string(255)
 #  plural_ja      :string(255)
 #  quest_id       :integer
+#  name_tc        :string(255)
+#  description_tc :string(1000)
+#  plural_tc      :string(255)
 #
 class Item < ApplicationRecord
   translates :name, :description, :plural
@@ -38,10 +41,10 @@ class Item < ApplicationRecord
   scope :tradeable, -> { where(tradeable: true) }
 
   def tomestone_name(locale: :en)
-    name = attributes["name_#{locale}"]
+    name = I18n.with_locale(locale) { self.name }
 
     case locale
-    when :en
+    when :en, :tc
       name.sub(/.+ Of (.+)/i, '\1')
     when :de
       name.sub(/.+ De[rs] (.+)/i, '\1')

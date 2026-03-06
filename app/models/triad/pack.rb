@@ -11,6 +11,7 @@
 #  name_fr    :string(255)      not null
 #  name_ja    :string(255)      not null
 #  item_id    :integer
+#  name_tc    :string(255)
 #
 
 class Pack < ApplicationRecord

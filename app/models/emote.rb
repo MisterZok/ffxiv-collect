@@ -17,6 +17,8 @@
 #  command_fr  :string(255)
 #  command_ja  :string(255)
 #  order       :integer
+#  name_tc     :string(255)
+#  command_tc  :string(255)
 #
 
 class Emote < ApplicationRecord

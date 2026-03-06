@@ -325,6 +325,7 @@ fr:
     issuer: "Mandant"
     level: "Niveau"
     title: "Mandats"
+  locale_name: "Français"
   materiel:
     3: "Récompense possible de la malle-surprise (ARR/Heavensward)"
     4: "Récompense possible de la malle-surprise (Stormblood)"

@@ -23,6 +23,8 @@
 #  updated_at     :datetime         not null
 #  limited        :boolean          default(FALSE)
 #  cost           :integer          default(1)
+#  name_tc        :string(255)
+#  issuer_name_tc :string(255)
 #
 class Leve < ApplicationRecord
   include Collectable

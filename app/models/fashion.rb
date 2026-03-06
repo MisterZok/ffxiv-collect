@@ -16,6 +16,8 @@
 #  item_id        :integer
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  name_tc        :string(255)
+#  description_tc :string(1000)
 #
 class Fashion < ApplicationRecord
   include Collectable

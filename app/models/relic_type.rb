@@ -13,6 +13,7 @@
 #  expansion  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  name_tc    :string(255)
 #
 class RelicType < ApplicationRecord
   has_many :relics, foreign_key: 'type_id', dependent: :delete_all

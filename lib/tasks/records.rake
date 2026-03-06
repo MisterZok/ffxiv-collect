@@ -35,7 +35,7 @@ namespace :records do
       # Append I/II suffixes to records with multiple entries
       if record[:linked_record_id].present? && !record['name_en'].match?(/^Lyon /)
         suffix = record[:linked_record_id].to_i > record[:id].to_i ? 'I' : 'II'
-        %w(name_en name_de name_fr name_ja).each do |name|
+        %w(name_en name_de name_fr name_ja name_tc).each do |name|
           record[name] = "#{record[name]} #{suffix}"
         end
       end

@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  content_type_id :integer          not null
 #  content_id      :integer
+#  name_tc         :string(255)
 #
 
 class Instance < ApplicationRecord

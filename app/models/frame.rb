@@ -13,6 +13,7 @@
 #  updated_at    :datetime         not null
 #  order         :integer
 #  portrait_only :boolean          default(FALSE)
+#  name_tc       :string(255)
 #
 class Frame < ApplicationRecord
   include Collectable

@@ -29,6 +29,10 @@
 #  video                   :string(255)
 #  order_group             :integer
 #  custom_music            :boolean          default(FALSE)
+#  name_tc                 :string(255)
+#  description_tc          :string(255)
+#  enhanced_description_tc :string(1000)
+#  tooltip_tc              :string(255)
 #
 
 class Mount < ApplicationRecord

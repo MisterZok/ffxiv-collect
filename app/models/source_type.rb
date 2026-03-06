@@ -9,6 +9,7 @@
 #  name_de    :string(255)
 #  name_fr    :string(255)
 #  name_ja    :string(255)
+#  name_tc    :string(255)
 #
 
 class SourceType < ApplicationRecord

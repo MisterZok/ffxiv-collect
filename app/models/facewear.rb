@@ -13,6 +13,7 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  lodestone_name :string(255)
+#  name_tc        :string(255)
 #
 class Facewear < ApplicationRecord
   include Collectable
