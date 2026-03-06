@@ -17,7 +17,7 @@ namespace :triad do
                          description_en: sanitize_text(card['Description'], preserve_space: true) }
       end
 
-      %w(fr de ja).each do |locale|
+      %w(fr de ja tc).each do |locale|
         XIVData.sheet('TripleTriadCard', locale: locale).each do |card|
           next unless card['#'] != '0' && card['Name'].present?
 

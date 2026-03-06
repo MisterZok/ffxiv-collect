@@ -19,7 +19,20 @@ namespace :triad do
       end
 
       types.transpose.each_with_index do |type, i|
-        CardType.find_or_create_by!(id: i + 1, name_en: type[0], name_de: type[1], name_fr: type[2], name_ja: type[3])
+        data = {
+          id: (i + 1).to_s,
+          name_en: type[0],
+          name_de: type[1],
+          name_fr: type[2],
+          name_ja: type[3],
+          name_tc: type[4],
+        }
+
+        if existing = CardType.find_by(id: data[:id])
+          existing.update!(data) if updated?(existing, data)
+        else
+          CardType.create!(data)
+        end
       end
 
       puts "Created #{CardType.count - count} new card types"

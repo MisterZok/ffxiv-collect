@@ -127,7 +127,7 @@ namespace :leves do
 
     # Add NPC issuer names
     npc_ids = leves.values.pluck(:npc_id).uniq
-    npcs = %w(en fr de ja).each_with_object(Hash.new { |h, k| h[k] = {} }) do |locale, h|
+    npcs = %w(en fr de ja tc).each_with_object(Hash.new { |h, k| h[k] = {} }) do |locale, h|
       XIVData.sheet('ENpcResident', locale: locale).each do |npc|
         if npc_ids.include?(npc['#'])
           h[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale)
@@ -150,7 +150,7 @@ namespace :leves do
 
     # Find the NPC and save their names
     npc_ids = issuers.values.pluck(:npc_id)
-    %w(en fr de ja).each do |locale|
+    %w(en fr de ja tc).each do |locale|
       XIVData.sheet('ENpcResident', locale: locale).each do |npc|
         if npc_ids.include?(npc['#'])
           issuers[npc['#']]["issuer_name_#{locale}"] = sanitize_name(npc['Singular'], locale: locale)

@@ -29,9 +29,16 @@ namespace 'sources:quests' do
     quest = item.quest
     source_type = SourceType.find_by(name_en: quest.event ? 'Event' : 'Quest')
 
-    collectable.sources.find_or_create_by!(text_en: quest.name_en, text_de: quest.name_de,
-                                           text_fr: quest.name_fr, text_ja: quest.name_ja,
-                                           type: source_type, limited: quest.event?,
-                                           related_type: 'Quest', related_id: quest.id)
+    collectable.sources.find_or_create_by!(
+      text_en: quest.name_en,
+      text_de: quest.name_de,
+      text_fr: quest.name_fr,
+      text_ja: quest.name_ja,
+      text_tc: quest.name_tc,
+      type: source_type,
+      limited: quest.event?,
+      related_type: 'Quest',
+      related_id: quest.id
+    )
   end
 end

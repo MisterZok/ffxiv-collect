@@ -69,6 +69,8 @@ WORDS_TO_IGNORE = %w(a an and as at by de for from in into la of on or over the 
   α β γ δ).freeze
 
 def sanitize_name(name, locale: 'en', capitalize: false, upcase_first_only: false)
+  return '' if name.nil?
+
   # Clean up symbols, language tags, etc.
   name = name.gsub('[t]', 'der')
     .gsub('[a]', 'e')
@@ -145,7 +147,7 @@ def maps_with_locations(ids)
   end
 
   # Look up the locations associated with each map
-  locations = %w(en fr de ja).each_with_object(Hash.new({})) do |locale, h|
+  locations = %w(en fr de ja tc).each_with_object(Hash.new({})) do |locale, h|
     places = XIVData.sheet('PlaceName', locale: locale).map { |place| place['Name']}
     maps.values.each do |map|
       h[map[:location_id]] = h[map[:location_id]].merge("name_#{locale}" => places[map[:location_id].to_i],

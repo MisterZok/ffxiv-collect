@@ -54,7 +54,7 @@ namespace :spells do
     spells.values.each do |spell|
       aspect = SpellAspect.find_or_create_by!(spell.delete(:aspects))
       spell[:aspect_id] = aspect.id.to_s
-      data = spell.except('location_en', 'location_de', 'location_fr', 'location_ja', :icon)
+      data = spell.except('location_en', 'location_de', 'location_fr', 'location_ja', 'location_tc', :icon)
 
       create_image(spell[:id], XIVData.image_path(spell[:icon]), 'spells', width: 42, height: 42)
 
