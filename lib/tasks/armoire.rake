@@ -23,8 +23,13 @@ namespace :armoires do
     end
 
     categories.each do |category|
-      names = category_names[category.delete(:name)]
-      ArmoireCategory.find_or_create_by!(category.merge(names))
+      category.merge!(category_names[category.delete(:name)])
+
+      if existing = ArmoireCategory.find_by(id: category[:id])
+        existing.update!(category) if updated?(existing, category)
+      else
+        ArmoireCategory.create!(type)
+      end
     end
 
     count = Armoire.count

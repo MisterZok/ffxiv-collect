@@ -25,7 +25,7 @@ namespace :instances do
       if existing = ContentType.find_by(id: type[:id])
         existing.update!(type) if updated?(existing, type)
       else
-        ContentType.find_or_create_by!(type)
+        ContentType.create!(type)
       end
     end
 
@@ -51,7 +51,7 @@ namespace :instances do
       if existing = Instance.find_by(id: instance[:id])
         existing.update!(instance) if updated?(existing, instance)
       else
-        Instance.find_or_create_by!(instance)
+        Instance.create!(instance)
       end
     end
 

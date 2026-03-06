@@ -155,7 +155,11 @@ def maps_with_locations(ids)
 
   # Create the locations
   locations.each do |id, data|
-    Location.find_or_create_by!(data.merge(id: id))
+    if existing = Location.find_by(id: id)
+      existing.update!(data) if updated?(existing, data)
+    else
+      Location.create!(data)
+    end
   end
 
   maps

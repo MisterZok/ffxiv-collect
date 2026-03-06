@@ -20,7 +20,7 @@ namespace :achievements do
       if existing = AchievementType.find_by(id: type[:id])
         existing.update!(type) if updated?(existing, type)
       else
-        AchievementType.find_or_create_by!(type)
+        AchievementType.create!(type)
       end
     end
 
@@ -42,7 +42,7 @@ namespace :achievements do
       if existing = AchievementCategory.find_by(id: category[:id])
         existing.update!(category) if updated?(existing, category)
       else
-        AchievementCategory.find_or_create_by!(category)
+        AchievementCategory.create!(category)
       end
     end
 

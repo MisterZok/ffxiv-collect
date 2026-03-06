@@ -16,7 +16,11 @@ namespace :emotes do
     end
 
     categories.values.each do |category|
-      EmoteCategory.find_or_create_by!(category)
+      if existing = EmoteCategory.find_by(id: category[:id])
+        existing.update!(category) if updated?(existing, category)
+      else
+        EmoteCategory.create!(type)
+      end
     end
 
     commands = %w(en de fr ja tc).each_with_object({}) do |locale, h|

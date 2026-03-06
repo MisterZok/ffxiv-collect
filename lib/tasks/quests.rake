@@ -31,7 +31,7 @@ namespace :quests do
       if existing = Quest.find_by(id: quest[:id])
         existing.update!(quest) if updated?(existing, quest)
       else
-        Quest.find_or_create_by!(quest)
+        Quest.create!(quest)
       end
     end
 

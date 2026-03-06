@@ -48,7 +48,7 @@ namespace :leves do
       if existing = LeveCategory.find_by(id: category[:id])
         existing.update!(category) if updated?(existing, category)
       else
-        LeveCategory.find_or_create_by!(category)
+        LeveCategory.create!(category)
       end
     end
 

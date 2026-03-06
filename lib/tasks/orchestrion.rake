@@ -18,7 +18,7 @@ namespace :orchestrions do
       if existing = OrchestrionCategory.find_by(id: category[:id])
         existing.update!(category) if updated?(existing, category)
       else
-        OrchestrionCategory.find_or_create_by!(category)
+        OrchestrionCategory.create!(category)
       end
     end
 

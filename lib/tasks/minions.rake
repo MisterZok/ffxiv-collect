@@ -16,7 +16,11 @@ namespace :minions do
     end
 
     behaviors.values.each do |behavior|
-      MinionBehavior.find_or_create_by!(behavior)
+      if existing = MinionBehavior.find_by(id: behavior[:id])
+        existing.update!(behavior) if updated?(existing, behavior)
+      else
+        MinionBehavior.create!(behavior)
+      end
     end
 
     races = %w(en de fr ja tc).each_with_object({}) do |locale, h|
@@ -30,7 +34,11 @@ namespace :minions do
     end
 
     races.values.each do |race|
-      MinionRace.find_or_create_by!(race)
+      if existing = MinionRace.find_by(id: race[:id])
+        existing.update!(race) if updated?(existing, race)
+      else
+        MinionRace.create!(race)
+      end
     end
 
     skill_types = %w(en de fr ja tc).each_with_object({}) do |locale, h|
@@ -44,7 +52,11 @@ namespace :minions do
     end
 
     skill_types.values.each do |type|
-      MinionSkillType.find_or_create_by!(type)
+      if existing = MinionSkillType.find_by(id: type[:id])
+        existing.update!(type) if updated?(existing, type)
+      else
+        MinionSkillType.create!(type)
+      end
     end
 
     count = Minion.count
