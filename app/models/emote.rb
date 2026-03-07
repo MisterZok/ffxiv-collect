@@ -34,6 +34,6 @@ class Emote < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    super + %w(command_en command_de command_fr command_ja)
+    super + %w(command_en command_de command_fr command_ja command_tc)
   end
 end
