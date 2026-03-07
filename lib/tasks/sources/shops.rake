@@ -148,14 +148,15 @@ end
 
 def currency_texts(price, currency)
   %w(en de fr ja tc).each_with_object({}) do |locale, h|
-    formatted_price = number_with_delimiter(price, locale: locale)
-
     if price != '1' && currency["plural_#{locale}"].present?
       formatted_currency = currency["plural_#{locale}"]
     else
       formatted_currency = currency["name_#{locale}"]
     end
 
+    next unless formatted_currency.present?
+
+    formatted_price = number_with_delimiter(price, locale: locale)
     h["text_#{locale}"] = "#{formatted_price} #{formatted_currency}"
   end
 end
