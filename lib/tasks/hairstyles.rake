@@ -15,12 +15,24 @@ namespace :hairstyles do
       data = { id: custom['UnlockLink'] }
 
       # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
-      %w(en de fr ja tc).each do |locale|
-        data["name_#{locale}"] = sanitize_name(item["name_#{locale}"], locale: locale)
-          .gsub(/.*(?:[-,]\s|:\s*|[„“](?=\S))(.*)/, '\1')
-          .delete('“”')
-          .upcase_first
-      end
+      data["name_en"] = sanitize_name(item["name_en"], locale: 'en')
+        .gsub(/.+-\s(.+)/, '\1')
+
+      data["name_de"] = sanitize_name(item["name_de"], locale: 'de')
+        .gsub(/.+„(.+?)“/, '\1') # Quote marks
+        .gsub(/.+(?:Ästhetik\s-|,)\s(.+)/, '\1') # Prefixes
+        .upcase_first
+
+      data["name_fr"] = sanitize_name(item["name_fr"], locale: 'fr')
+        .gsub(/.+“(.+?)”/, '\1') # Hairstyles
+        .gsub(/.+:\s(.+)/, '\1') # Facepaint
+        .upcase_first
+
+      data["name_ja"] = sanitize_name(item["name_ja"], locale: 'ja')
+        .gsub(/.+:(.+)/, '\1')
+
+      data["name_tc"] = sanitize_name(item["name_tc"], locale: 'tc')
+        .gsub(/.+：(.+)/, '\1')
 
       data.merge!(item.slice(:description_en, :description_de, :description_fr, :description_ja, :description_tc))
 
