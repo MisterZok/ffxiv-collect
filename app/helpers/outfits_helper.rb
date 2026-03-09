@@ -2,7 +2,7 @@ module OutfitsHelper
   def armoireable(outfit)
     if outfit.armoireable?
       content_tag :span, data: { toggle: 'tooltip', title: t('outfits.armoireable') } do
-        fa_icon('tshirt')
+        collectable_icon('Armoire')
       end
     end
   end
