@@ -59,9 +59,9 @@ module CollectionsHelper
     when 'Barding'
       fa_icon('chess-knight')
     when 'Armoire'
-      fa_icon('tshirt')
-    when 'Outfit'
       fa_icon('socks')
+    when 'Outfit'
+      fa_icon('tshirt')
     when 'Fashion'
       fa_icon('umbrella')
     when 'Facewear'
@@ -475,7 +475,7 @@ module CollectionsHelper
            when :ranked_pvp
              'medal'
            when :armoire
-             'tshirt'
+             'socks'
            when :unknown
              'question'
            end
