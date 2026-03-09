@@ -4,21 +4,21 @@
   <div class="card-header">
     <div class="d-flex flex-wrap align-items-center">
       <h5 class="mb-2 mb-md-0 mr-auto">
-        <%= link_to 'Manage Collectables', mod_dashboard_path, class: 'unstyled' %> /
+        <%= link_to t('mod.manage_collectables'), mod_dashboard_path, class: 'unstyled' %> /
         <%= link_to @model.name.titleize.pluralize, polymorphic_url([:mod, @model]), class: 'unstyled' %>
       </h5>
       <%= search_form_for(@q, url: polymorphic_url([:mod, @model]), class: 'form form-inline admin-search-form') do |f| %>
-        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: 'Name', size: 30,
+        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 30,
           class: 'form-control form-control-sm' %>
         <div class="form-group form-check">
           <%= check_box_tag :missing_source, 1, @missing_source %>
-          <%= label_tag :missing_source, 'Missing Source' %>
+          <%= label_tag :missing_source, t('mod.missing_source') %>
         </div>
         <div class="form-group form-check">
           <%= check_box_tag :missing_translation, 1, @missing_translation %>
-          <%= label_tag :missing_translation, 'Missing Translation' %>
+          <%= label_tag :missing_translation, t('mod.missing_translation') %>
         </div>
-        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm' %>
+        <%= f.submit t('search'), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>
   </div>
@@ -28,9 +28,9 @@
         <% if @sprite_key.present? %>
           <th></th> <!-- Image -->
         <% end %>
-        <th>Name</th>
-        <th>Source</th>
-        <th>Patch</th>
+        <th><%= t('name') %></th>
+        <th><%= t('source') %></th>
+        <th><%= t('patch') %></th>
         <th></th> <!-- Actions -->
       </tr>
       <% @collectables.each do |collectable| %>

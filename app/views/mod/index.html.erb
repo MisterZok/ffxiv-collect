@@ -1,8 +1,8 @@
-<% title('Mod Dashboard') %>
+<% title(t('mod.dashboard')) %>
 
 <div class="card shadow mb-3">
   <h5 class="card-header">
-    <%= link_to 'Manage Collectables', mod_dashboard_path, class: 'unstyled' %>
+    <%= link_to t('mod.manage_collectables'), mod_dashboard_path, class: 'unstyled' %>
   </h5>
   <div class="card-body">
     <div class="d-flex flex-wrap justify-content-center">
@@ -13,7 +13,7 @@
   </div>
 </div>
 <div class="card shadow">
-  <h5 class="card-header">Changelog</h5>
+  <h5 class="card-header"><%= t('mod.changelog') %></h5>
   <div class="card-body card-table">
     <%= render 'change_table', changes: @changes %>
   </div>
