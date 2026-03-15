@@ -34,10 +34,10 @@ class Mod::CollectablesController < ModController
     update_params[:sources_attributes]&.reject! { |_, source| source[:type_id].blank? }
 
     if @collectable.update(update_params)
-      flash[:success] = "The #{@model.to_s.downcase} has been updated."
+      flash[:success] = t('mod.collectable_update_success', collectable: @model.to_s.downcase)
       redirect_to polymorphic_url([:mod, @collectable], action: :edit)
     else
-      flash[:error] = "There was a problem updating the #{@model.to_s.downcase}."
+      flash[:error] = t('mod.collectable_update_error', collectable: @model.to_s.downcase)
       build_sources
       render :edit
     end
