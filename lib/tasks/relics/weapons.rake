@@ -124,6 +124,15 @@ namespace :relics do
 
       create_relics(type, ids)
 
+      ## Figment
+      type = RelicType.find_or_create_by!(name_en: "Figment Weapons", name_de: "Erträumte Waffen",
+                                        name_fr: "Armes de rêve", category: 'weapons',
+                                        order: 9, jobs: 22, expansion: 7)
+
+      ids = [45047, 45048, 45049, 45050, 45051, 45056, 45057, 45058, 45052, 45053, 45054, 45055, 45059, 45060, 45061, 45062, 45063, 45065, 45064, 45066, 45067, 45069]
+
+      create_relics(type, ids)
+
       ## Phantom
 
       # Penumbrae > Umbrae > Obscurum
@@ -137,7 +146,7 @@ namespace :relics do
 
       type = RelicType.find_or_create_by!(name_en: "Phantom Weapons", name_de: "Phantomwaffen",
                                           name_fr: "Armes fantômes", category: 'weapons',
-                                          order: 9, jobs: 21, expansion: 7)
+                                          order: 10, jobs: 21, expansion: 7)
 
       create_relics(type, ids, achievement_ids)
 
