@@ -70,6 +70,14 @@ module CollectionsHelper
       fa_icon('portrait')
     when 'Card'
       fa_icon('id-badge')
+    when 'Spell'
+      fa_icon('magic')
+    when 'Record'
+      fa_icon('file-alt')
+    when 'SurveyRecord'
+      fa_icon('book-open')
+    when 'OccultRecord'
+      fa_icon('moon')
     end
   end
 
