@@ -124,8 +124,8 @@ namespace :relics do
 
       create_relics(type, ids)
 
-      ## Figment
-      type = RelicType.find_or_create_by!(name_en: "Figment Weapons", name_de: "Erträumte Waffen",
+      ## Figmental
+      type = RelicType.find_or_create_by!(name_en: "Figmental Weapons", name_de: "Erträumte Waffen",
                                         name_fr: "Armes de rêve", category: 'weapons',
                                         order: 9, jobs: 22, expansion: 7)
 
