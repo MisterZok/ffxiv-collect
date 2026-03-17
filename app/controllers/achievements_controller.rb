@@ -36,7 +36,7 @@ class AchievementsController < ApplicationController
 
   def search
     @patches = searchable_patches(legacy: cookies[:limited] != 'hide')
-    @search = ransack_with_patch_search
+    @search = ransack_with_patch_search(@patches)
 
     @q = Achievement.with_filters(cookies).ransack(@search)
     @achievements = @q.result.ordered

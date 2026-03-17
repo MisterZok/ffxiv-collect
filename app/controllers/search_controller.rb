@@ -31,8 +31,10 @@ class SearchController < ApplicationController
     @hidden_types = cookies[:hidden_types]&.split(',')&.map(&:constantize) || []
     @models = @types.pluck(:model)
     @source_types = SourceType.all.with_filters(cookies).ordered
-    @patches = searchable_patches
-    @search = ransack_with_patch_search
+
+    # Collect a distinct set of patches across all models
+    @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.uniq
+    @search = ransack_with_patch_search(@patches)
 
     @collectables = @models.flat_map do |model|
       # The search form needs a query, so we will eventually set it to the last search
