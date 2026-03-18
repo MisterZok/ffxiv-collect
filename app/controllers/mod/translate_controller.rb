@@ -26,9 +26,7 @@ class Mod::TranslateController < ModController
     @hidden_types = cookies[:hidden_types_mod_translate]&.split(',')&.map(&:constantize) || []
 
     @collectables = @models.flat_map do |model|
-      @q = model.include_sources.ransack(params[:q])
-
-      collectables = @q.result.ordered
+      collectables = model.all.ordered
       collectables = collectables.summonable if model == Minion # Exclude variant minions
       collectables = collectables.includes(sources: [:type]) unless @skip_sources
 
@@ -41,6 +39,5 @@ class Mod::TranslateController < ModController
     end
 
     @collectables = @collectables.paginate(page: params[:page], per_page: 50)
-    @changes = PaperTrail::Version.includes(:user).order(id: :desc).paginate(page: params[:page])
   end
 end
