@@ -1,0 +1,57 @@
+<% title(t('mod.translation_dashboard')) %>
+
+<div class="card mb-3">
+  <h5 class="card-header d-flex justify-content-between align-items-center">
+    <%= link_to t('mod.manage_translations'), mod_translate_path, class: 'unstyled' %>
+    <%= link_to t('mod.dashboard'), mod_dashboard_path, class: 'btn btn-primary' %>
+  </h5>
+  <div class="card-body">
+    <div class="d-flex flex-wrap justify-content-center type-buttons collection mb-2">
+      <% @types.each do |type| %>
+        <button type="button" class="btn btn-dark<%= ' active' unless @hidden_types.include?(type[:model]) %>" data-value="<%= type[:value] %>">
+          <%= collectable_icon(type[:value]) %>
+          <%= type[:label] %>
+        </button>
+      <% end %>
+      <button type="button" class="btn btn-sm btn-secondary" id="reset"><%= fa_icon('undo') %></button>
+    </div>
+  </div>
+  <div class="card-footer d-flex justify-content-center mb-0">
+    <%= will_paginate(@collectables) %>
+  </div>
+  <div class="card-body card-table">
+    <table class="table table-striped table-sm">
+      <tr>
+        <th></th> <!-- Icon -->
+        <th><%= t('name') %></th>
+        <th><%= t('source') %></th>
+        <th><%= t('patch') %></th>
+        <th></th> <!-- Actions -->
+      </tr>
+      <% @collectables.each do |collectable| %>
+        <tr class="collectable <%= ' hidden' if @hidden_types.include?(collectable.class) %>" data-type="<%= collectable.class %>">
+          <td><%= collectable_icon(collectable) %></td>
+          <td>
+            <%= collectable.name %>
+            <%= gender_symbol(collectable.try(:gender)) %>
+          </td>
+          <td>
+            <% if collectable.class == SurveyRecord %>
+              <%= collectable.solution %>
+            <% else %>
+              <%= sources(collectable) %>
+            <% end %>
+          </td>
+          <td><%= collectable.patch %></td>
+          <td class="text-center">
+            <%= link_to fa_icon('pen'), polymorphic_url([:mod, collectable], action: :edit),
+              class: 'btn btn-secondary btn-sm' %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="card-footer d-flex justify-content-center mb-0">
+    <%= will_paginate(@collectables) %>
+  </div>
+</div>

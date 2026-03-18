@@ -28,7 +28,7 @@ class SearchController < ApplicationController
       }
     end
 
-    @hidden_types = cookies[:hidden_types]&.split(',')&.map(&:constantize) || []
+    @hidden_types = cookies[:hidden_types_search]&.split(',')&.map(&:constantize) || []
     @models = @types.pluck(:model)
     @source_types = SourceType.all.with_filters(cookies).ordered
     @patches = searchable_patches
