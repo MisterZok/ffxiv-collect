@@ -33,7 +33,8 @@ class Mod::TranslateController < ModController
       if model == SurveyRecord
         collectables = collectables.where("solution_#{I18n.locale}" => nil)
       else
-        collectables = collectables.joins(:sources).where("sources.text_#{I18n.locale}" => nil)
+        # If a collectable has multiple untranslated sources, only display it once
+        collectables = collectables.joins(:sources).where("sources.text_#{I18n.locale}" => nil).distinct
       end
       collectables
     end
