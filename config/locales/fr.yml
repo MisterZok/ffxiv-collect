@@ -49,7 +49,6 @@ fr:
     comparison_set_to_private: "Les informations de comparaison sont désormais privées et ne peuvent donc plus être suivies."
     groups:
       add_character_failure: "Un problème a eu lieu pendant l'ajout de ce personnage."
-      already_refreshed: "Les informations de votre personnage ont déjà été actualisées ces dernières 30 minutes. Veuillez réessayer plus tard."
       already_refreshed: "Tous les personnages sont à jour."
       character_limit: "Désolé, il est impossible d'ajouter plus de 100 personnages dans un groupe."
       create_failure: "Un problème a eu lieu pendant la création de votre groupe."
@@ -249,6 +248,7 @@ fr:
     title: "L'art du portrait"
   free_companies:
     title: "Profil de la compagnie libre"
+  gender: "Genre"
   groups:
     character_not_found: "Aucun personnage trouvé.<br>Merci d'ajouter ce personnage via la %{link} et ré-essayez."
     collections: "Collections"
@@ -332,6 +332,22 @@ fr:
   minions:
     behavior: "Comportement"
     title: "Mascottes"
+  mod:
+    action: "Action"
+    change: "Modification"
+    changelog: "Historique des modifications"
+    collectable_update_error: "Un problème est survenu pendant la mise à jour du collectionnable."
+    collectable_update_success: "Le collectionnable a été mis à jour."
+    dashboard: "Panneau de modération"
+    manage_collectables: "Gérer les collectionnables"
+    manage_translations: "Gérer les traductions"
+    missing_source: "Provenance manquante"
+    missing_translation: "Traduction manquante"
+    select_type: "Choisir un type"
+    source_delete_confirm: "Voulez-vous vraiment supprimer cette provenance ?"
+    source_destroy_error: "Un problème est survenu pendant la suppression de la provenance."
+    source_destroy_success: "La provenance a été supprimée."
+    translation_dashboard: "Panneau de traduction"
   mounts:
     airborne: "Volante"
     custom_music: "Musique spéciale"
@@ -392,6 +408,7 @@ fr:
   owned: "Possédé"
   ownership: "Possédé par %{percent} des personnages"
   patch: "Patch"
+  premium: "Premium"
   prices:
     price: "Prix"
     updated: "Mise à jour"
@@ -463,6 +480,7 @@ fr:
     online_store: "Boutique en ligne"
     pvp: "Série %{series} du JcJ - Niveau %{level}"
     seals: "%{amount} sceaux de compagnie"
+    title: "Provenances"
     unreported: "Non identifié / %{location}"
   spells:
     aspect: "Élément"
@@ -480,6 +498,7 @@ fr:
     hide_spoilers: "Masquer les spoilers"
     solution: "Solution"
     title: "Journaux d'exploration"
+  time_limited: "Limité dans le temps"
   titles:
     title: "Titres"
   tomestones:
@@ -592,6 +611,7 @@ fr:
       tournament_reward: "récompense de tournoi"
     title: "Triple Triade"
   type: "Type"
+  user: "Utilisateur"
   users:
     sign_in: "Se connecter avec Discord"
     sign_out: "Déconnexion"

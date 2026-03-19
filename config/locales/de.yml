@@ -248,6 +248,7 @@ de:
     title: "Portraitmaterial"
   free_companies:
     title: "Profil der Freien Gesellschaft"
+  gender: "Geschlecht"
   groups:
     character_not_found: "Keine Charaktere gefunden.<br>Bitte füge diesen Charakter via der %{link} hinzu und versuche es noch einmal."
     collections: "Sammlungen"
@@ -331,6 +332,22 @@ de:
   minions:
     behavior: "Verhalten"
     title: "Begleiter"
+  mod:
+    action: "Aktion"
+    change: "Änderung"
+    changelog: "Changelog"
+    collectable_update_error: "Es gab ein Problem beim Aktualisieren dieses Collectables."
+    collectable_update_success: "Das Collectable wurde aktualisiert."
+    dashboard: "Mod-Dashboard"
+    manage_collectables: "Verwalte Collectables"
+    manage_translations: "Verwalte Übersetzungen"
+    missing_source: "Fehlende Quelle"
+    missing_translation: "Fehlende Übersetzung"
+    select_type: "Wähle eine Kategorie"
+    source_delete_confirm: "Bist du dir sicher, dass du diese Quelle löschen möchtest?"
+    source_destroy_error: "Es gab ein Problem beim Löschen dieser Quelle."
+    source_destroy_success: "Diese Quelle wurde bereits gelöscht."
+    translation_dashboard: "Übersetzungs-Dashboard"
   mounts:
     airborne: "Schwebend"
     custom_music: "Spezielle Musik"
@@ -390,7 +407,7 @@ de:
   owned: "In Besitz"
   ownership: "In Besitz von %{percent} der Charaktere"
   patch: "Patch"
-  powered_by: "Unterstützung durch"
+  premium: "Premium"
   prices:
     price: "Preis"
     updated: "Aktualisiert"
@@ -462,6 +479,7 @@ de:
     online_store: "Online Store"
     pvp: "PvP Serie %{series} - Level %{level}"
     seals: "%{amount} Staatstaler"
+    title: "Quellen"
     unreported: "Noch nicht bekannt / %{location}"
   spells:
     aspect: "Element"
@@ -479,6 +497,7 @@ de:
     hide_spoilers: "Spoiler ausblenden"
     solution: "Lösung"
     title: "Erkundungsberichte"
+  time_limited: "Zeitlich begrenzt"
   titles:
     title: "Titel"
   tomestones:
@@ -590,7 +609,8 @@ de:
       title: "Boosterkarten"
       tournament_reward: "Turnier-Belohnung"
     title: "Triple Triad"
-  type: "Techniktyp"
+  type: "Typ"
+  user: "User"
   users:
     sign_in: "Einloggen mit Discord"
     sign_out: "Abmelden"
