@@ -493,6 +493,7 @@ fr:
     number: "N°"
     rank: "Rang"
     title: "Magie bleue"
+    type: "Type"
   submit: "Appliquer"
   survey_records:
     hide_spoilers: "Masquer les spoilers"

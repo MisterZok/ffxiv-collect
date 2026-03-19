@@ -492,6 +492,7 @@ de:
     number: "Nr."
     rank: "Stufe"
     title: "Blaumagier"
+    type: "Typus"
   submit: "Senden"
   survey_records:
     hide_spoilers: "Spoiler ausblenden"

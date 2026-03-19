@@ -492,6 +492,7 @@ en:
     number: "No."
     rank: "Rank"
     title: "Blue Magic"
+    type: "Type"
   submit: "Submit"
   survey_records:
     hide_spoilers: "Hide Spoilers"
