@@ -23,10 +23,13 @@ class Mod::TranslateController < ModController
     ]
 
     @models = @types.pluck(:model)
+    @source_types = SourceType.all.with_filters(cookies).ordered
     @hidden_types = cookies[:hidden_types_mod_translate]&.split(',')&.map(&:constantize) || []
 
     @collectables = @models.flat_map do |model|
-      collectables = model.all.ordered
+      @q = model.include_sources.ransack(params[:q])
+
+      collectables = @q.result.ordered
       collectables = collectables.summonable if model == Minion # Exclude variant minions
       collectables = collectables.includes(sources: [:type]) unless @skip_sources
 

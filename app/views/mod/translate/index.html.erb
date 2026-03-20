@@ -16,7 +16,15 @@
       <button type="button" class="btn btn-sm btn-secondary" id="reset"><%= fa_icon('undo') %></button>
     </div>
   </div>
-  <div class="card-footer d-flex justify-content-center mb-0">
+  <div class="card-body d-flex flex-wrap justify-content-center">
+    <%= search_form_for(@q, url: mod_translate_path, enforce_utf8: false,
+                        class: 'form form-inline search-form d-flex') do |f| %>
+      <%= f.collection_select :sources_type_id_eq, @source_types, :id, :name,
+        { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+      <%= f.submit t('search'), name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
+    <% end %>
+  </div>
+  <div class="card-body d-flex justify-content-center mb-2">
     <%= will_paginate(@collectables) %>
   </div>
   <div class="card-body card-table">
