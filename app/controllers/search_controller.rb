@@ -1,23 +1,11 @@
 class SearchController < ApplicationController
   include PrivateCollection
+  include Typeable
   before_action -> { check_privacy!(:mounts, :minions, :facewear) }
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index
-    @types = [
-      { model: Mount, label: I18n.t('mounts.title'), value: 'Mount' },
-      { model: Minion, label: I18n.t('minions.title'), value: 'Minion' },
-      { model: Orchestrion, label: I18n.t('orchestrions.title'), value: 'Orchestrion' },
-      { model: Hairstyle, label: I18n.t('hairstyles.title'), value: 'Hairstyle' },
-      { model: Emote, label: I18n.t('emotes.title'), value: 'Emote' },
-      { model: Barding, label: I18n.t('bardings.title'), value: 'Barding' },
-      { model: Armoire, label: I18n.t('armoires.title'), value: 'Armoire' },
-      { model: Outfit, label: I18n.t('outfits.title'), value: 'Outfit' },
-      { model: Fashion, label: I18n.t('fashions.title'), value: 'Fashion' },
-      { model: Facewear, label: I18n.t('facewear.title'), value: 'Facewear' },
-      { model: Frame, label: I18n.t('frames.title'), value: 'Frame' },
-      { model: Card, label: I18n.t('cards.title'), value: 'Card' },
-    ]
+    @types = collectable_types
 
     @owned = @types.each_with_object({}) do |type, h|
       key = type[:value].downcase.pluralize
