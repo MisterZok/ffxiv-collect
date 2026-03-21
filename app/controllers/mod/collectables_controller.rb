@@ -13,8 +13,12 @@ class Mod::CollectablesController < ModController
     @collectables = @collectables.includes(sources: [:type, :related]) unless @skip_sources
 
     if @missing_source
-      @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id")
-        .having('count(sources.id) = 0')
+      if @model == SurveyRecord
+        @collectables = @collectables.where("solution_en" => nil)
+      else
+        @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id")
+          .having('count(sources.id) = 0')
+      end
     end
   end
 
