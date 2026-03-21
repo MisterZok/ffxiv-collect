@@ -1,5 +1,3 @@
-require 'will_paginate/array'
-
 class Mod::TranslateController < ModController
 
   def index
@@ -24,10 +22,9 @@ class Mod::TranslateController < ModController
 
     @models = @types.pluck(:model)
     @source_types = SourceType.all.with_filters(cookies).ordered
-    @hidden_types = cookies[:hidden_types_mod_translate]&.split(',')&.map(&:constantize) || []
 
     @collectables = @models.flat_map do |model|
-      @q = model.include_sources.ransack(params[:q])
+      @q = model.include_related.ransack(params[:q])
 
       collectables = @q.result.ordered
       collectables = collectables.summonable if model == Minion # Exclude variant minions
@@ -39,9 +36,10 @@ class Mod::TranslateController < ModController
         # If a collectable has multiple untranslated sources, only display it once
         collectables = collectables.joins(:sources).where("sources.text_#{I18n.locale}" => nil).distinct
       end
+
       collectables
     end
 
-    @collectables = @collectables.paginate(page: params[:page], per_page: 50)
+    @collectables = @collectables.paginate(page: params[:page])
   end
 end
