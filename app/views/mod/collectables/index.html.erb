@@ -14,10 +14,6 @@
           <%= check_box_tag :missing_source, 1, @missing_source %>
           <%= label_tag :missing_source, t('mod.missing_source') %>
         </div>
-        <div class="form-group form-check">
-          <%= check_box_tag :missing_translation, 1, @missing_translation %>
-          <%= label_tag :missing_translation, t('mod.missing_translation') %>
-        </div>
         <%= f.submit t('search'), class: 'btn btn-secondary btn-sm' %>
       <% end %>
     </div>

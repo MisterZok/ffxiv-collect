@@ -7,7 +7,6 @@ class Mod::CollectablesController < ModController
   def index
     @q = @model.all.ransack(params[:q])
     @missing_source = params[:missing_source]
-    @missing_translation = params[:missing_translation]
 
     @collectables = @q.result.ordered.paginate(page: params[:page])
     @collectables = @collectables.summonable if @model == Minion
@@ -16,11 +15,6 @@ class Mod::CollectablesController < ModController
     if @missing_source
       @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id")
         .having('count(sources.id) = 0')
-    end
-
-    if @missing_translation
-      @collectables = @collectables.joins(:sources).group("#{controller_name}.id")
-        .where("sources.text_#{I18n.locale}" => nil)
     end
   end
 

@@ -342,7 +342,6 @@ fr:
     manage_collectables: "Gérer les collectionnables"
     manage_translations: "Gérer les traductions"
     missing_source: "Provenance manquante"
-    missing_translation: "Traduction manquante"
     select_type: "Choisir un type"
     source_delete_confirm: "Voulez-vous vraiment supprimer cette provenance ?"
     source_destroy_error: "Un problème est survenu pendant la suppression de la provenance."

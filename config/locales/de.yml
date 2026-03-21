@@ -342,7 +342,6 @@ de:
     manage_collectables: "Verwalte Collectables"
     manage_translations: "Verwalte Übersetzungen"
     missing_source: "Fehlende Quelle"
-    missing_translation: "Fehlende Übersetzung"
     select_type: "Wähle eine Kategorie"
     source_delete_confirm: "Bist du dir sicher, dass du diese Quelle löschen möchtest?"
     source_destroy_error: "Es gab ein Problem beim Löschen dieser Quelle."
