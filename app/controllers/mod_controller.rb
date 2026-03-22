@@ -5,7 +5,7 @@ class ModController < ApplicationController
   before_action :set_paper_trail_whodunnit
 
   def index
-    @models = collectable_types(with_records: true).pluck(:model)
+    @models = collectable_types(dashboard: true).pluck(:model)
     @changes = PaperTrail::Version.includes(:user).order(id: :desc).paginate(page: params[:page])
   end
 

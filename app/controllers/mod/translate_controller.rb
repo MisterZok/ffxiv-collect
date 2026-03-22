@@ -2,7 +2,7 @@ class Mod::TranslateController < ModController
   include Typeable
 
   def index
-    @models = collectable_types(with_records: true).pluck(:model)
+    @models = collectable_types(dashboard: true).pluck(:model)
     @source_types = SourceType.all.with_filters(cookies).ordered
 
     @collectables = @models.flat_map do |model|
