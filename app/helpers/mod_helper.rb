@@ -53,7 +53,7 @@ module ModHelper
   end
 
   def gender_options(selected)
-    genders = %w(Male Female)
-    options_for_select(genders.zip(genders.map(&:downcase)), selected)
+    genders = %w(male female)
+    options_for_select(genders.map {|gender| t("only.#{gender}")}.zip(genders), selected)
   end
 end

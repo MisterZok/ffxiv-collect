@@ -75,7 +75,8 @@
         <%= link_to fa_icon('chart-line', text: 'Sidekiq'), '/admin/sidekiq', class: 'dropdown-item', target: '_blank' %>
       <% end %>
       <% if current_user.mod? %>
-        <%= link_to fa_icon('table', text: 'Mod Dashboard'), mod_dashboard_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('table', text: t('mod.dashboard')), mod_dashboard_path, class: 'dropdown-item' %>
+        <%= link_to fa_icon('book', text: t('mod.translation_dashboard')), mod_translate_path, class: 'dropdown-item' %>
         <hr class="my-1">
       <% end %>
       <%= link_to fa_icon('wrench', text: t('settings.title')), settings_path, class: 'dropdown-item' %>

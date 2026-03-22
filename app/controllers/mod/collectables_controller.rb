@@ -7,20 +7,18 @@ class Mod::CollectablesController < ModController
   def index
     @q = @model.all.ransack(params[:q])
     @missing_source = params[:missing_source]
-    @missing_translation = params[:missing_translation]
 
     @collectables = @q.result.ordered.paginate(page: params[:page])
     @collectables = @collectables.summonable if @model == Minion
     @collectables = @collectables.includes(sources: [:type, :related]) unless @skip_sources
 
     if @missing_source
-      @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id")
-        .having('count(sources.id) = 0')
-    end
-
-    if @missing_translation
-      @collectables = @collectables.joins(:sources).group("#{controller_name}.id")
-        .where("sources.text_#{I18n.locale}" => nil)
+      if @model == SurveyRecord
+        @collectables = @collectables.where("solution_en" => nil)
+      else
+        @collectables = @collectables.left_joins(:sources).group("#{controller_name}.id")
+          .having('count(sources.id) = 0')
+      end
     end
   end
 
@@ -34,10 +32,10 @@ class Mod::CollectablesController < ModController
     update_params[:sources_attributes]&.reject! { |_, source| source[:type_id].blank? }
 
     if @collectable.update(update_params)
-      flash[:success] = "The #{@model.to_s.downcase} has been updated."
+      flash[:success] = t('mod.collectable_update_success', collectable: @model.model_name.human.downcase)
       redirect_to polymorphic_url([:mod, @collectable], action: :edit)
     else
-      flash[:error] = "There was a problem updating the #{@model.to_s.downcase}."
+      flash[:error] = t('mod.collectable_update_error', collectable: @model.model_name.human.downcase)
       build_sources
       render :edit
     end

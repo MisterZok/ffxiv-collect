@@ -177,6 +177,9 @@ $(document).on 'turbolinks:load', ->
   # Type Buttons
 
   types = $('.type-buttons button:not("#reset")')
+  page_path = window.location.pathname.replaceAll('/', '_')
+  hidden_types_key = "hidden_types#{page_path}"
+
   types.click ->
     $(@).toggleClass('active')
     type = $(@).data('value')
@@ -185,12 +188,12 @@ $(document).on 'turbolinks:load', ->
     restripe()
     hidden_types = $('.type-buttons button:not(".active")').map ->
       $(@).data('value')
-    Cookies.set('hidden_types', hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
+    Cookies.set(hidden_types_key, hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
 
   $('.type-buttons button#reset').click ->
     $('.type-buttons button').addClass('active')
     $('.collectable').removeClass('hidden')
-    Cookies.remove('hidden_types')
+    Cookies.remove(hidden_types_key)
     restripe()
 
   # Filters

@@ -71,8 +71,7 @@ en:
     no_longer_tracking: "You are no longer tracking a character."
     not_found: "That page could not be found."
     not_signed_in: "You must be signed in to do that."
-    not_verified: "You are not verified as this character. If you wish to track this character's manual collections,
-      please %{link}."
+    not_verified: "You are not verified as this character. If you wish to track this character's manual collections, please %{link}."
     private_character: "This character's verified user has set their collections to private. If you own this character and want to transfer it to your current account, click %{link}."
     private_collection: "This collection is set to private on the Lodestone. You must make it Public for All Users %{link} in order for it to be updated."
     private_collection_generic: "You have collections set to private on the Lodestone. You must make them Public for All Users %{link} in order for them to be updated."
@@ -249,6 +248,7 @@ en:
     title: "Framer's Kits"
   free_companies:
     title: "Free Company Profile"
+  gender: "Gender"
   groups:
     character_not_found: "No characters found.<br>Please add this character through the %{link} and try again."
     collections: "Collections"
@@ -332,6 +332,21 @@ en:
   minions:
     behavior: "Behavior"
     title: "Minions"
+  mod:
+    action: "Action"
+    change: "Change"
+    changelog: "Changelog"
+    collectable_update_error: "There was a problem updating the %{collectable}."
+    collectable_update_success: "The %{collectable} has been updated."
+    dashboard: "Mod Dashboard"
+    manage_collectables: "Manage Collectables"
+    manage_translations: "Manage Translations"
+    missing_source: "Missing Source"
+    select_type: "Select type"
+    source_delete_confirm: "Are you sure you want to delete this source?"
+    source_destroy_error: "There was a problem deleting the source."
+    source_destroy_success: "The source has been deleted."
+    translation_dashboard: "Translation Dashboard"
   mounts:
     airborne: "Airborne"
     custom_music: "Custom Music"
@@ -391,6 +406,7 @@ en:
   owned: "Owned"
   ownership: "Owned by %{percent} of characters"
   patch: "Patch"
+  premium: "Premium"
   prices:
     price: "Price"
     updated: "Updated"
@@ -462,6 +478,7 @@ en:
     online_store: "Online Store"
     pvp: "PvP Series %{series} - Level %{level}"
     seals: "%{amount} Company Seals"
+    title: "Sources"
     unreported: "Unreported / %{location}"
   spells:
     aspect: "Aspect"
@@ -474,11 +491,13 @@ en:
     number: "No."
     rank: "Rank"
     title: "Blue Magic"
+    type: "Type"
   submit: "Submit"
   survey_records:
     hide_spoilers: "Hide Spoilers"
     solution: "Solution"
     title: "Survey Records"
+  time_limited: "Time Limited"
   titles:
     title: "Titles"
   tomestones:
@@ -591,6 +610,7 @@ en:
       tournament_reward: "Tournament Reward"
     title: "Triple Triad"
   type: "Type"
+  user: "User"
   users:
     sign_in: "Sign in with Discord"
     sign_out: "Sign Out"

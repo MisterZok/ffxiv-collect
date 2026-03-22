@@ -239,6 +239,7 @@ Rails.application.routes.draw do
 
     resources :sources, only: :destroy
     get 'dashboard', action: :index
+    get 'translate', to: 'translate#index'
   end
 
   get '404', to: 'static#not_found', as: :not_found
