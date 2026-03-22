@@ -5,7 +5,7 @@
     <%= link_to t('mod.manage_translations'), mod_translate_path, class: 'unstyled' %>
     <%= search_form_for(@q, url: mod_translate_path, enforce_utf8: false,
                         class: 'form form-inline search-form d-flex') do |f| %>
-      <%= f.collection_select :sources_type_id_eq, @source_types, :id, :name,
+      <%= f.collection_select :type_id_eq, @source_types, :id, :name,
         { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
       <%= f.submit t('search'), name: nil, class: 'btn btn-secondary btn-sm mr-0' %>
     <% end %>
@@ -17,27 +17,19 @@
         <th></th> <!-- Icon -->
         <th><%= t('name') %></th>
         <th><%= t('source') %></th>
-        <th class="text-center"><%= t('patch') %></th>
         <th></th> <!-- Actions -->
       </tr>
-      <% @collectables.each do |collectable| %>
+      <% @sources.each do |source| %>
         <tr>
-          <td><%= collectable_image_link(collectable) %></td>
-          <td><%= collectable_icon(collectable) %></td>
-          <td class="name">
-            <%= collectable.name %>
-            <%= gender_symbol(collectable.try(:gender)) %>
-          </td>
+          <td><%= collectable_image_link(source.collectable) %></td>
+          <td><%= collectable_icon(source.collectable) %></td>
           <td>
-            <% if collectable.class == SurveyRecord %>
-              <%= collectable.solution %>
-            <% else %>
-              <%= sources(collectable) %>
-            <% end %>
+            <%= source.collectable.name %>
+            <%= gender_symbol(source.collectable.try(:gender)) %>
           </td>
-          <td class="text-center"><%= collectable.patch %></td>
+          <td><%= source.text_en %></td>
           <td class="text-center">
-            <%= link_to fa_icon('pen'), polymorphic_url([:mod, collectable], action: :edit),
+            <%= link_to fa_icon('pen'), polymorphic_url([:mod, source.collectable], action: :edit),
               class: 'btn btn-secondary btn-sm' %>
           </td>
         </tr>
@@ -45,6 +37,12 @@
     </table>
   </div>
   <div class="card-footer d-flex justify-content-center mb-0">
-    <%= will_paginate(@collectables) %>
+    <% if @sources.size == 0 %>
+      <h1>
+        <%= fa_icon('birthday-cake') %>
+      </h1>
+    <% else %>
+      <%= will_paginate(@sources) %>
+    <% end %>
   </div>
 </div>

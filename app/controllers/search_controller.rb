@@ -18,7 +18,7 @@ class SearchController < ApplicationController
 
     @hidden_types = cookies[:hidden_types_search]&.split(',')&.map(&:constantize) || []
     @models = @types.pluck(:model)
-    @source_types = SourceType.all.with_filters(cookies).ordered
+    @source_types = SourceType.with_filters(cookies).ordered
 
     # Collect a distinct set of patches across all models
     @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.uniq
