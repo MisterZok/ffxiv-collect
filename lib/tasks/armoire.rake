@@ -28,7 +28,7 @@ namespace :armoires do
       if existing = ArmoireCategory.find_by(id: category[:id])
         existing.update!(category) if updated?(existing, category)
       else
-        ArmoireCategory.create!(type)
+        ArmoireCategory.create!(category)
       end
     end
 

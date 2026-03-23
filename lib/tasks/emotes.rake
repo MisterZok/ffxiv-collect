@@ -19,7 +19,7 @@ namespace :emotes do
       if existing = EmoteCategory.find_by(id: category[:id])
         existing.update!(category) if updated?(existing, category)
       else
-        EmoteCategory.create!(type)
+        EmoteCategory.create!(category)
       end
     end
 
