@@ -3,6 +3,7 @@ $(document).on 'turbolinks:load', ->
 
   restripe = ->
     # Apply any selected filters
+    $('.npc-row').show()
     if $('#hide-completed').prop('checked')
       $('.completed').hide()
     else if $('#hide-defeated').prop('checked')
@@ -37,7 +38,6 @@ $(document).on 'turbolinks:load', ->
     })
 
   $('input[name="display"]').change ->
-    $('.npc-row').show()
     if $('#show-all').prop('checked')
       localStorage.setItem('npc-display', 'show-all')
     else if $('#hide-completed').prop('checked')
@@ -51,7 +51,8 @@ $(document).on 'turbolinks:load', ->
 
   display_setting = localStorage.getItem('npc-display')
   if display_setting != null
-    $('#' + display_setting).click()
+    $('#' + display_setting).prop('checked', true)
+    restripe()
 
   $('#npc-search select').change ->
     $('form').submit()
