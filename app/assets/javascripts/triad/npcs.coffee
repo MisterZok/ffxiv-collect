@@ -16,8 +16,8 @@ $(document).on 'turbolinks:load', ->
       $(this).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
     # Update the progress bar
-    progress_bar = $('.progress:first > .progress-bar')
-    progress_label = $('.progress:first > .progress-label')
+    progress_bar = $('.progress:first .progress-bar')
+    progress_label = $('.progress:first .progress-label')
     current = $('tr.collectable.owned:not(.excluded)').length
     max = $('tr.collectable:not(.excluded)').length
 
