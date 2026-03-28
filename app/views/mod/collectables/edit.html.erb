@@ -1,7 +1,7 @@
 <% title(@title) %>
 
 <div class="row">
-  <div class="col-12 col-lg-10 col-xl-8 mx-auto">
+  <div class="col-12 col-lg-10 mx-auto">
     <div class="card shadow">
       <div class="card-header d-flex flex-wrap align-items-center justify-content-between">
         <h5 class="card-title"><%= @title %></h5>
@@ -11,11 +11,11 @@
       <div class="card-body py-3">
         <%= form_for(@collectable, url: polymorphic_url([:mod, @collectable]), html: { class: 'form' }) do |f| %>
           <div class="row">
-            <div class="col-8 form-group">
+            <div class="col-9 form-group">
               <%= f.label "name_#{I18n.locale}", t('name') %>
               <%= f.text_field "name_#{I18n.locale}", class: 'form-control' %>
             </div>
-            <div class="col-4 form-group">
+            <div class="col-3 form-group">
               <%= f.label :patch, t('patch') %>
               <%= f.text_field :patch, class: 'form-control' %>
             </div>
@@ -60,7 +60,7 @@
                     <%= sf.collection_select :type_id, @types, :id, :name,
                       { include_blank: t('mod.select_type') }, class: 'form-control' %>
                   </div>
-                  <div class="col pr-4">
+                  <div class="col-6 pr-4">
                     <%= sf.text_field "text_#{I18n.locale}", class: 'form-control mr-2',
                       placeholder: sf.object.text_en  %>
                   </div>
@@ -96,7 +96,7 @@
     </div>
   </div>
   <% if @changes.present? %>
-    <div class="col-12 col-lg-10 col-xl-8 mx-auto mt-3">
+    <div class="col-12 col-lg-10 mx-auto mt-3">
       <div class="card shadow">
         <h5 class="card-header"><%= t('mod.changelog') %></h5>
         <div class="card-body card-table">
