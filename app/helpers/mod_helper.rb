@@ -1,20 +1,23 @@
 module ModHelper
+  # Hide columns with irrelevant data from the diff
+  HIDDEN_COLUMNS = %w(id collectable_id collectable_type).freeze
+
   def change_diff(change)
-    if change.event == 'update'
-      list = JSON.parse(change.object_changes).map do |column, diff|
-        if column
+    if change.event.match?(/create|update/)
+      list = JSON.parse(change.object_changes)
+        .reject { |column, _| HIDDEN_COLUMNS.include?(column)}
+        .map do |column, diff|
           "#{column}: #{diff.first} → #{diff.last}"
         end
-      end
 
       list.join('<br>').html_safe
     else
       list = JSON.parse(change.object_changes)
 
-      list.each do |k, v|
+      list.each do |column, diff|
         # Find a populated name/text field from the object to display in the log
-        if k.match?(/name|text/) && v.any?
-          return v[change.event == 'destroy' ? 0 : 1]
+        if column.match?(/name|text/) && diff.any?
+          return diff.first
         end
       end
     end
