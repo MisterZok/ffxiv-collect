@@ -135,7 +135,7 @@ class Source < ApplicationRecord
     unless text_en.nil?
       %w(text_de text_fr text_ja text_tc).each do |text|
         if changes.keys.include?(text)
-          Source.where(text_en: text_en).where(text => nil).each do |source|
+          Source.where(text_en: text_en).where(text => nil).excluding(self).each do |source|
             source.update!(text => self[text])
           end
         end
