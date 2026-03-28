@@ -24,7 +24,8 @@ class Source < ApplicationRecord
   belongs_to :related, polymorphic: true, required: false
   belongs_to :type, class_name: 'SourceType'
 
-  before_save :assign_relations!
+  # fill_translations! must run last since it suppresses callbacks
+  before_save :assign_relations!, :fill_translations!
 
   has_paper_trail meta: { collectable_type: :collectable_type, collectable_id: :collectable_id }
 
@@ -50,12 +51,12 @@ class Source < ApplicationRecord
     locale = nil
 
     %w(en de fr ja tc).each do |i18n|
-      break locale = i18n if send("text_#{i18n}_changed?")
+      break locale = i18n if changes.keys.include?("text_#{i18n}")
     end
 
     return unless locale.present?
 
-    text = send("text_#{locale}")
+    text = self["text_#{locale}"]
     type = SourceType.find(type_id)
 
     case type.name_en
@@ -109,6 +110,36 @@ class Source < ApplicationRecord
   def set_text_for_relation!(relation)
     %w(en de fr ja tc).each do |locale|
       self["text_#{locale}"] = relation["name_#{locale}"]
+    end
+  end
+
+  def fill_translations!
+    # Skip additional callbacks to avoid endless loops
+    Source.skip_callback(:save, :before, :assign_relations!)
+    Source.skip_callback(:save, :before, :fill_translations!)
+
+    if text_en_changed?
+      # Populate non-English source texts from an existing matching source
+      %w(text_de text_fr text_ja text_tc).each do |text|
+        next unless self[text].nil?
+
+        existing = Source.where(text_en: self.text_en)
+          .where.not(text => nil)
+          .first
+
+        self[text] = existing.try(:[], text)
+      end
+    end
+
+    # Propagate translations to existing sources with the same English text
+    unless text_en.nil?
+      %w(text_de text_fr text_ja text_tc).each do |text|
+        if changes.keys.include?(text)
+          Source.where(text_en: text_en).where(text => nil).each do |source|
+            source.update!(text => self[text])
+          end
+        end
+      end
     end
   end
 end
