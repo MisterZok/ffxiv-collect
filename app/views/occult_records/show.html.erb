@@ -10,6 +10,9 @@
       </div>
       <div class="card-body">
         <div class="d-flex">
+          <div class="d-none d-xl-block mr-4">
+            <%= safe_image_tag("occult_records/#{@record.id}.png") %>
+          </div>
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
               <%= render 'shared/ownership', collectable: @record %>
@@ -18,8 +21,8 @@
                 <dd><%= @record.patch %></dd>
               </div>
             </div>
-            <div class="d-none d-sm-block">
-              <%= safe_image_tag("occult_records/#{@record.id}.png") %>
+            <div class="d-block d-xl-none">
+              <%= safe_image_tag("occult_records/#{@record.id}.png", class: 'fit') %>
             </div>
             <dt><%= t('source') %></dt>
             <dd><%= sources(@record, list: true) %></dd>

@@ -148,6 +148,7 @@ label, input[type="checkbox"] {
 
 input[type="checkbox"] {
   -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
   color-scheme: light;
 }
 
@@ -595,4 +596,9 @@ i.delete:hover {
 
 dd.inline {
   width: fit-content;
+}
+
+img.fit {
+  max-width: 100%;
+  object-fit: cover;
 }
