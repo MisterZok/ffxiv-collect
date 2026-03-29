@@ -24,7 +24,6 @@ class Source < ApplicationRecord
   belongs_to :related, polymorphic: true, required: false
   belongs_to :type, class_name: 'SourceType'
 
-  # fill_translations! must run last since it suppresses callbacks
   before_save :assign_relations!, :fill_translations!
 
   has_paper_trail meta: { collectable_type: :collectable_type, collectable_id: :collectable_id }
@@ -141,5 +140,8 @@ class Source < ApplicationRecord
         end
       end
     end
+
+    Source.set_callback(:save, :before, :assign_relations!)
+    Source.set_callback(:save, :before, :fill_translations!)
   end
 end
