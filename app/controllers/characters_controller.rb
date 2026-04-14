@@ -193,7 +193,8 @@ class CharactersController < ApplicationController
       rescue RestClient::BadGateway, RestClient::ServiceUnavailable
         flash[:error] = t('alerts.lodestone_maintenance')
       rescue Lodestone::PrivateProfileError
-        flash[:error] = t('alerts.private_profile')
+        # flash[:error] = t('alerts.private_profile')
+        flash[:error] = t('alerts.lodestone_ban')
       rescue
         flash[:error] = t("alerts.problem_refreshing_#{key}")
       end
@@ -216,7 +217,8 @@ class CharactersController < ApplicationController
         @code = @profile.verification_code(current_user)
       end
     rescue Lodestone::PrivateProfileError
-      flash[:error] = t('alerts.problem_verifying_private')
+      # flash[:error] = t('alerts.problem_verifying_private')
+      flash[:error] = t('alerts.lodestone_ban')
     rescue StandardError => e
       flash[:error] = t('alerts.problem_verifying')
       Rails.logger.error("There was a problem verifying character #{@profile.id}")
@@ -249,7 +251,8 @@ class CharactersController < ApplicationController
     begin
       @selected = Character.find_by(id: params[:id]) || fetch_character(params[:id])
     rescue Lodestone::PrivateProfileError
-      flash[:error] = t('alerts.private_profile')
+      # flash[:error] = t('alerts.private_profile')
+      flash[:error] = t('alerts.lodestone_ban')
       return redirect_back(fallback_location: root_path)
     rescue
       # The exception has been logged in the fetch. Now let the following logic alert the user.
