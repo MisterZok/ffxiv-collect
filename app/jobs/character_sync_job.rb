@@ -22,12 +22,13 @@ class CharacterSyncJob < ApplicationJob
         Sidekiq.logger.error("Rate limited while fetching character #{id}")
       end
     rescue RestClient::ExceptionWithResponse => e
-      Rails.logger.error("There was a problem fetching character #{id}")
-      Rails.logger.error(e.response)
+      Sidekiq.logger.error("There was a problem fetching character #{id}")
+      Sidekiq.logger.error(e.response)
     rescue Lodestone::PrivateProfileError
       # We cannot fetch characters with private profiles
     rescue StandardError
-      Rails.logger.error("There was a problem fetching character #{id}")
+      Sidekiq.logger.error("There was a problem fetching character #{id}")
+      Sidekiq.logger.error(e.inspect)
       raise
     end
   end
