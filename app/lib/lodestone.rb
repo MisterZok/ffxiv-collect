@@ -234,7 +234,7 @@ module Lodestone
 
   def character_document(endpoint: nil, character_id: nil, params: {})
     url = [LODESTONE_URL, 'character', character_id, endpoint].compact.join('/')
-    url += params.to_query if params.present?
+    url += "?#{params.to_query}" if params.present?
 
     Nokogiri::HTML.parse(request(url, mobile: true))
   end
