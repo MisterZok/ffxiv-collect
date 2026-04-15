@@ -1,7 +1,8 @@
 module Lodestone
   class PrivateProfileError < StandardError; end
 
-  ROOT_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
+  LODESTONE_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
+  PROXY_URL = Rails.application.credentials.dig(:proxy, :url).freeze
   DESKTOP_USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) ' \
     'Chrome/104.0.0.0 Safari/537.36'
   MOBILE_USER_AGENT = 'Mozilla/5.0 (Linux; Android 4.0.4; Galaxy Nexus Build/IMM76B) ' \
@@ -21,9 +22,9 @@ module Lodestone
   end
 
   def free_company(free_company_id)
-    url = "#{ROOT_URL}/freecompany/#{free_company_id}"
+    url = "#{LODESTONE_URL}/freecompany/#{free_company_id}"
 
-    doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
+    doc = Nokogiri::HTML.parse(request(url))
     {
       id: free_company_id,
       name: doc.at_css('.freecompany__text__name').text,
@@ -32,9 +33,9 @@ module Lodestone
   end
 
   def free_company_members(free_company_id, page: 1)
-    url = "#{ROOT_URL}/freecompany/#{free_company_id}/member?page=#{page}"
+    url = "#{LODESTONE_URL}/freecompany/#{free_company_id}/member?page=#{page}"
 
-    doc = Nokogiri::HTML.parse(RestClient.get(url, user_agent: DESKTOP_USER_AGENT))
+    doc = Nokogiri::HTML.parse(request(url))
     members = doc.css('.entry__bg').map { |entry| element_id(entry) }
 
     # If there are additional pages, recursively continue fetching members
@@ -53,7 +54,7 @@ module Lodestone
       locale = 'jp'
     end
 
-    "#{ROOT_URL}/character/#{character.id}".sub('na', locale)
+    "#{LODESTONE_URL}/character/#{character.id}".sub('na', locale)
   end
 
   def search(name:, server:, data_center:)
@@ -232,9 +233,10 @@ module Lodestone
   end
 
   def character_document(endpoint: nil, character_id: nil, params: {})
-    url = [ROOT_URL, 'character', character_id, endpoint].compact.join('/')
+    url = [LODESTONE_URL, 'character', character_id, endpoint].compact.join('/')
+    url += params.to_query if params.present?
 
-    Nokogiri::HTML.parse(RestClient.get(url, user_agent: MOBILE_USER_AGENT, params: params))
+    Nokogiri::HTML.parse(request(url, mobile: true))
   end
 
   def element_id(element)
@@ -244,5 +246,14 @@ module Lodestone
   def element_time(element)
     time = element.at_css('.entry__activity__time').text.match(/ldst_strftime\((\d+)/)[1]
     Time.at(time.to_i).to_formatted_s(:db)
+  end
+
+  def request(url, mobile: nil)
+    if Rails.env.production? && PROXY_URL.present?
+      params = { url: url, mobile: mobile }.compact
+      RestClient.get(PROXY_URL, params: params)
+    else
+      RestClient.get(url, user_agent: mobile ? MOBILE_USER_AGENT : DESKTOP_USER_AGENT)
+    end
   end
 end
