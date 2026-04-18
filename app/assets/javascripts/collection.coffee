@@ -162,7 +162,14 @@ $(document).on 'turbolinks:load', ->
     category = $(@).attr('id').match(/\d+$/)[0]
     categories.removeClass('active')
     $(@).addClass('active')
-    history.replaceState(history.state, '', "?category=#{category}")
+
+    # Update the query parameter without a refresh
+    url = new URL(window.location)
+    url.searchParams.set('category', category)
+    history.replaceState(history.state, '', url)
+
+    # Set the category in the form so it is retained on search
+    $('#category').val(category)
 
     if category == '0'
       $('.collectable').removeClass('hidden')
