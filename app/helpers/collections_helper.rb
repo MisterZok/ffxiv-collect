@@ -483,7 +483,9 @@ module CollectionsHelper
            when :ranked_pvp
              'medal'
            when :armoire
-             'socks'
+             return collectable_icon('Armoire')
+           when :outfit
+             return collectable_icon('Outfit')
            when :unknown
              'question'
            end

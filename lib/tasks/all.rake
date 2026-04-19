@@ -34,6 +34,8 @@ namespace :data do
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
     Rake::Task['outfits:create'].invoke
+    Rake::Task['armoires:find_outfits'].invoke
+    Rake::Task['outfits:find_armoires'].invoke
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
     Rake::Task['facewear:create'].invoke

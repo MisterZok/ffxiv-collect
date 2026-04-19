@@ -213,6 +213,7 @@ $(document).on 'turbolinks:load', ->
     limited = $(@).find('#limited')
     ranked_pvp = $(@).find('#ranked_pvp')
     armoire = $(@).find('#armoire')
+    outfit = $(@).find('#outfit')
     unknown = $(@).find('#unknown')
     gender = $(@).find('#gender')
 
@@ -220,6 +221,7 @@ $(document).on 'turbolinks:load', ->
       (limited.length > 0 && Cookies.get('limited') != checkboxValue(limited)) ||
       (ranked_pvp.length > 0 && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
       (armoire.length > 0 && Cookies.get('armoire') != checkboxValue(armoire)) ||
+      (outfit.length > 0 && Cookies.get('outfit') != checkboxValue(outfit)) ||
       (unknown.length > 0 && Cookies.get('unknown') != checkboxValue(unknown)) ||
       (gender.length > 0 && Cookies.get('gender') != gender.val())
 

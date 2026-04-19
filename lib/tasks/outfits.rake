@@ -20,7 +20,6 @@ namespace :outfits do
       item = Item.find(outfit['#'])
 
       data = { id: outfit['#'], item_id: outfit['#'], item_ids: item_ids, gender: nil,
-               armoireable: Armoire.exists?(item_id: item_ids.first),
                name_en: item.name_en, name_de: item.name_de, name_fr: item.name_fr, name_ja: item.name_ja }
 
       # Check the associated items for tradeability and gender restrictions
@@ -44,13 +43,6 @@ namespace :outfits do
         existing.update!(data) if updated?(existing, data)
       else
         created = Outfit.create!(data)
-
-        if created.armoireable?
-          Armoire.find_by(item_id: created.item_ids.first).sources.each do |source|
-            created.sources.create!(source.slice(:text_en, :text_de, :text_fr, :text_ja, :premium, :limited,
-                                                 :type_id, :related_id, :related_type))
-          end
-        end
       end
     end
 
@@ -63,5 +55,20 @@ namespace :outfits do
     create_spritesheet('outfit_items')
 
     puts "Created #{Outfit.count - count} new outfits"
+  end
+
+  task check_armoires: :environment do
+    Outfit.where(armoireable: false).each do |outfit|
+      armoire = Armoire.find_by(item_id: outfit.item_ids.first)
+      next unless armoire.present?
+
+      outfit.update!(armoireable: true)
+
+      # Mirror the sources from the matching armoire
+      armoire.sources.each do |source|
+        outfit.sources.create!(source.slice(:text_en, :text_de, :text_fr, :text_ja, :premium, :limited,
+                                              :type_id, :related_id, :related_type))
+      end
+    end
   end
 end

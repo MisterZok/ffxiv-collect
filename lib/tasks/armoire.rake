@@ -85,4 +85,10 @@ namespace :armoires do
 
     puts "Created #{Armoire.count - count} new armoire items"
   end
+
+  task find_outfits: :environment do
+    Armoire.where(outfitable: false)
+      .joins('INNER JOIN outfit_items ON armoires.item_id = outfit_items.item_id')
+      .update_all(outfitable: true)
+  end
 end

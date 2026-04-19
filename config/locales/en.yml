@@ -116,6 +116,7 @@ en:
   any_tradeable: "Any Tradeability"
   apply_filters: "Apply Filters"
   armoires:
+    outfitable: "This is part of an Outfit"
     title: "Armoire"
   back: "Back"
   badges:
@@ -218,6 +219,7 @@ en:
   exclude:
     armoire: "Exclude Armoire Storable"
     limited: "Exclude Time Limited"
+    outfit: "Exclude Outfit Storable"
     premium: "Exclude Premium"
     ranked_pvp: "Exclude Ranked PVP"
     unknown: "Exclude Unknown"

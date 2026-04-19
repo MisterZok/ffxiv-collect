@@ -28,6 +28,12 @@ module Collectable
       end
     end
 
+    scope :hide_outfit_storable, -> (hide) do
+      if hide && available_filters.include?(:outfit)
+        where(outfitable: false)
+      end
+    end
+
     scope :hide_unknown, -> (hide) do
       if hide && available_filters.include?(:unknown)
         where('sources.id IS NOT NULL')
@@ -52,6 +58,7 @@ module Collectable
         .hide_limited(filters[:limited] == 'hide')
         .hide_ranked_pvp(filters[:ranked_pvp] == 'hide')
         .hide_armoire_storable(filters[:armoire] == 'hide')
+        .hide_outfit_storable(filters[:outfit] == 'hide')
         .hide_unknown(filters[:unknown] == 'hide')
         .filter_gender(filters[:gender], character)
         .distinct

@@ -21,6 +21,7 @@
 #  order_group    :integer
 #  name_tc        :string(255)
 #  description_tc :string(255)
+#  outfitable     :boolean          default(FALSE)
 #
 
 class Armoire < ApplicationRecord
@@ -37,6 +38,6 @@ class Armoire < ApplicationRecord
   end
 
   def self.available_filters
-    %i(owned gender premium limited unknown)
+    %i(owned gender premium limited outfit unknown)
   end
 end

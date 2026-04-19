@@ -31,6 +31,7 @@
           <th scope="col" class="hide-xs"><%= t('source') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('category') %></th>
           <th scope="col" class="text-center hide-xs" data-defaultsort="disabled"><%= fa_icon('search') %></th>
+          <th scope="col" class="text-center"><%= collectable_icon('Outfit') %></th>
           <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
           <th scope="col" class="text-center"><%= t('patch') %></th>
           <% if character_selected? %>
@@ -60,6 +61,9 @@
             <td class="text-center px-3 hide-xs">
               <%= fa_icon('search', class: 'isearch',
                           data: { toggle: 'tooltip', clipboard_action: 'copy', clipboard_text: "/isearch \"#{armoire.name}\"" }) %>
+            </td>
+            <td class="text-center" data-value="<%= armoire.outfitable? %>">
+              <%= outfitable(armoire) %>
             </td>
             <td class="text-center hide-xs" data-value="<%= rarity(armoire, numeric: true) %>"><%= rarity(armoire) %></td>
             <td class="text-center" data-value="<%= sort_value(armoire) %>"><%= armoire.patch %></td>

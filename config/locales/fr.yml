@@ -116,6 +116,7 @@ fr:
   any_tradeable: "Tout type de transaction"
   apply_filters: "Appliquer les filtres"
   armoires:
+    outfitable: "Cet objet fait partie d'un ensemble"
     title: "Bahut personnel"
   back: "Retour"
   badges:
@@ -218,6 +219,7 @@ fr:
   exclude:
     armoire: "Exclure les objets stockables dans le bahut personnel"
     limited: "Exclure les objets limités dans le temps"
+    outfit: "Exclure les objets faisant partie d'un ensemble"
     premium: "Exclure les objets premium"
     ranked_pvp: "Exclure les objets de JcJ classé"
     unknown: "Exclure les objets de provenance inconnue"
