@@ -57,7 +57,7 @@ namespace :outfits do
     puts "Created #{Outfit.count - count} new outfits"
   end
 
-  task check_armoires: :environment do
+  task find_armoires: :environment do
     Outfit.where(armoireable: false).each do |outfit|
       armoire = Armoire.find_by(item_id: outfit.item_ids.first)
       next unless armoire.present?
