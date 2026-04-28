@@ -8,8 +8,8 @@ class StaticController < ApplicationController
   def credits
     config = Rails.application.config_for(:credits)
 
-    @developers = Character.where(id: config.developers).sort_by { |item| config.developers.index(item.id) }
-    @sourcers = Character.where(id: config.sourcers).sort_by { |item| config.sourcers.index(item.id) }
+    @developers = Character.where(id: config.developers).sort_by { |character| config.developers.index(character.id) }
+    @sourcers = Character.where(id: config.sourcers).sort_by { |character| config.sourcers.index(character.id) }
     @translators = Character.where(id: config.translators).order(:name)
     @supporters = Character.where(supporter: true).order(:name)
   end
