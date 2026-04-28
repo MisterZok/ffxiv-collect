@@ -5,7 +5,7 @@ class SearchController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index
-    @types = collectable_types
+    @types = collectable_types.reject { |type| ['Armoire', 'Outfit'].include?(type[:value]) }
 
     @owned = @types.each_with_object({}) do |type, h|
       key = type[:value].downcase.pluralize
