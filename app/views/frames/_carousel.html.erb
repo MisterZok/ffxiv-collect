@@ -1,12 +1,12 @@
 <div class="carousel slide" id="carousel" data-interval="false">
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <%= link_to(image_url("frames/#{@frame.id}.png")) do %>
+      <%= link_to(safe_image_url("frames/#{@frame.id}.png")) do %>
         <%= safe_image_tag("frames/#{@frame.id}.png") %>
       <% end %>
     </div>
     <div class="carousel-item">
-      <%= link_to(image_url("frames/#{@frame.id}_2.png")) do %>
+      <%= link_to(safe_image_url("frames/#{@frame.id}_2.png")) do %>
         <%= safe_image_tag("frames/#{@frame.id}_2.png") %>
       <% end %>
     </div>

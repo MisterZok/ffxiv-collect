@@ -24,6 +24,13 @@ module ApplicationHelper
     link_to icon, path, class: "nav-link#{' bold' if bold}"
   end
 
+  def safe_image_url(src, options = {})
+    begin
+      image_url(src, options)
+    rescue Sprockets::Rails::Helper::AssetNotFound
+    end
+  end
+
   def safe_image_tag(src, options = {})
     begin
       image_tag(src, options)
