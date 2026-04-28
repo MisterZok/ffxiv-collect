@@ -24,9 +24,9 @@ namespace :items do
       XIVData.sheet('Item', locale: locale).each do |item|
         next unless item['Name'].present?
 
-        items[item['#']].merge!("name_#{locale}" => sanitize_name(item['Name'], locale: locale),
-                                "plural_#{locale}" => item['Plural'].present? ? sanitize_name(item['Plural'], locale: locale) : nil,
-                                "description_#{locale}" => sanitize_text(item['Description'], preserve_space: true))
+        items[item['#']]&.merge!("name_#{locale}" => sanitize_name(item['Name'], locale: locale),
+                                 "plural_#{locale}" => item['Plural'].present? ? sanitize_name(item['Plural'], locale: locale) : nil,
+                                 "description_#{locale}" => sanitize_text(item['Description'], preserve_space: true))
       end
     end
 
