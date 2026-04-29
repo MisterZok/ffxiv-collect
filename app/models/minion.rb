@@ -100,6 +100,10 @@ class Minion < ApplicationRecord
     Rails.application.config_for(:minions).unsummonable_ids.freeze
   end
 
+  def self.automatic_collection?
+    true
+  end
+
   def self.available_filters
     %i(owned tradeable premium limited unknown)
   end

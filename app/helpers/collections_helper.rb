@@ -211,11 +211,10 @@ module CollectionsHelper
 
   def td_owned(collectable)
     date = @dates&.dig(collectable.id)
-    manual = ![Achievement, Mount, Minion, Facewear].include?(collectable.class)
     owned = @collection_ids&.include?(collectable.id) ||
       (@owned_ids.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id))
 
-    if manual && @character.verified_user?(current_user)
+    if !collectable.class.automatic_collection? && @character.verified_user?(current_user)
       content_tag(:td, class: 'text-center',
                   data: { value: owned ? 1 : 0, toggle: 'tooltip', placement: 'right' },
                   title: ("#{t('acquired')} #{format_date_short(date)}" if date.present?) ) do

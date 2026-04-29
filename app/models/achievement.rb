@@ -92,6 +92,10 @@ class Achievement < ApplicationRecord
     Rails.application.config_for(:achievements).time_limited_category_ids.freeze
   end
 
+  def self.automatic_collection?
+    true
+  end
+
   def self.ransackable_attributes(auth_object = nil)
     super + %w(points category_id)
   end

@@ -99,5 +99,10 @@ module Collectable
         none
       end
     end
+
+    # Collections are tracked manually by default
+    def automatic_collection?
+      false
+    end
   end
 end

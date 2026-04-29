@@ -46,6 +46,10 @@ class Mount < ApplicationRecord
     seats > 1
   end
 
+  def self.automatic_collection?
+    true
+  end
+
   def self.available_filters
     %i(owned tradeable premium limited ranked_pvp unknown)
   end
