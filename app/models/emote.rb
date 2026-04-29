@@ -29,6 +29,10 @@ class Emote < ApplicationRecord
   scope :include_related, -> { include_sources.includes(:category) }
   scope :ordered, -> { order(patch: :desc, order: :desc) }
 
+  def self.automatic_collection?
+    true
+  end
+
   def self.available_filters
     %i(owned tradeable premium limited unknown)
   end

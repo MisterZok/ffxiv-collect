@@ -17,6 +17,7 @@ module Lodestone
     set_mounts!(character)
     set_minions!(character)
     set_facewear!(character)
+    set_emotes!(character)
 
     character
   end
@@ -189,6 +190,22 @@ module Lodestone
     rescue RestClient::Forbidden
       data[:facewear] = []
       data[:public_facewear] = false
+    end
+  end
+
+  def set_emotes!(data)
+    begin
+      doc = character_document(endpoint: 'emote', character_id: data[:id])
+      emotes = doc.css('.emote__name')
+
+      data[:emotes] = Emote.where(name_en: emotes.map(&:text)).pluck(:id)
+      data[:public_emotes] = true
+    rescue RestClient::NotFound
+      data[:emotes] = []
+      data[:public_emotes] = true
+    rescue RestClient::Forbidden
+      data[:emotes] = []
+      data[:public_emotes] = false
     end
   end
 

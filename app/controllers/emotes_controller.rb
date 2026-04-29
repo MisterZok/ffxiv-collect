@@ -1,5 +1,7 @@
 class EmotesController < ApplicationController
-  include ManualCollection
+  include PrivateCollection
+  before_action -> { check_privacy!(:emotes) }
+  skip_before_action :set_dates!
 
   def index
     @q = Emote.ransack(params[:q])
