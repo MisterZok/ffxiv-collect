@@ -50,6 +50,7 @@
 #  outfits_count                :integer          default(0)
 #  occult_records_count         :integer          default(0)
 #  supporter                    :boolean          default(FALSE)
+#  public_emotes                :boolean          default(FALSE)
 #
 
 class Character < ApplicationRecord
@@ -234,7 +235,7 @@ class Character < ApplicationRecord
     data[:ranked_mounts_count] = -1 unless data[:public_mounts]
     data[:ranked_minions_count] = -1 unless data[:public_minions]
 
-    profile_data = data.except(:achievements, :mounts, :minions, :facewear)
+    profile_data = data.except(:achievements, :mounts, :minions, :facewear, :emotes)
 
     if character.present?
       character.update!(profile_data)
@@ -361,7 +362,7 @@ class Character < ApplicationRecord
     # Don't update achievements if the character has not earned any new ones
     if data[:achievements].present?
       current_ids = character_achievements.pluck(:achievement_id)
-      achievements = data[:achievements].reject { |achievement| current_ids.include?(achievement[:id]) }
+      achievements = data[:achievements] - current_ids
 
       Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
       character.update(achievement_points: character.achievements.sum(:points))
@@ -401,7 +402,7 @@ class Character < ApplicationRecord
 
     # Mounts
     current_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
-    new_mounts = data[:mounts].reject { |id| current_ids.include?(id) }
+    new_mounts = data[:mounts] - current_ids
 
     if new_mounts.present?
       Character.bulk_insert(character.id, CharacterMount, :mount, new_mounts)
@@ -414,7 +415,7 @@ class Character < ApplicationRecord
 
     # Minions
     current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
-    new_minions = data[:minions].reject { |id| current_ids.include?(id) }
+    new_minions = data[:minions] - current_ids
 
     if new_minions.present?
       Character.bulk_insert(character.id, CharacterMinion, :minion, new_minions)
@@ -427,10 +428,18 @@ class Character < ApplicationRecord
 
     # Facewear
     current_ids = CharacterFacewear.where(character_id: character.id).pluck(:facewear_id)
-    new_facewear = data[:facewear].reject { |id| current_ids.include?(id) }
+    new_facewear = data[:facewear] - current_ids
 
     if new_facewear.present?
       Character.bulk_insert(character.id, CharacterFacewear, :facewear, new_facewear)
+    end
+
+    # Emotes
+    current_ids = CharacterEmote.where(character_id: character.id).pluck(:emote_id)
+    new_emotes = data[:emotes] - current_ids
+
+    if new_emotes.present?
+      Character.bulk_insert(character.id, CharacterEmote, :emote, new_emotes)
     end
 
     Character.find(character.id)
