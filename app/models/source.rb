@@ -64,6 +64,10 @@ class Source < ApplicationRecord
         set_text_for_relation!(relation)
         self.related_id = relation.id
         self.related_type = type.name_en
+
+        if self.related_type == 'Achievement' && relation.time_limited?
+          self.limited = true
+        end
       else
         remove_relation!
       end
