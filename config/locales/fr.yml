@@ -248,6 +248,7 @@ fr:
     item_name: "Nom de l'objet"
     name: "Arrière-plan de portrait"
     title: "L'art du portrait"
+    wiki: "Images disponibles sur le wiki"
   free_companies:
     title: "Profil de la compagnie libre"
   gender: "Genre"

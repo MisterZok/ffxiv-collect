@@ -38,7 +38,12 @@
 <div class="row mt-3">
   <div class="col-12">
     <div class="framer-kit">
-      <% if @frame.portrait_only? %>
+      <% if @frame.id == 1097 %>
+        <%= link_to(
+          "#{t('frames.wiki')} #{fa_icon('external-link-alt')}".html_safe,
+          "https://ffxiv.consolegameswiki.com/wiki/Echoes_of_Vana'diel_Framer's_Kit",
+          target: '_blank') %>
+      <% elsif @frame.portrait_only? %>
         <%= safe_image_tag("frames/#{@frame.id}.png") %>
       <% else %>
         <%= render 'carousel' %>

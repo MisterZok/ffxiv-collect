@@ -35,6 +35,14 @@ namespace :frames do
       end
     end
 
+    # Set a generic name for the Vana'diel kit since it contains a variety of components
+    frames['1097'].merge!({
+      name_en: "Echoes of Vana'diel",
+      name_de: "Echos aus Vana'diel",
+      name_fr: "Échos de Vana'diel",
+      name_ja: "エコーズ オブ ヴァナ・ディール",
+    })
+
     XIVData.sheet('BannerCondition').each do |condition|
       next unless frame = frames[condition['#']]
 

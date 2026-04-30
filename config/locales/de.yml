@@ -248,6 +248,7 @@ de:
     item_name: "Itemname"
     name: "Portrait Hintergrund"
     title: "Portraitmaterial"
+    wiki: "Bilder sind im Wiki einsehbar"
   free_companies:
     title: "Profil der Freien Gesellschaft"
   gender: "Geschlecht"
