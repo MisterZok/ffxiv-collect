@@ -362,7 +362,7 @@ class Character < ApplicationRecord
     # Don't update achievements if the character has not earned any new ones
     if data[:achievements].present?
       current_ids = character_achievements.pluck(:achievement_id)
-      achievements = data[:achievements] - current_ids
+      achievements = data[:achievements].reject { |achievement| current_ids.include?(achievement[:id]) }
 
       Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
       character.update(achievement_points: character.achievements.sum(:points))
