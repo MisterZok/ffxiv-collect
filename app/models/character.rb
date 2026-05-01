@@ -230,8 +230,8 @@ class Character < ApplicationRecord
       raise e
     end
 
-    # Remove character from rankings when achievements have been set to private
-    data[:ranked_achievement_points] = -1 unless data[:public_achievments]
+    # Remove character from rankings when collections have been set to private
+    data[:ranked_achievement_points] = -1 unless data[:public_achievements]
     data[:ranked_mounts_count] = -1 unless data[:public_mounts]
     data[:ranked_minions_count] = -1 unless data[:public_minions]
 
@@ -357,14 +357,11 @@ class Character < ApplicationRecord
   private
   def self.update_collectables!(character, data)
     # Achievements
-    character_achievements = CharacterAchievement.where(character_id: character.id)
+    character_achievement_ids = character.achievement_ids
+    new_achievements = data[:achievements].reject { |achievement| character_achievement_ids.include?(achievement[:id]) }
 
-    # Don't update achievements if the character has not earned any new ones
-    if data[:achievements].present?
-      current_ids = character_achievements.pluck(:achievement_id)
-      achievements = data[:achievements].reject { |achievement| current_ids.include?(achievement[:id]) }
-
-      Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, achievements)
+    if new_achievements.present?
+      Character.bulk_insert_with_dates(character.id, CharacterAchievement, :achievement, new_achievements)
       character.update(achievement_points: character.achievements.sum(:points))
     end
 
@@ -381,28 +378,30 @@ class Character < ApplicationRecord
                        last_ranked_achievement_time: ranked_time)
     end
 
-    # Relics - Update based on ALL of a character's record achievements so we can add them retroactively
-    current_relic_ids = CharacterRelic.where(character_id: character.id).pluck(:relic_id)
-    relic_id_map = Relic.where.not(achievement_id: nil).pluck(:id, :achievement_id).to_h
-    relic_achievement_ids = relic_id_map.values
-
-    relics = character_achievements.flat_map do |achievement|
-      achievement_id = achievement.achievement_id
-
-      if relic_achievement_ids.include?(achievement_id)
-        relic_id_map.filter_map do |r_id, a_id|
-          if a_id == achievement_id && !current_relic_ids.include?(r_id)
-            { id: r_id, date: achievement.created_at.to_formatted_s(:db) }
-          end
-        end
+    # Relics - Update based on ALL of a character's relic achievements so we can add them retroactively
+    new_relics = Relic.where.not(id: character.relic_ids)
+      .where(achievement_id: character_achievement_ids)
+      .map do |relic|
+        { id: relic.id, achievement_id: relic.achievement_id }
       end
+
+    if new_relics.present?
+      # Collect the dates for character achievements matching the new relics
+      achievement_dates = character.character_achievements
+        .where(achievement_id: new_relics.pluck(:achievement_id))
+        .pluck(:achievement_id, :created_at)
+        .to_h
+
+      # Add the dates to the relic data
+      new_relics.each do |relic|
+        relic[:date] = achievement_dates[relic[:achievement_id]].to_formatted_s(:db)
+      end
+
+      Character.bulk_insert_with_dates(character.id, CharacterRelic, :relic, new_relics)
     end
 
-    Character.bulk_insert_with_dates(character.id, CharacterRelic, :relic, relics.compact)
-
     # Mounts
-    current_ids = CharacterMount.where(character_id: character.id).pluck(:mount_id)
-    new_mounts = data[:mounts] - current_ids
+    new_mounts = data[:mounts] - character.mount_ids
 
     if new_mounts.present?
       Character.bulk_insert(character.id, CharacterMount, :mount, new_mounts)
@@ -414,8 +413,7 @@ class Character < ApplicationRecord
     end
 
     # Minions
-    current_ids = CharacterMinion.where(character_id: character.id).pluck(:minion_id)
-    new_minions = data[:minions] - current_ids
+    new_minions = data[:minions] - character.minion_ids
 
     if new_minions.present?
       Character.bulk_insert(character.id, CharacterMinion, :minion, new_minions)
@@ -427,16 +425,14 @@ class Character < ApplicationRecord
     end
 
     # Facewear
-    current_ids = CharacterFacewear.where(character_id: character.id).pluck(:facewear_id)
-    new_facewear = data[:facewear] - current_ids
+    new_facewear = data[:facewear] - character.facewear_ids
 
     if new_facewear.present?
       Character.bulk_insert(character.id, CharacterFacewear, :facewear, new_facewear)
     end
 
     # Emotes
-    current_ids = CharacterEmote.where(character_id: character.id).pluck(:emote_id)
-    new_emotes = data[:emotes] - current_ids
+    new_emotes = data[:emotes] - character.emote_ids
 
     if new_emotes.present?
       Character.bulk_insert(character.id, CharacterEmote, :emote, new_emotes)
