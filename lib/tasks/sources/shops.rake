@@ -37,6 +37,12 @@ namespace 'sources:shops' do
     outfit_item_ids = OutfitItem.pluck(:item_id).uniq.map(&:to_s)
     outfit_items = {}
 
+    tomestone_items = XIVData.sheet('TomestonesItem').each_with_object({}) do |tomestone, h|
+      next if tomestone['Tomestones'] == '0'
+
+      h[tomestone['Tomestones'].to_i] = Item.find(tomestone['Item'])
+    end
+
     XIVData.sheet('SpecialShop').each do |shop|
       2.times do |j|
         60.times do |i|
@@ -49,31 +55,52 @@ namespace 'sources:shops' do
           next if price == '0'
 
           currency_item_id = shop["Item[#{i}].ItemCost[#{j}]"].to_i
-          case currency_item_id
+          type = case currency_item_id
           when 25, 36656
-            type = pvp_type
+            pvp_type
           when 27, 10307, 26533
-            type = hunts_type
+            hunts_type
           when 29, 41629
-            type = gold_saucer_type
+            gold_saucer_type
           when 26807
-            type = fate_type
+            fate_type
           when 28063
-            type = skybuilders_type
+            skybuilders_type
           when 30341
-            type = wondrous_tails_type
+            wondrous_tails_type
           when 37549
-            type = island_sanctuary_type
+            island_sanctuary_type
           when 38533, 39884, 41078
-            type = vc_dungeon_type
+            vc_dungeon_type
           else
-            type = purchase_type
+            purchase_type
           end
 
-          currency = Item.find(currency_item_id)
+          currency = case shop["Item[#{i}].CostType[#{j}]"].to_i
+          when 0
+            Item.find(currency_item_id)
+          when 2
+            tomestone_items[currency_item_id]
+          when 3
+            scrip_id = case currency_item_id
+            when 1
+              25199 # White Crafter's Scrip
+            when 2
+              33913 # Purple Crafters' Scrip
+            when 3
+              25200 # White Gatherers' Scrip
+            when 4
+              33914 # Purple Gatherers' Scrip
+            when 5
+              10307 # Centurio Seal
+            when 6
+              41784 # Orange Crafters' Scrip
+            when 7
+              41785 # Orange Gatherers' Scrip
+            end
 
-          # Do not create shard sources as they are actually some unknown scrip
-          next if currency['name_en'].match?(/^\w+ Shard/)
+            Item.find(scrip_id)
+          end
 
           # Do not create shop sources for Moogle Treasure Trove rewards
           next if currency['name_en'].match?('Irregular Tomestone')
