@@ -2,7 +2,7 @@ class Redis
   def self.current
     # TODO: Decide on one of these
     # Redis::Namespace.new(:collect, redis: Redis.new)
-    @current ||= Redis::Namespace.new(:collect, redis: Redis.new)
+    @current ||= Redis::Namespace.new(:collect, redis: Redis.new(read_timeout: 0.5))
   end
 
   def self.unlock_jobs!
