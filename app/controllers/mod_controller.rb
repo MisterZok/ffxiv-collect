@@ -6,7 +6,7 @@ class ModController < ApplicationController
 
   def index
     @models = collectable_types(dashboard: true).pluck(:model)
-    @changes = PaperTrail::Version.includes(:user).order(id: :desc).paginate(page: params[:page])
+    @changes = PaperTrail::Version.includes(:user).order(id: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   private

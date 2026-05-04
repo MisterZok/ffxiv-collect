@@ -8,6 +8,6 @@ class Mod::TranslateController < ModController
       .where("sources.text_#{I18n.locale}" => nil)
       .preload(:collectable)
       .order(id: :desc)
-      .paginate(page: params[:page])
+      .paginate(page: params[:page], per_page: 10)
   end
 end
