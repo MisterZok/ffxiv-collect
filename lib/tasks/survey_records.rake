@@ -59,18 +59,4 @@ namespace :survey_records do
 
     puts "Created #{SurveyRecord.count - count} new Survey Records"
   end
-
-  namespace :solutions do
-    desc 'Set survey record solutions'
-    task set: :environment do
-      PaperTrail.enabled = false
-      puts 'Setting survey record solutions'
-      file = Rails.root.join('vendor/sources/survey_records.csv')
-
-      CSV.foreach(file) do |row|
-        id, solution = row
-        SurveyRecord.find_by(id: id).update!(solution_en: solution)
-      end
-    end
-  end
 end

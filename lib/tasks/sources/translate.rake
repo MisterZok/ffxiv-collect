@@ -31,26 +31,4 @@ namespace 'sources' do
       end
     end
   end
-
-  namespace 'csv' do
-    desc 'Update source translations based on CSV data'
-    task translate: :environment do
-      PaperTrail.enabled = false
-      Source.skip_callback(:save, :before, :assign_relations!)
-
-      puts 'Updating source translations with CSV data'
-
-      file = Rails.root.join('vendor/sources/translations.csv')
-
-      CSV.foreach(file) do |row|
-        sources = Source.where(text_en: row[0])
-
-        if sources.size == 0
-          puts "Could not find matching source for text: #{row[0]}"
-        else
-          sources.update_all(text_fr: row[1], text_de: row[2])
-        end
-      end
-    end
-  end
 end

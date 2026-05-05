@@ -58,29 +58,4 @@ namespace :records do
 
     puts "Created #{Record.count - count} new field records"
   end
-
-  namespace :sources do
-    desc 'Create the field record sources'
-    task create: :environment do
-      PaperTrail.enabled = false
-      puts 'Creating field record sources'
-      file = Rails.root.join('vendor/sources/records.csv')
-
-      bozja = SourceType.find_by(name_en: 'Bozja')
-      quest = SourceType.find_by(name_en: 'Quest')
-
-      CSV.foreach(file) do |row|
-        id, source = row
-
-        if source.match?('Quest')
-          source = source.gsub('Quest: ', '')
-          source_type = quest
-        else
-          source_type = bozja
-        end
-
-        Record.find_by(id: id).sources.find_or_create_by!(type: source_type, text_en: source)
-      end
-    end
-  end
 end

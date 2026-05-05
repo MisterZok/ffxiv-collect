@@ -12,8 +12,6 @@ namespace :data do
     Rake::Task['sources:create_types'].invoke
     Rake::Task['data:update'].invoke
     Rake::Task['relics:all:create'].invoke
-    Rake::Task['records:sources:create'].invoke
-    Rake::Task['survey_records:solutions:set'].invoke
   end
 
   desc 'Updates all data'
