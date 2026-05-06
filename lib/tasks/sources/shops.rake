@@ -77,7 +77,7 @@ namespace 'sources:shops' do
           end
 
           currency = case shop["Item[#{i}].CostType[#{j}]"].to_i
-          when 0
+          when 0, 1
             Item.find(currency_item_id)
           when 2
             tomestone_items[currency_item_id]
@@ -100,6 +100,8 @@ namespace 'sources:shops' do
             end
 
             Item.find(scrip_id)
+          else
+            next # Skip currencies that cannot be resolved to items
           end
 
           # Do not create shop sources for Moogle Treasure Trove rewards
