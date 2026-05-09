@@ -140,7 +140,7 @@ GEM
     crass (1.0.6)
     csv (3.3.5)
     date (3.5.1)
-    devise (5.0.3)
+    devise (5.0.4)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 7.0)
@@ -374,7 +374,7 @@ GEM
       psych (>= 4.0.0)
       tsort
     redis (4.8.1)
-    redis-client (0.28.0)
+    redis-client (0.29.0)
       connection_pool
     redis-namespace (1.11.0)
       redis (>= 4)
