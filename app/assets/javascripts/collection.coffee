@@ -3,6 +3,35 @@ $(document).on 'turbolinks:load', ->
 
   # Collections
 
+  # Update cached table data with dynamic content
+  table = $('table.collection')
+
+  if (!table.data('character-selected'))
+    # Hide checkbox column if no character is selected
+    $('.check-ownership').hide()
+  else
+    collection = table.data('collection')
+
+    # Mark collectables as owned based on the character's collection IDs
+    for id in table.data('collection-ids').split(',').filter(Boolean)
+      if td = table.find("td[data-id=#{id}]")
+        td.attr('data-value', 1)
+        td.parent().addClass('owned')
+
+        checkbox = td.find('input')
+        if checkbox.length > 0
+          checkbox.prop('checked', true)
+          checkbox.data('path', checkbox.data('path').replace('add', 'remove'))
+
+        icon = td.find('i')
+        if icon.length > 0
+          icon.removeClass('fa-times')
+          icon.addClass('fa-check')
+
+  # Reveal the page
+  $('.collection-spinner').hide()
+  $('.collection-wrapper').show()
+
   # Redo the table striping as some items may have shifted during the flight
   restripe = ->
     # Skip restripe for Orchestrion Quick Select
@@ -99,7 +128,6 @@ $(document).on 'turbolinks:load', ->
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('tr').addClass('owned')
       collectable.closest('td').attr('data-value', 1)
-      collectable.closest('td').attr('data-original-title', "#{I18n.t('acquired')} #{moment.utc().format('MMM DD, YYYY')}")
       collectable.closest('td').tooltip('enable')
       collectable.closest('td').next('.comparison').find('.avatar:first').removeClass('faded')
 

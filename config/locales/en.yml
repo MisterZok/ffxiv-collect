@@ -292,6 +292,7 @@ en:
     patreon_button: "Support on Patreon"
   how_to_obtain: "How to obtain"
   item: "Item"
+  javascript_required: "This site requires JavaScript to function properly. Please enable it in your browser settings."
   journal: "Journal"
   latest:
     title: "Latest Patch"
@@ -328,6 +329,7 @@ en:
     issuer: "Issuer"
     level: "Level"
     title: "Levequests"
+  loading: "Loading..."
   locale_name: "English"
   materiel:
     3: "Possible loot from Materiel Container 3.0"

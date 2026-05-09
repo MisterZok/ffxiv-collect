@@ -17,7 +17,7 @@ class TitlesController < ApplicationController
     end
 
     @collection_ids = @character&.achievement_ids || []
-    @comparison_ids = @comparison&.achievement_ids || []
+    @keyed_collection_ids = @collection_ids.map { |id| "achievement-#{id}"}.join(',')
     @dates = @character&.character_achievements&.pluck(:achievement_id, :created_at).to_h || {}
     @owned = {
       count: Redis.current.hgetall('achievements-count'),

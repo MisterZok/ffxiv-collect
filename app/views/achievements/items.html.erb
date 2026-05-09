@@ -2,66 +2,68 @@
 <% description("Automatically track your character's achievement items and discover how to obtain new ones.") %>
 
 <%= render 'shared/filters' %>
-<div class="d-flex justify-content-center">
-  <div class="d-inline-flex flex-column">
-    <div class="d-flex justify-content-between align-items-end mb-1">
-      <div></div>
-      <%= search_form_for(@q, url: achievement_items_path, enforce_utf8: false,
-                          class: 'form form-inline search-form d-flex') do |f| %>
-        <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: t('item'),
-          size: 40, class: 'form-control form-control-sm'%>
-        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-      <% end %>
-      <%= render 'shared/active_filters' %>
-    </div>
-    <%= render 'shared/collection_progress', ids: @achievements.map(&:id) %>
-    <table class="table table-striped table-sm shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
-      <thead>
-        <th scope="col" class="name hide-xs"><%= t('item') %></th>
-        <th scope="col" class="name"><%= t('achievements.one') %></th>
-        <th scope="col" class="name hide-sm"><%= t('category') %></th>
-        <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
-        <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
-        <% if character_selected? %>
-          <th scope="col"></th>
+<%= render 'shared/spinner' %>
+
+<div class="collection-wrapper">
+  <div class="d-flex justify-content-center">
+    <div class="d-inline-flex flex-column">
+      <div class="d-flex justify-content-between align-items-end mb-1">
+        <div></div>
+        <%= search_form_for(@q, url: achievement_items_path, enforce_utf8: false,
+                            class: 'form form-inline search-form d-flex') do |f| %>
+          <%= f.search_field "item_name_#{I18n.locale}_cont", placeholder: t('item'),
+            size: 40, class: 'form-control form-control-sm'%>
+          <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
         <% end %>
-      </thead>
-      <tbody>
-        <% @achievements.each do |achievement| %>
-          <tr class="<%= collectable_classes(achievement) %>">
-            <td class="wide hide-xs">
-              <div class="d-flex align-items-center">
-                <%= achievement_item_sprite(achievement) %>
-                <span class="ml-2 unstyled">
-                  <%= achievement_item_link(achievement) %>
-                </span>
-              </div>
-            </td>
-            <td class="wide">
-              <div class="d-flex align-items-center">
-                <%= link_to(achievement_path(achievement)) do %>
-                  <%= sprite(achievement, 'achievement') %>
-                <% end %>
-                <%= link_to(achievement.name, achievement_path(achievement), class: 'name ml-2') %>
-              </div>
-            </td>
-            <td class="hide-sm"><%= achievement_type_category_link(achievement) %></td>
-            <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
-              <%= rarity(achievement) %>
-            </td>
-            <td class="text-center hide-xs">
-              <%= achievement.patch %>
-            </td>
-            <% if character_selected? %>
-              <% if @comparison.present? %>
-                <%= td_comparison(achievement) %>
-              <% else %>
+        <%= render 'shared/active_filters' %>
+      </div>
+      <%= render 'shared/collection_progress', ids: @achievements.map(&:id) %>
+      <table
+        class="table table-striped table-sm shadow collection sortable"
+        data-character-selected="<%= character_selected? %>"
+        data-collection-ids="<%= @keyed_collection_ids %>"
+      >
+        <thead>
+          <th scope="col" class="name hide-xs"><%= t('item') %></th>
+          <th scope="col" class="name"><%= t('achievements.one') %></th>
+          <th scope="col" class="name hide-sm"><%= t('category') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+          <th scope="col" class="text-center hide-xs"><%= t('patch') %></th>
+          <th scope="col" class="check-ownership"></th><!-- Owned -->
+        </thead>
+        <tbody>
+          <% cache [@achievements, I18n.locale] do %>
+            <% @achievements.each do |achievement| %>
+              <tr class="<%= collectable_classes(achievement) %>">
+                <td class="wide hide-xs">
+                  <div class="d-flex align-items-center">
+                    <%= achievement_item_sprite(achievement) %>
+                    <span class="ml-2 unstyled">
+                      <%= achievement_item_link(achievement) %>
+                    </span>
+                  </div>
+                </td>
+                <td class="wide">
+                  <div class="d-flex align-items-center">
+                    <%= link_to(achievement_path(achievement)) do %>
+                      <%= sprite(achievement, 'achievement') %>
+                    <% end %>
+                    <%= link_to(achievement.name, achievement_path(achievement), class: 'name ml-2') %>
+                  </div>
+                </td>
+                <td class="hide-sm"><%= achievement_type_category_link(achievement) %></td>
+                <td class="text-center hide-xs" data-value="<%= rarity(achievement, numeric: true) %>">
+                  <%= rarity(achievement) %>
+                </td>
+                <td class="text-center hide-xs">
+                  <%= achievement.patch %>
+                </td>
                 <%= td_owned(achievement) %>
-              <% end %>
+              </tr>
             <% end %>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

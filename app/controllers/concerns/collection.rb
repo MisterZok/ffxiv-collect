@@ -38,7 +38,7 @@ module Collection
 
   private
   def set_owned!
-    key = controller_name.downcase
+    key = controller_name
 
     @owned = {
       count: Redis.current.hgetall("#{key}-count"),
@@ -47,9 +47,10 @@ module Collection
   end
 
   def set_ids!
-    id_method = "#{controller_name.singularize}_ids"
-    @collection_ids = @character&.send(id_method) || []
-    @comparison_ids = @comparison&.send(id_method) || []
+    collection = controller_name.singularize
+    @collection_ids = (@character&.send("#{collection}_ids") || [])
+    @keyed_collection_ids = @collection_ids.map { |id| "#{collection}-#{id}"}.join(',')
+    @comparison_ids = @comparison&.send("#{collection}_ids") || []
   end
 
   def set_dates!

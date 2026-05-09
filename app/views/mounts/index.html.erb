@@ -2,65 +2,67 @@
 <% description("Automatically track your character's mounts and discover how to obtain new ones.") %>
 
 <%= render 'shared/filters' %>
-<div class="d-flex justify-content-center">
-  <div class="d-inline-flex flex-column">
-    <div class="d-flex justify-content-between align-items-end mb-1">
-      <div></div>
-      <%= search_form_for(@q, url: mounts_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
-          class: 'form-control form-control-sm flex-grow-1' %>
-        <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
-          { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
-        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-      <% end %>
-      <%= render 'shared/active_filters' %>
-    </div>
-    <%= render 'shared/collection_progress', ids: @mounts.map(&:id) %>
-    <table class="table table-striped table-sm shadow collection sortable<%= ' comparing' if @comparison.present? %>">
-      <thead>
-        <tr>
-          <th scope="col">#</th> <!-- Image -->
-          <th scope="col"><%= t('name') %></th>
-          <th scope="col" class="hide-xs"><%= t('source') %></th>
-          <th scope="col" class="text-center hide-xs"><%= fa_icon('couch') %></th>
-          <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
-          <th scope="col" class="text-center"><%= fa_icon('music') %></th>
-          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
-          <th scope="col" class="text-center"><%= t('patch') %></th>
-          <% if character_selected? %>
-            <th scope="col"></th><!-- Owned -->
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @mounts.each do |mount| %>
-          <tr class="<%= collectable_classes(mount) %>">
-            <td data-value="<%= mount.order_group %><%= mount.order.to_s.rjust(3, '0') %>">
-              <%= link_to(mount_path(mount)) do %>
-                <%= sprite(mount, 'mounts-small') %>
-              <% end %>
-            </td>
-            <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
-            <td class="hide-xs" data-value="<%= source_sort_value(mount) %>"><%= sources(mount) %></td>
-            <td class="text-center no-wrap hide-xs">
-              <% if mount.multi_seated? %>
-                <%= seat_count(mount) %>
-              <% end %>
-            </td>
-            <td class="text-center" data-value="<%= price_sort_value(mount) %>"><%= market_link(mount) %></td>
-            <td class="text-center" data-value="<%= mount.custom_music? ? 1 : 0 %>"><%= custom_music(mount) %></td>
-            <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
-            <td class="text-center" data-value="<%= sort_value(mount) %>"><%= mount.patch %></td>
-            <% if character_selected? %>
-              <% if @comparison.present? %>
-                <%= td_comparison(mount) %>
-              <% else %>
-                <%= td_owned(mount) %>
-              <% end %>
-            <% end %>
-          </tr>
+<%= render 'shared/spinner' %>
+
+<div class="collection-wrapper">
+  <div class="d-flex justify-content-center">
+    <div class="d-inline-flex flex-column">
+      <div class="d-flex justify-content-between align-items-end mb-1">
+        <div></div>
+        <%= search_form_for(@q, url: mounts_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+          <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+            class: 'form-control form-control-sm flex-grow-1' %>
+          <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+            { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+          <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
         <% end %>
-      </tbody>
-    </table>
+        <%= render 'shared/active_filters' %>
+      </div>
+      <%= render 'shared/collection_progress', ids: @mounts.map(&:id) %>
+      <table
+        class="table table-striped table-sm shadow collection sortable"
+        data-character-selected="<%= character_selected? %>"
+        data-collection-ids="<%= @keyed_collection_ids %>"
+      >
+        <thead>
+          <tr>
+            <th scope="col">#</th> <!-- Image -->
+            <th scope="col"><%= t('name') %></th>
+            <th scope="col" class="hide-xs"><%= t('source') %></th>
+            <th scope="col" class="text-center hide-xs"><%= fa_icon('couch') %></th>
+            <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+            <th scope="col" class="text-center"><%= fa_icon('music') %></th>
+            <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+            <th scope="col" class="text-center"><%= t('patch') %></th>
+            <th scope="col" class="check-ownership"></th><!-- Owned -->
+          </tr>
+        </thead>
+        <tbody>
+          <% cache [@mounts, I18n.locale] do %>
+            <% @mounts.each do |mount| %>
+              <tr class="<%= collectable_classes(mount) %>">
+                <td data-value="<%= mount.order_group %><%= mount.order.to_s.rjust(3, '0') %>">
+                  <%= link_to(mount_path(mount)) do %>
+                    <%= sprite(mount, 'mounts-small') %>
+                  <% end %>
+                </td>
+                <td><%= link_to(mount.name, mount_path(mount), class: 'name') %></td>
+                <td class="hide-xs" data-value="<%= source_sort_value(mount) %>"><%= sources(mount) %></td>
+                <td class="text-center no-wrap hide-xs">
+                  <% if mount.multi_seated? %>
+                    <%= seat_count(mount) %>
+                  <% end %>
+                </td>
+                <td class="text-center" data-value="<%= price_sort_value(mount) %>"><%= market_link(mount) %></td>
+                <td class="text-center" data-value="<%= mount.custom_music? ? 1 : 0 %>"><%= custom_music(mount) %></td>
+                <td class="text-center hide-xs" data-value="<%= rarity(mount, numeric: true) %>"><%= rarity(mount) %></td>
+                <td class="text-center" data-value="<%= sort_value(mount) %>"><%= mount.patch %></td>
+                <%= td_owned(mount) %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

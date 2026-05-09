@@ -1,4 +1,4 @@
-<table class="table table-striped table-sm shadow p-3">
+<table class="table table-striped table-sm shadow">
   <thead>
     <tr>
       <th scope="col"></th> <!-- # -->
@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% @rankings.each do |ranking| %>
-      <tr <%= 'class="mine"'.html_safe if @character == ranking[:character] %>>
+      <tr class="<%= 'mine' if @character == ranking[:character] %>">
         <td class="text-center"><%= ranking[:rank] %></td>
         <td><%= image_tag(ranking[:character].avatar, class: 'avatar') %></td>
         <td><%= link_to(ranking[:character].name, character_path(ranking[:character]), class: 'name') %></td>

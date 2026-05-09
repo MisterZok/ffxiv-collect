@@ -292,6 +292,7 @@ de:
     patreon_button: "Unterstütze mich auf Patreon"
   how_to_obtain: "Wodurch erhältlich"
   item: "Objekt"
+  javascript_required: "Diese Website benötigt JavaScript, um ordnungsgemäß zu funktionieren. Bitte aktiviere es in den Browsereinstellungen."
   journal: "Journal"
   latest:
     title: "Neuester Patch"
@@ -328,6 +329,7 @@ de:
     issuer: "Ausgeber"
     level: "Level"
     title: "Freibriefe"
+  loading: "Wird geladen..."
   locale_name: "Deutsch"
   materiel:
     3: "Möglicher Loot aus Sonderziehungstruhe (A Realm Reborn, Heavensward)"

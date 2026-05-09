@@ -1,10 +1,6 @@
 module CollectionsHelper
-  def collectable_classes(collectable, generic: false)
-    if generic
-      "collectable#{' owned' if generic_collectable_owned?(collectable)}#{' tradeable' if collectable.tradeable?}"
-    else
-      "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if collectable.tradeable?}"
-    end
+  def collectable_classes(collectable)
+    "collectable#{' tradeable' if collectable.tradeable?}"
   end
 
   def collectable_name_link(collectable)
@@ -106,6 +102,7 @@ module CollectionsHelper
     end
   end
 
+  # TODO: delete this
   def generic_collectable_owned?(collectable)
     @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
   end
@@ -210,28 +207,15 @@ module CollectionsHelper
   end
 
   def td_owned(collectable)
-    date = @dates&.dig(collectable.id)
-    owned = @collection_ids&.include?(collectable.id) ||
-      (@owned_ids.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id))
+    return unless character_selected?
 
-    if !collectable.class.automatic_collection? && @character.verified_user?(current_user)
-      content_tag(:td, class: 'text-center',
-                  data: { value: owned ? 1 : 0, toggle: 'tooltip', placement: 'right' },
-                  title: ("#{t('acquired')} #{format_date_short(date)}" if date.present?) ) do
-        check_box_tag(nil, nil, owned, class: 'own',
-                      data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
-      end
-    else
-      if owned
-        if date.present?
-          content_tag(:td, fa_icon('check'), class: 'text-center',
-                      data: { value: 1, toggle: 'tooltip', placement: 'right' },
-                      title: "#{t('acquired')} #{format_date_short(date)}")
-        else
-          content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
-        end
+    id = "#{collectable.class.to_s.underscore}-#{collectable.id}"
+
+    content_tag(:td, class: 'text-center check-ownership', data: { id: id, value: 0 }) do
+      if !collectable.class.automatic_collection? && @character.verified_user?(current_user)
+        check_box_tag(collectable.id, nil, class: 'own', data: { path: polymorphic_path(collectable, action: :add) })
       else
-        content_tag(:td, fa_icon('times'), class: 'text-center', data: { value: 0 })
+        fa_icon('times')
       end
     end
   end

@@ -5,7 +5,10 @@ class SearchController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index
-    @types = collectable_types.reject { |type| ['Armoire', 'Outfit'].include?(type[:value]) }
+    @types = collectable_types
+    @hidden_types = cookies[:hidden_types_search]&.split(',')&.map(&:constantize) || []
+    @source_types = SourceType.with_filters(cookies).ordered
+    @models = @types.pluck(:model)
 
     @owned = @types.each_with_object({}) do |type, h|
       key = type[:value].downcase.pluralize
@@ -15,10 +18,6 @@ class SearchController < ApplicationController
         percentage: Redis.current.hgetall(key)
       }
     end
-
-    @hidden_types = cookies[:hidden_types_search]&.split(',')&.map(&:constantize) || []
-    @models = @types.pluck(:model)
-    @source_types = SourceType.with_filters(cookies).ordered
 
     # Collect a distinct set of patches across all models
     @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.uniq
@@ -34,9 +33,12 @@ class SearchController < ApplicationController
     end
 
     if @character.present?
-      @owned_ids = @models.each_with_object({}) do |model, h|
-        h[model.to_s.underscore.pluralize.to_sym] = @character.send("#{model.to_s.underscore}_ids")
+      @collection_ids = @models.flat_map do |model|
+        collection = model.to_s.underscore
+        @character.send("#{collection}_ids").map { |id| "#{collection}-#{id}"}
       end
     end
+
+    @keyed_collection_ids = @collection_ids.join(',')
   end
 end

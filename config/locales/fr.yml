@@ -292,6 +292,7 @@ fr:
     patreon_button: "Soutenez-moi sur Patreon"
   how_to_obtain: "Comment l'obtenir"
   item: "Objet"
+  javascript_required: "Ce site nécessite JavaScript pour fonctionner correctement. Veuillez l'activer dans les paramètres de votre navigateur."
   journal: "Journal"
   latest:
     title: "Dernier patch"
@@ -328,6 +329,7 @@ fr:
     issuer: "Mandant"
     level: "Niveau"
     title: "Mandats"
+  loading: "Chargement..."
   locale_name: "Français"
   materiel:
     3: "Récompense possible de la malle-surprise (ARR/Heavensward)"

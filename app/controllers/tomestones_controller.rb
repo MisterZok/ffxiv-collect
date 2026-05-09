@@ -6,6 +6,7 @@ class TomestonesController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
   def index
+    # TODO: Update custom ID logic for caching
     if @character.present?
       @owned_ids = TomestoneReward.collectables.pluck(:collectable_type).uniq.each_with_object({}) do |type, h|
         h[type.downcase.pluralize.to_sym] =

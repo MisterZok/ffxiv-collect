@@ -4,6 +4,8 @@ class ToolsController < ApplicationController
   before_action -> { check_privacy!(:mounts, :minions, :facewear) }, only: [:market_board, :treasure]
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
+  # TODO: Update custom ID logic for caching
+
   def gemstones
     find_collectables_by_source!(text_en: 'Bicolor Gemstone')
 
