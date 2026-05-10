@@ -23,8 +23,8 @@
       </div>
       <% if character_selected? %>
         <div class="mb-2">
-          <%= render 'shared/progress', value: 0, min: 0, max: @collectables.size %>
-          <%= render 'shared/progress', value: 0, min: 0, max: @collectables.map(&:cost).sum, alt: true,
+          <%= render 'shared/progress', value: 0, min: 0, max: @rewards.size %>
+          <%= render 'shared/progress', value: 0, min: 0, max: @rewards.map(&:cost).sum, alt: true,
             text: 'currency.tomestones.many' %>
         </div>
       <% end %>
@@ -40,8 +40,8 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@collectables, I18n.locale] do %>
-            <% @collectables.each do |reward| %>
+          <% cache [@rewards, I18n.locale] do %>
+            <% @rewards.each do |reward| %>
               <tr class="<%= collectable_classes(reward.collectable) %>" data-value="<%= reward.cost %>">
                 <td><%= collectable_image_link(reward.collectable) %></td>
                 <td class="w-25"><%= collectable_name_link(reward.collectable) %></td>
