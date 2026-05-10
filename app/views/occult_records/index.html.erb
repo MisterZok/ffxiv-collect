@@ -3,6 +3,7 @@
 
 <%= render 'shared/filters' %>
 <%= render 'shared/spinner' %>
+<%= render 'shared/collection_data' %>
 
 <div class="collection-wrapper">
   <div class="d-flex justify-content-center">
@@ -18,11 +19,7 @@
       </div>
       <%= render 'shared/collection_progress', ids: @records.map(&:id) %>
       <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-      <table
-        class="table table-striped shadow collection sortable"
-        data-character-selected="<%= character_selected? %>"
-        data-collection-ids="<%= @keyed_collection_ids %>"
-      >
+      <table class="table table-striped shadow collection sortable">
         <thead>
           <tr>
             <th scope="col">#</th>

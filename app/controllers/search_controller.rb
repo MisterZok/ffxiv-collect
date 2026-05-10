@@ -33,12 +33,10 @@ class SearchController < ApplicationController
     end
 
     if @character.present?
-      @collection_ids = @models.flat_map do |model|
+      @keyed_collection_ids = @models.flat_map do |model|
         collection = model.to_s.underscore
         @character.send("#{collection}_ids").map { |id| "#{collection}-#{id}"}
       end
     end
-
-    @keyed_collection_ids = @collection_ids.join(',')
   end
 end

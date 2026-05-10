@@ -4,29 +4,30 @@ $(document).on 'turbolinks:load', ->
   # Collections
 
   # Update cached table data with dynamic content
-  table = $('table.collection')
+  data = $('#collection-data').data()
 
-  if (!table.data('character-selected'))
+  if (!data.characterSelected)
     # Hide checkbox column if no character is selected
     $('.check-ownership').hide()
   else
-    collection = table.data('collection')
+    owned_ids = new Set(data.collectionIds.split(',').filter(Boolean))
 
     # Mark collectables as owned based on the character's collection IDs
-    for id in table.data('collection-ids').split(',').filter(Boolean)
-      if td = table.find("td[data-id=#{id}]")
-        td.attr('data-value', 1)
-        td.parent().addClass('owned')
+    $('table.collection td[data-id]').each ->
+      return unless owned_ids.has(this.dataset.id)
 
-        checkbox = td.find('input')
-        if checkbox.length > 0
-          checkbox.prop('checked', true)
-          checkbox.data('path', checkbox.data('path').replace('add', 'remove'))
+      td = $(this)
+      td.attr('data-value', 1)
+      td.parent().addClass('owned')
 
-        icon = td.find('i')
-        if icon.length > 0
-          icon.removeClass('fa-times')
-          icon.addClass('fa-check')
+      checkbox = td.find('input')
+      if checkbox.length
+        checkbox.prop('checked', true)
+        checkbox.data('path', checkbox.data('path').replace('add', 'remove'))
+
+      icon = td.find('i')
+      if icon.length
+        icon.removeClass('fa-times').addClass('fa-check')
 
   # Reveal the page
   $('.collection-spinner').hide()

@@ -1,6 +1,9 @@
 <% title("#{@type.name} #{t('achievements.title')}") %>
 <% description("Automatically track your character's achievements and discover how to obtain new ones.") %>
 
+<%= render 'shared/filters' %>
+<%= render 'shared/collection_data' %>
+
 <div class="row">
   <div class="col-12 col-xl-10 offset-xl-1">
     <div class="d-flex flex-wrap align-items-center">
@@ -10,7 +13,6 @@
         <%= fa_icon('expand', text: t('expand')) %>
       </button>
     </div>
-    <%= render 'shared/filters' %>
     <div class="collection<%= ' comparing' if @comparison.present? %> mt-2" id="achievementCategories">
       <% @categories.each do |category| %>
         <div class="card mb-3">
@@ -36,11 +38,7 @@
               <%= render 'shared/spinner' %>
 
               <div class="collection-wrapper">
-                <table
-                  class="table table-striped table-sm collection collection-collapse sortable"
-                  data-character-selected="<%= character_selected? %>"
-                  data-collection-ids="<%= @keyed_collection_ids %>"
-                >
+                <table class="table table-striped table-sm collection collection-collapse sortable">
                   <thead>
                     <tr>
                       <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->

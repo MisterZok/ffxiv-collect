@@ -3,6 +3,7 @@
 
 <%= render 'shared/filters' %>
 <%= render 'shared/spinner' %>
+<%= render 'shared/collection_data' %>
 
 <div class="collection-wrapper">
   <h2 class="tomestones text-center mb-3"><%= @title %></h2>
@@ -27,11 +28,7 @@
             text: 'currency.tomestones.many' %>
         </div>
       <% end %>
-      <table
-        class="table table-striped table-sm shadow collection sortable"
-        data-character-selected="<%= character_selected? %>"
-        data-collection-ids="<%= @keyed_collection_ids %>"
-      >
+      <table class="table table-striped table-sm shadow collection sortable">
         <thead>
           <tr>
             <th scope="col" data-defaultsort="disabled"></th> <!-- Image -->

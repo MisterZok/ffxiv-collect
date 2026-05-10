@@ -2,6 +2,7 @@
 <% description("Track your character's progress by Materiel Container.") %>
 
 <%= render 'shared/spinner' %>
+<%= render 'shared/collection_data' %>
 
 <div class="collection-wrapper">
   <% if character_selected? %>
@@ -29,11 +30,7 @@
                   min: 0, max: collectables[:minions].length, text: 'minions.title', alt: true %>
               </div>
             <% end %>
-            <table
-              class="table table-striped table-sm shadow collection fill sortable materiel"
-              data-character-selected="<%= character_selected? %>"
-              data-collection-ids="<%= @keyed_collection_ids %>"
-            >
+            <table class="table table-striped table-sm shadow collection fill sortable materiel">
               <thead>
                 <tr>
                   <th scope="col">#</th> <!-- Image -->
