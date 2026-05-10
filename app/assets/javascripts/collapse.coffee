@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('.collapse').length > 0
+  return unless $('.collapse').length
 
   if id = $(location).attr('hash')
     anchor = id.replace('#', '#collapse-')

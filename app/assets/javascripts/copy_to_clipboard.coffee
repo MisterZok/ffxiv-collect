@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  if $('.isearch').length > 0
+  if $('.isearch').length
     clipboard = new Clipboard('.isearch')
     clipboard.on 'success', (e) ->
       $(e.trigger).tooltip('show').attr('data-original-title', I18n.t('copy.isearch')).tooltip('show')
@@ -7,7 +7,7 @@ $(document).on 'turbolinks:load', ->
         $(e.trigger).tooltip('dispose')
       , 2000
 
-  if $('.copy-name').length > 0
+  if $('.copy-name').length
     clipboard = new Clipboard('.copy-name')
     clipboard.on 'success', (e) ->
       $(e.trigger).tooltip('show').attr('data-original-title', I18n.t('copy.name')).tooltip('show')

@@ -1,5 +1,5 @@
 $(document).on 'turbolinks:load', ->
-  return unless $('.collection').length > 0 || $('#filters').length > 0
+  return unless $('.collection').length || $('#filters').length
 
   # Collections
 
@@ -35,7 +35,7 @@ $(document).on 'turbolinks:load', ->
   # Redo the table striping as some items may have shifted during the flight
   restripe = ->
     # Skip restripe for Orchestrion Quick Select
-    return if $('.quick-select').length > 0 || $('.npcs').length > 0
+    return if $('.quick-select').length || $('.npcs').length
 
     $('.collectable:not(.hidden)').show()
 
@@ -52,7 +52,7 @@ $(document).on 'turbolinks:load', ->
       $('.collection').removeClass('only-owned')
 
     # Only show/hide tradeables if the filter is available
-    if $('#tradeable').length > 0
+    if $('#tradeable').length
       if Cookies.get('tradeable') == 'tradeable'
         $('.collectable:not(.tradeable)').hide()
       else if Cookies.get('tradeable') == 'untradeable'
@@ -62,7 +62,7 @@ $(document).on 'turbolinks:load', ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
     # Update the collection progress bar based on visible collectables, with the exception of special pages
-    unless $('.materiel').length > 0
+    unless $('.materiel').length
       progress_bar = $('.progress:first .progress-bar')
       progress_label = $('.progress:first .progress-label')
       current = $('.owned:not(.hidden)').length
@@ -245,13 +245,13 @@ $(document).on 'turbolinks:load', ->
     unknown = $(@).find('#unknown')
     gender = $(@).find('#gender')
 
-    refresh = (premium.length > 0 && Cookies.get('premium') != checkboxValue(premium)) ||
-      (limited.length > 0 && Cookies.get('limited') != checkboxValue(limited)) ||
-      (ranked_pvp.length > 0 && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
-      (armoire.length > 0 && Cookies.get('armoire') != checkboxValue(armoire)) ||
-      (outfit.length > 0 && Cookies.get('outfit') != checkboxValue(outfit)) ||
-      (unknown.length > 0 && Cookies.get('unknown') != checkboxValue(unknown)) ||
-      (gender.length > 0 && Cookies.get('gender') != gender.val())
+    refresh = (premium.length && Cookies.get('premium') != checkboxValue(premium)) ||
+      (limited.length && Cookies.get('limited') != checkboxValue(limited)) ||
+      (ranked_pvp.length && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
+      (armoire.length && Cookies.get('armoire') != checkboxValue(armoire)) ||
+      (outfit.length && Cookies.get('outfit') != checkboxValue(outfit)) ||
+      (unknown.length && Cookies.get('unknown') != checkboxValue(unknown)) ||
+      (gender.length && Cookies.get('gender') != gender.val())
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300, sameSite: 'Lax' })
