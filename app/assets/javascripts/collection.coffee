@@ -9,6 +9,7 @@ $(document).on 'turbolinks:load', ->
   if (!data.characterSelected)
     # Hide checkbox column if no character is selected
     $('.check-ownership').hide()
+    $('.card-toggle').removeClass('card-toggle')
   else
     owned_ids = new Set(data.collectionIds.split(',').filter(Boolean))
 
@@ -20,14 +21,25 @@ $(document).on 'turbolinks:load', ->
       td.attr('data-value', 1)
       td.parent().addClass('owned')
 
+      # Manual collection checkbox
       checkbox = td.find('input')
       if checkbox.length
         checkbox.prop('checked', true)
         checkbox.data('path', checkbox.data('path').replace('add', 'remove'))
 
+      # Automatic collection icon
       icon = td.find('i')
       if icon.length
         icon.removeClass('fa-times').addClass('fa-check')
+
+    # Triple Triad card rewards on NPCs page
+    $('.card-toggle').each ->
+      return unless owned_ids.has(this.dataset.id)
+
+      card = $(this)
+      card.addClass('owned')
+      card.data('path', card.data('path').replace('add', 'remove'))
+
 
   # Reveal the page
   $('.collection-spinner').hide()

@@ -25,6 +25,9 @@ class Triad::NPCsController < ApplicationController
       @card_ids = []
       @incomplete = []
     end
+
+    # Add card IDs to handle ownership of card rewards
+    @keyed_collection_ids += @card_ids.map { |id| "card-#{id}"}
   end
 
   def show
