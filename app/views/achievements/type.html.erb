@@ -13,7 +13,7 @@
         <%= fa_icon('expand', text: t('expand')) %>
       </button>
     </div>
-    <div class="collection<%= ' comparing' if @comparison.present? %> mt-2" id="achievementCategories">
+    <div class="collection mt-2" id="achievementCategories">
       <% @categories.each do |category| %>
         <div class="card mb-3">
           <%= link_to "#collapse-#{category.id}", data: { toggle: 'collapse' }, class: 'unstyled' do %>
