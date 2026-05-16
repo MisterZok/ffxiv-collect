@@ -26,22 +26,6 @@
         </div>
         <%= last_updated(@character) %>
       </div>
-      <% if @comparison.present? %>
-        <hr class="my-2">
-        <div class="d-flex align-items-center menu-character mx-3">
-          <%= image_tag(@comparison.avatar, class: 'avatar mr-2') %>
-          <div class="d-flex flex-column flex-grow-1">
-            <div class="d-flex justify-content-between">
-              <b><%= @comparison.name %></b>
-              <%= link_to fa_icon('times', class: 'delete'), forget_character_comparison_path, method: :delete %>
-            </div>
-            <span>
-              <%= @comparison.server %>
-              <span class="badge badge-pill badge-secondary"><%= t('characters.comparing') %></span>
-            </span>
-          </div>
-        </div>
-      <% end %>
       <hr class="my-2">
       <%= link_to fa_icon('user', text: t('characters.character_profile')), character_path(@character), class: 'dropdown-item' %>
       <%= link_to fa_icon('chart-bar', text: t('characters.stats')), stats_rarity_character_path(@character),

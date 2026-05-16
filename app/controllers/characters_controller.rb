@@ -1,8 +1,8 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :set_search, only: [:search, :search_lodestone]
-  before_action :set_selected, only: [:search_lodestone_id, :view, :select, :compare]
-  after_action  :save_selected, only: [:select, :compare]
+  before_action :set_selected, only: [:search_lodestone_id, :view, :select]
+  after_action  :save_selected, only: [:select]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity, :verify, :validate]
   before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
   before_action :set_verification_code, only: [:verify, :validate]
@@ -143,12 +143,6 @@ class CharactersController < ApplicationController
     redirect_to character_path(@selected)
   end
 
-  def compare
-    set_permanent_cookie(:comparison, params[:id])
-    flash[:success] = t('alerts.comparison_set') unless flash[:notice].present?
-    redirect_to character_path(@selected)
-  end
-
   def forget
     if user_signed_in?
       current_user.update(character_id: nil)
@@ -158,11 +152,6 @@ class CharactersController < ApplicationController
 
     flash[:success] = t('alerts.no_longer_tracking')
     redirect_to root_path
-  end
-
-  def forget_comparison
-    cookies.delete(:comparison)
-    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -260,9 +249,6 @@ class CharactersController < ApplicationController
       redirect_back(fallback_location: root_path)
     elsif @selected.private?(current_user)
       render_private_character_flash!(@selected)
-      redirect_back(fallback_location: root_path)
-    elsif action_name == 'compare' && @selected == @character
-      flash[:alert] = t('alerts.comparison_is_you')
       redirect_back(fallback_location: root_path)
     end
   end

@@ -73,6 +73,7 @@ class ApplicationController < ActionController::Base
   def set_characters
     if user_signed_in?
       @character = current_user.character
+
       if @character&.private?(current_user)
         current_user.update(character_id: nil)
         flash[:error] = t('alerts.character_set_to_private')
@@ -80,6 +81,7 @@ class ApplicationController < ActionController::Base
       end
     elsif cookies[:character].present?
       @character = Character.find_by(id: cookies[:character])
+
       if @character&.private?
         cookies[:character] = nil
         flash[:error] = t('alerts.character_set_to_private')
@@ -87,23 +89,8 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if cookies[:comparison].present?
-      unless @character.present?
-        cookies[:comparison] = nil
-      end
-
-      @comparison = Character.find_by(id: cookies[:comparison])
-      if @comparison&.private?(current_user)
-        cookies[:comparison] = nil
-        flash[:error] = t('alerts.comparison_set_to_private')
-        return redirect_to root_path
-      end
-    end
-
-    [@character, @comparison].each do |character|
-      if character&.syncable?
-        character.sync
-      end
+    if @character&.syncable?
+      @character.sync
     end
   end
 

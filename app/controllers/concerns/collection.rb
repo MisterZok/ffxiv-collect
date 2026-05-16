@@ -50,7 +50,6 @@ module Collection
     collection = controller_name.singularize
     @collection_ids = @character&.send("#{collection}_ids") || []
     @keyed_collection_ids = @collection_ids.map { |id| "#{collection}-#{id}"}
-    @comparison_ids = @comparison&.send("#{collection}_ids") || []
   end
 
   def set_dates!

@@ -27,10 +27,6 @@
           <% end %>
           <%= link_to fa_icon('user', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
-          <% if @character.present? %>
-            <%= link_to fa_icon('retweet', text: t('compare')), compare_character_path(character[:id]),
-              method: :post, class: 'btn btn-sm btn-success' %>
-          <% end %>
           <% if user_signed_in? && !@search.present? %>
             <%= link_to fa_icon('times', text: t('forget')), character_path(character),
               method: :delete, class: 'btn btn-sm btn-danger' %>

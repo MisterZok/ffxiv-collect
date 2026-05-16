@@ -28,12 +28,7 @@
                   <th scope="col" class="pr-3"><%= t('type') %></th>
                   <th scope="col"><%= t('records.rarity') %></th>
                   <th scope="col" class="text-center"><%= t('cards.stats') %></th>
-                  <% if character_selected? %>
-                    <th scope="col"></th> <!-- Owned -->
-                  <% end %>
-                  <% if @comparison.present? %>
-                    <th scope="col"></th> <!-- Comparison -->
-                  <% end %>
+                  <th scope="col" class="check-ownership"></th><!-- Owned -->
                 </tr>
               </thead>
               <tbody>

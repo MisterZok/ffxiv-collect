@@ -136,13 +136,11 @@ $(document).on 'turbolinks:load', ->
       collectable.closest('td').attr('data-value', 0)
       collectable.closest('td').tooltip('disable')
       collectable.closest('td').tooltip('dispose')
-      collectable.closest('td').next('.comparison').find('.avatar:first').addClass('faded')
     else
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('tr').addClass('owned')
       collectable.closest('td').attr('data-value', 1)
       collectable.closest('td').tooltip('enable')
-      collectable.closest('td').next('.comparison').find('.avatar:first').removeClass('faded')
 
     collectable.data('path', path)
     restripe()
