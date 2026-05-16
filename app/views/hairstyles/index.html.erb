@@ -37,7 +37,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache do @hairstyles %>
+          <% cache [@hairstyles.cache_key_with_version, I18n.locale] do %>
             <% @hairstyles.each do |hairstyle| %>
               <tr class="<%= collectable_classes(hairstyle) %>">
                 <td data-value="<%= hairstyle.id %>">

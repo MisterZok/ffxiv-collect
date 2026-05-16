@@ -56,7 +56,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@collectables.cache_key_with_version, I18n.locale] do %>
+          <% cache [@collectables, I18n.locale] do %>
             <% @collectables.each do |collectable| %>
               <tr class="<%= collectable_classes(collectable) %><%= ' hidden' if @hidden_types.include?(collectable.class) %>" data-type="<%= collectable.class %>">
                 <td><%= collectable_image_link(collectable) %></td>

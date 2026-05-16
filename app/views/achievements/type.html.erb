@@ -52,7 +52,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <% cache [@achievements.cache_key_with_version, I18n.locale] do %>
+                    <% cache [@achievements, I18n.locale] do %>
                       <% @achievements[category.id].each do |achievement| %>
                         <tr class="<%= collectable_classes(achievement) %>">
                           <td>

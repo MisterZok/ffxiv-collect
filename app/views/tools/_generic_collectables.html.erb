@@ -31,7 +31,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@collectables.cache_key_with_version, I18n.locale] do %>
+          <% cache [@collectables, I18n.locale] do %>
             <% @collectables.values.flatten.sort_by(&:patch).reverse.each do |collectable| %>
               <tr class="<%= collectable_classes(collectable) %>"
                 data-value="<%= generic_collectable_value(collectable) %>">
