@@ -2,7 +2,7 @@ class BattlePassController < ApplicationController
   include PrivateCollection
 
   before_action -> { check_privacy!(:achievements) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
+  skip_before_action :set_owned!, :set_ids!, :set_prices!
 
   def index
     if @character.present?

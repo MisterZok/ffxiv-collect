@@ -4,7 +4,6 @@ module Collection
   included do
     before_action :set_owned!, only: [:index, :type]
     before_action :set_ids!, on: :index
-    before_action :set_dates!, on: :index
     before_action :set_prices!, on: :index
   end
 
@@ -50,11 +49,6 @@ module Collection
     collection = controller_name.singularize
     @collection_ids = @character&.send("#{collection}_ids") || []
     @keyed_collection_ids = @collection_ids.map { |id| "#{collection}-#{id}"}
-  end
-
-  def set_dates!
-    @dates = @character&.send("character_#{controller_name}")
-      &.pluck("#{controller_name.singularize}_id", :created_at).to_h || {}
   end
 
   def set_prices!

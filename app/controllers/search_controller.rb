@@ -2,7 +2,7 @@ class SearchController < ApplicationController
   include PrivateCollection
   include Typeable
   before_action -> { check_privacy!(:mounts, :minions, :facewear) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  skip_before_action :set_owned!, :set_ids!
 
   def index
     @types = collectable_types

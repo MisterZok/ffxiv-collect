@@ -3,7 +3,7 @@ class TomestonesController < ApplicationController
   include TomestonesHelper
 
   before_action -> { check_privacy!(:mounts, :minions) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  skip_before_action :set_owned!, :set_ids!
 
   def index
     @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%')

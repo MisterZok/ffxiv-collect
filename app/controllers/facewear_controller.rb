@@ -1,7 +1,6 @@
 class FacewearController < ApplicationController
   include PrivateCollection
   before_action -> { check_privacy!(:facewear) }
-  skip_before_action :set_dates!
 
   def index
     @q = Facewear.ransack(params[:q])
