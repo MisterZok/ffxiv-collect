@@ -47,10 +47,10 @@ namespace :sources do
   task update: :environment do
     Rake::Task['sources:achievements:update'].invoke
     Rake::Task['sources:crafting:update'].invoke
-    Rake::Task['sources:orchestrions:update'].invoke
     Rake::Task['sources:pvp:update'].invoke
     Rake::Task['sources:quests:update'].invoke
     Rake::Task['sources:shops:update'].invoke
+    Rake::Task['sources:orchestrions:update'].invoke
     Rake::Task['sources:triad:update'].invoke
   end
 end
