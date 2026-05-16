@@ -11,7 +11,7 @@ module Typeable
       dashboard ? { model: Spell, label: I18n.t('spells.title'), value: 'Spell' } : nil,
       { model: Frame, label: I18n.t('frames.title'), value: 'Frame' },
       { model: Barding, label: I18n.t('bardings.title'), value: 'Barding' },
-      { model: Fashion, label: I18n.t('fashions.title'), value: 'Fashion' },
+      { model: Fashion, label: I18n.t('fashions.title_short'), value: 'Fashion' },
       { model: Facewear, label: I18n.t('facewear.title'), value: 'Facewear' },
       { model: Outfit, label: I18n.t('outfits.title'), value: 'Outfit' },
       { model: Armoire, label: I18n.t('armoires.title'), value: 'Armoire' },
