@@ -6,11 +6,7 @@ $(document).on 'turbolinks:load', ->
   # Update cached table data with dynamic content
   data = $('#collection-data').data()
 
-  if (!data.characterSelected)
-    # Hide checkbox column if no character is selected
-    $('.check-ownership').hide()
-    $('.card-toggle').removeClass('card-toggle')
-  else
+  if data?.characterSelected
     owned_ids = new Set(data.collectionIds.split(',').filter(Boolean))
 
     # Mark collectables as owned based on the character's collection IDs
@@ -39,6 +35,11 @@ $(document).on 'turbolinks:load', ->
       card = $(this)
       card.addClass('owned')
       card.data('path', card.data('path').replace('add', 'remove'))
+
+  if !data?.characterSelected
+    # Hide checkbox column if no character is selected
+    $('.check-ownership').hide()
+    $('.card-toggle').removeClass('card-toggle')
 
 
   # Reveal the page
