@@ -46,6 +46,7 @@ namespace :sources do
   desc 'Set automated collectable sources'
   task update: :environment do
     Rake::Task['sources:achievements:update'].invoke
+    Rake::Task['sources:armoires:update'].invoke
     Rake::Task['sources:crafting:update'].invoke
     Rake::Task['sources:pvp:update'].invoke
     Rake::Task['sources:quests:update'].invoke

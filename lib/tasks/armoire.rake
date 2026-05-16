@@ -33,9 +33,6 @@ namespace :armoires do
     end
 
     count = Armoire.count
-    ACHIEVEMENT_TYPE = SourceType.find_by(name_en: 'Achievement').freeze
-    PREMIUM_TYPE = SourceType.find_by(name_en: 'Premium').freeze
-    PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id)
 
     XIVData.sheet('Cabinet').map do |armoire|
       next if armoire['Order'] == '0'
@@ -63,21 +60,6 @@ namespace :armoires do
         existing.update!(data) if updated?(existing, data)
       else
         created = Armoire.create!(data)
-
-        # Automatically create Achievement sources for new Armoire items
-        if achievement = Achievement.find_by(item_id: armoire['Item'])
-          texts = %w(en de fr ja tc).each_with_object({}) do |locale, h|
-            h["text_#{locale}"] = achievement["name_#{locale}"]
-          end
-
-          created.sources.create!(**texts, type: ACHIEVEMENT_TYPE, related_type: 'Achievement', related_id: achievement.id)
-        elsif PREMIUM_CATEGORIES.include?(armoire['Category'].to_i)
-          texts = %w(en de fr ja tc).each_with_object({}) do |locale, h|
-            h["text_#{locale}"] = I18n.t('sources.online_store', locale: locale)
-          end
-
-          created.sources.create!(**texts, type: PREMIUM_TYPE, premium: true)
-        end
       end
     end
 
