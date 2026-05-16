@@ -6,7 +6,7 @@ class SearchController < ApplicationController
 
   def index
     @types = collectable_types
-    @hidden_types = cookies[:hidden_types_search]&.split(',')&.map(&:constantize) || []
+    @hidden_types = cookies[:hidden_types]&.split(',')&.map(&:constantize) || []
     @source_types = SourceType.with_filters(cookies).ordered
     @models = @types.pluck(:model)
 

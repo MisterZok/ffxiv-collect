@@ -49,6 +49,11 @@ $ ->
     $('.check-ownership').hide()
     $('.card-toggle').removeClass('card-toggle')
 
+  # Hide collectables of the specified types
+  hidden_types = Cookies.get('hidden_types')?.split(',') || []
+  for type in hidden_types
+    $("tr[data-type='#{type}']").addClass('hidden')
+
 
   # Reveal the page
   $('.collection-spinner').hide()
@@ -232,8 +237,6 @@ $ ->
   # Type Buttons
 
   types = $('.type-buttons button:not("#reset")')
-  page_path = window.location.pathname.replaceAll('/', '_')
-  hidden_types_key = "hidden_types#{page_path}"
 
   types.click ->
     $(@).toggleClass('active')
@@ -243,12 +246,12 @@ $ ->
     restripe()
     hidden_types = $('.type-buttons button:not(".active")').map ->
       $(@).data('value')
-    Cookies.set(hidden_types_key, hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
+    Cookies.set('hidden_types', hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
 
   $('.type-buttons button#reset').click ->
     $('.type-buttons button').addClass('active')
     $('.collectable').removeClass('hidden')
-    Cookies.remove(hidden_types_key)
+    Cookies.remove('hidden_types')
     restripe()
 
   # Filters
