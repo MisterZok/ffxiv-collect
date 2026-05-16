@@ -202,15 +202,13 @@ module CollectionsHelper
   end
 
   def td_owned(collectable)
-    return unless character_selected?
-
     id = "#{collectable.class.to_s.underscore}-#{collectable.id}"
 
     content_tag(:td, class: 'text-center check-ownership', data: { id: id, value: 0 }) do
-      if !collectable.class.automatic_collection? && @character.verified_user?(current_user)
-        check_box_tag(collectable.id, nil, class: 'own', data: { path: polymorphic_path(collectable, action: :add) })
-      else
+      if collectable.class.automatic_collection?
         fa_icon('times')
+      else
+        check_box_tag(collectable.id, nil, class: 'own', data: { path: polymorphic_path(collectable, action: :add) })
       end
     end
   end

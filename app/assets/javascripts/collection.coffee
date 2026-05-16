@@ -18,7 +18,7 @@ $ ->
       td.parent().addClass('owned')
 
       # Manual collection checkbox
-      checkbox = td.find('input')
+      checkbox = td.find('input[type="checkbox"]')
       if checkbox.length
         checkbox.prop('checked', true)
         checkbox.data('path', checkbox.data('path').replace('add', 'remove'))
@@ -35,6 +35,14 @@ $ ->
       card = $(this)
       card.addClass('owned')
       card.data('path', card.data('path').replace('add', 'remove'))
+
+    if !data?.characterVerified
+      # Replace manual checkboxes with icons if the selected character is not verified
+      $('table.collection input:checked').replaceWith('<i class="fas fa-check"></i>')
+      $('table.collection input:not(:checked)').replaceWith('<i class="fas fa-times"></i>')
+
+      # And disable card toggling
+      $('.card-toggle').removeClass('card-toggle')
 
   if !data?.characterSelected
     # Hide checkbox column if no character is selected
