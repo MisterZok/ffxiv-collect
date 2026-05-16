@@ -32,9 +32,9 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@items, I18n.locale] do %>
+          <% cache [@items, @prices, I18n.locale] do %>
             <% @items.each do |item| %>
-              <tr class="<%= market_board_collectable_classes(item.unlock) %>">
+              <tr class="collectable tradeable">
                 <td><%= collectable_image_link(item.unlock) %></td>
                 <td class="orchestrion-name"><%= collectable_name_link(item.unlock) %></td>
                 <td class="orchestrion-source hide-xs" data-value="<%= source_sort_value(item.unlock) %>">

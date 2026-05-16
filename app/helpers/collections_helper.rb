@@ -102,11 +102,6 @@ module CollectionsHelper
     end
   end
 
-  # TODO: delete this
-  def generic_collectable_owned?(collectable)
-    @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
-  end
-
   def collectable_type(collectable)
     collectable.class.to_s.downcase.pluralize.to_sym
   end

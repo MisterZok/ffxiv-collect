@@ -4,8 +4,6 @@ class ToolsController < ApplicationController
   before_action -> { check_privacy!(:mounts, :minions, :facewear) }, only: [:market_board, :treasure]
   skip_before_action :set_owned!, :set_ids!, :set_dates!
 
-  # TODO: Update custom ID logic for caching
-
   def gemstones
     find_collectables_by_source!(text_en: 'Bicolor Gemstone')
 
@@ -53,6 +51,8 @@ class ToolsController < ApplicationController
       @owned_ids = Item.collectable.tradeable.pluck(:unlock_type).uniq.each_with_object({}) do |type, h|
         h[type.downcase.pluralize.to_sym] = @character.send("#{type.downcase}_ids")
       end
+
+      set_keyed_collection_ids(@owned_ids)
     end
   end
 
@@ -69,6 +69,8 @@ class ToolsController < ApplicationController
         mounts: @character.mount_ids,
         minions: @character.minion_ids
       }
+
+      set_keyed_collection_ids(@owned_ids)
     end
   end
 
@@ -96,6 +98,16 @@ class ToolsController < ApplicationController
       @owned_ids = @collectables.keys.each_with_object({}) do |type, h|
         h[type] = @character.send("#{type.to_s.singularize}_ids")
       end
+
+      set_keyed_collection_ids(@owned_ids)
+    end
+  end
+
+  def set_keyed_collection_ids(owned_ids)
+    @keyed_collection_ids = owned_ids.flat_map do |type, ids|
+      collection = type.to_s.singularize
+
+      ids.map { |id| "#{collection}-#{id}"}
     end
   end
 
