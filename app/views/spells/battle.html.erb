@@ -48,7 +48,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@spells, I18n.locale] do %>
+          <% cache [@spells.cache_key_with_version, I18n.locale] do %>
             <% @spells.each do |spell| %>
               <tr class="collectable no-fade<%= ' owned' if owned?(spell.id) %>">
                 <td class="number"><%= t('spells.number') %> <%= spell.order %></td>

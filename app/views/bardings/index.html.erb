@@ -34,7 +34,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@bardings, I18n.locale] do %>
+          <% cache [@bardings.cache_key_with_version, I18n.locale] do %>
             <% @bardings.each do |barding| %>
               <tr class="<%= collectable_classes(barding) %>">
                 <td data-value="<%= barding.order %>">

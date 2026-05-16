@@ -50,7 +50,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@cards, I18n.locale] do %>
+          <% cache [@cards.cache_key_with_version, I18n.locale] do %>
             <%= render 'table_data', cards: @cards %>
           <% end %>
         </tbody>

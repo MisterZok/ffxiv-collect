@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@frames, I18n.locale] do %>
+          <% cache [@frames.cache_key_with_version, I18n.locale] do %>
             <% @frames.each do |frame| %>
               <tr class="<%= collectable_classes(frame) %>">
                 <td data-value="<%= frame.order %>">

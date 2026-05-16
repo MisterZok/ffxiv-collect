@@ -32,7 +32,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@items, @prices, I18n.locale] do %>
+          <% cache [@items.cache_key_with_version, @prices, I18n.locale] do %>
             <% @items.each do |item| %>
               <tr class="collectable tradeable">
                 <td><%= collectable_image_link(item.unlock) %></td>

@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@facewears, I18n.locale] do %>
+          <% cache [@facewears.cache_key_with_version, I18n.locale] do %>
             <% @facewears.each do |facewear| %>
               <tr class="<%= collectable_classes(facewear) %>">
                 <td data-value="<%= facewear.order %>">

@@ -36,7 +36,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@outifts, I18n.locale] do %>
+          <% cache [@outfits.cache_key_with_version, I18n.locale] do %>
             <% @outfits.each do |outfit| %>
               <tr class="<%= collectable_classes(outfit) %>">
                 <td data-value="<%= outfit.id %>">

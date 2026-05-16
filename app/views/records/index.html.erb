@@ -33,7 +33,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@records, I18n.locale] do %>
+          <% cache [@records.cache_key_with_version, I18n.locale] do %>
             <% @records.each do |record| %>
               <tr class="<%= collectable_classes(record) %>">
                 <td class="record-icon">

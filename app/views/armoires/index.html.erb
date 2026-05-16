@@ -42,7 +42,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@armoires, I18n.locale] do %>
+          <% cache [@armoires.cache_key_with_version, I18n.locale] do %>
             <% @armoires.each do |armoire| %>
               <tr class="<%= category_row_classes(armoire, @category) %>">
                 <td data-value="<%= armoire.order_group %><%= armoire.order.to_s.rjust(3, '0') %>">
