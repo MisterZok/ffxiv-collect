@@ -44,6 +44,9 @@ namespace :items do
       end
     end
 
+    # Override the FR translations of 'MGP' to make it shorter
+    Item.find_by(name_en: 'MGP').update(name_fr: 'PGS', plural_fr: 'PGS')
+
     puts "Created #{Item.count - count} new items"
   end
 
