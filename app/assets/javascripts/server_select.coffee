@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   if $('#server').length
     # Dynamically update server selection based on the selected data center
     filterServers = (data_center) ->

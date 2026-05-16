@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.npcs').length
 
   restripe = ->

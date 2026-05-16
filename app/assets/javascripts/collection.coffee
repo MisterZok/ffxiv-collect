@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.collection').length || $('#filters').length
 
   # Collections

@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('#deck').length
 
   updateView = (source) ->

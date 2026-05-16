@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.crafting-list').length
 
   # Toggles the visibility of item-related elements depending on the selected category

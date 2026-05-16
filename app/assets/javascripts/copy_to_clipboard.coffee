@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   if $('.isearch').length
     clipboard = new Clipboard('.isearch')
     clipboard.on 'success', (e) ->

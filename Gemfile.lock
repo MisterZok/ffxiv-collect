@@ -434,9 +434,6 @@ GEM
     traco (6.0.0)
       activerecord (>= 4.2)
     tsort (0.2.0)
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.1)
@@ -530,7 +527,6 @@ DEPENDENCIES
   sprite-factory!
   sprockets-rails
   traco
-  turbolinks (~> 5)
   uglifier (>= 3.0.0)
   web-console
   websocket-extensions (>= 0.1.5)

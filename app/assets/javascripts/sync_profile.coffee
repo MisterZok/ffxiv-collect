@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.sync-profile').length
 
   # Disable refresh on click to avoid multiple submissions

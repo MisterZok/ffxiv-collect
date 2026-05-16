@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('#deck_search').length
 
   $('#q_rule_id_eq').change ->

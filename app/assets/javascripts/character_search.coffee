@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   filterServers = (data_center) ->
     $('#server option').show()
 

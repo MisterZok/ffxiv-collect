@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.collapse').length
 
   if id = $(location).attr('hash')

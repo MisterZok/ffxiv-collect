@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.armors').length
 
   buttons = $('.category-buttons button')

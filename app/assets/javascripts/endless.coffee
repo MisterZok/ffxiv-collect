@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.endless-check').length
 
   max_visible = $('tr.collectable:visible').length

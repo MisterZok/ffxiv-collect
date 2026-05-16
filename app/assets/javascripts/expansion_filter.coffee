@@ -1,4 +1,4 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   return unless $('.expansion-filter').length
 
   # When an expansion checkbox is changed
