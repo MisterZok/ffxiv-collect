@@ -608,3 +608,15 @@ img.fit {
 .collection-wrapper {
   display: none;
 }
+
+.collection-spinner {
+  opacity: 0;
+  // Display the spinner after a delay so we do not show it on quick pages
+  animation: show 0s linear 100ms forwards;
+}
+
+@keyframes show {
+  to {
+    opacity: 1;
+  }
+}
