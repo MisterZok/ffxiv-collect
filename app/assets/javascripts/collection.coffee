@@ -28,13 +28,27 @@ $ ->
       if icon.length
         icon.removeClass('fa-times').addClass('fa-check')
 
-    # Triple Triad card rewards on NPCs page
+    # Triple Triad
+
+    ## Card rewards
     $('.card-toggle').each ->
       return unless owned_ids.has(this.dataset.id)
 
       card = $(this)
       card.addClass('owned')
       card.data('path', card.data('path').replace('add', 'remove'))
+
+    ## NPCs
+    $('.npc-row').each ->
+      npc = $(this)
+
+      if npc.find('input[type="checkbox"]').prop('checked')
+        npc.addClass('defeated')
+
+      # cardList.find('.owned').length == cardList.children().length
+      card_list = npc.find('.card-list')
+      if card_list.children().length == card_list.children('.owned').length
+        npc.addClass('completed')
 
     if !data?.characterVerified
       # Replace manual checkboxes with icons if the selected character is not verified
