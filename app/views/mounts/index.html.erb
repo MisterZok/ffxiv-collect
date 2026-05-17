@@ -35,7 +35,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@mounts.cache_key_with_version, I18n.locale] do %>
+          <% cache [@mounts.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @mounts.each do |mount| %>
               <tr class="<%= collectable_classes(mount) %>">
                 <td data-value="<%= mount.order_group %><%= mount.order.to_s.rjust(3, '0') %>">

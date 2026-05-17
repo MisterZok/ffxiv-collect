@@ -40,7 +40,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@rewards.cache_key_with_version, I18n.locale] do %>
+          <% cache [@rewards.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @rewards.each do |reward| %>
               <tr class="<%= collectable_classes(reward.collectable) %>" data-value="<%= reward.cost %>">
                 <td><%= collectable_image_link(reward.collectable) %></td>
@@ -73,7 +73,7 @@
             </tr>
           </thead>
           <tbody>
-            <% cache [@items.cache_key_with_version, I18n.locale] do %>
+            <% cache [@items.cache_key_with_version, @price_cache_key, I18n.locale] do %>
               <% @items.each do |reward| %>
                 <tr>
                   <td><%= image_tag("items/#{reward.collectable.icon_id}.png") %></td>

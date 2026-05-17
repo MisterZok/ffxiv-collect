@@ -52,11 +52,14 @@ module Collection
   end
 
   def set_prices!
-    data_center = @character&.pricing_data_center || @character&.data_center || 'primal'
-    data_center.downcase!
+    data_center = @character&.pricing_data_center || @character&.data_center || 'Primal'
+    key = "prices-#{data_center.downcase}"
+    last_updated = Redis.current.get("#{key}-last-updated")
+
+    @price_cache_key = "#{key}-#{last_updated}"
 
     begin
-      @prices = Redis.current.hgetall("prices-#{data_center}").each_with_object({}) do |(k, v), h|
+      @prices = Redis.current.hgetall(key).each_with_object({}) do |(k, v), h|
         h[k.to_i] = JSON.parse(v)
       end
     rescue

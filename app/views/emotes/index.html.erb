@@ -38,7 +38,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@emotes.cache_key_with_version, I18n.locale] do %>
+          <% cache [@emotes.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @emotes.each do |emote| %>
               <tr class="<%= category_row_classes(emote, @category) %>">
                 <td data-value="<%= emote.order %>">

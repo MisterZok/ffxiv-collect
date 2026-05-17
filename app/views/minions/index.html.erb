@@ -39,7 +39,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@minions.cache_key_with_version, I18n.locale] do %>
+          <% cache [@minions.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @minions.each do |minion| %>
               <tr class="<%= collectable_classes(minion) %>">
                 <td data-value="<%= minion.order %><%= minion.id.to_s.rjust(3, '0') %>">

@@ -41,7 +41,7 @@
                 </tr>
               </thead>
               <tbody>
-                <% cache [collectables, I18n.locale] do %>
+                <% cache [collectables, @price_cache_key, I18n.locale] do %>
                   <% collectables.values.flatten.sort_by(&:patch).reverse.each do |collectable| %>
                     <tr class="<%= collectable_classes(collectable) %>">
                       <td><%= collectable_image_link(collectable) %></td>
