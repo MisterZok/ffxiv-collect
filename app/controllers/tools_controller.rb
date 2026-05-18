@@ -1,7 +1,7 @@
 class ToolsController < ApplicationController
   include PrivateCollection
   before_action -> { check_privacy!(:mounts, :minions) }, only: [:gemstones, :materiel]
-  before_action -> { check_privacy!(:mounts, :minions, :facewear) }, only: [:market_board, :treasure]
+  before_action -> { check_privacy!(:mounts, :minions, :facewear, :emotes) }, only: [:market_board, :treasure]
   skip_before_action :set_owned!, :set_ids!
 
   def gemstones
