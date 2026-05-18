@@ -40,7 +40,7 @@
         <tbody>
           <% cache [@emotes.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @emotes.each do |emote| %>
-              <tr class="<%= category_row_classes(emote, @category) %>">
+              <tr class="<%= category_row_classes(emote) %>">
                 <td data-value="<%= emote.order %>">
                   <%= link_to emote_path(emote) do %>
                     <%= sprite(emote, :emote) %>

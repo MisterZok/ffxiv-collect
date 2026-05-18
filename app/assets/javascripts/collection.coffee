@@ -230,11 +230,6 @@ $ ->
     categories.removeClass('active')
     $(@).addClass('active')
 
-    # Update the query parameter without a refresh
-    url = new URL(window.location)
-    url.searchParams.set('category', category)
-    history.replaceState(history.state, '', url)
-
     # Set the category in the form so it is retained on search
     $('#category').val(category)
 

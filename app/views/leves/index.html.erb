@@ -48,7 +48,7 @@
         <tbody>
           <% cache [@leves.cache_key_with_version, I18n.locale] do %>
             <% @leves.each do |leve| %>
-              <tr class="<%= category_row_classes(leve, @category, @categories) %>" data-value="<%= leve.cost %>"
+              <tr class="<%= category_row_classes(leve, categories: @categories) %>" data-value="<%= leve.cost %>"
                 data-item-id="<%= leve.item_id %>" data-item-quantity="<%= leve.item_quantity %>">
                 <td class="text-center"><%= leve.level %></td>
                 <td>

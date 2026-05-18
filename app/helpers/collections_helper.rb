@@ -155,11 +155,10 @@ module CollectionsHelper
                         [t('only.untradeable'), 'untradeable']], selected)
   end
 
-  def category_row_classes(collectable, active_category, categories = nil)
+  def category_row_classes(collectable, categories: [])
     category_id = collectable[:category_id] || categories.index(collectable.category)
-    hidden = active_category.present? && category_id != active_category
 
-    "#{collectable_classes(collectable)} category-row category-#{category_id}#{' hidden' if hidden }"
+    "#{collectable_classes(collectable)} category-row category-#{category_id}"
   end
 
   def rarity(collectable, numeric: false, percent: false, owned: nil)

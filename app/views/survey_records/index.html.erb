@@ -32,7 +32,7 @@
         </thead>
         <tbody>
           <% @records.each do |record| %>
-            <tr class="<%= category_row_classes(record, @category) %>">
+            <tr class="<%= category_row_classes(record) %>">
               <td>
                 <div class="d-flex align-items-center">
                   <span class="mr-2"><%= format_record_number(record) %></span>

@@ -44,7 +44,7 @@
         <tbody>
           <% cache [@armoires.cache_key_with_version, I18n.locale] do %>
             <% @armoires.each do |armoire| %>
-              <tr class="<%= category_row_classes(armoire, @category) %>">
+              <tr class="<%= category_row_classes(armoire) %>">
                 <td data-value="<%= armoire.order_group %><%= armoire.order.to_s.rjust(3, '0') %>">
                   <%= link_to armoire_path(armoire) do %>
                     <%= sprite(armoire, 'armoire') %>

@@ -45,7 +45,7 @@
         <tbody>
           <% cache [@orchestrions.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @orchestrions.each do |orchestrion| %>
-              <tr class="<%= category_row_classes(orchestrion, @category) %>">
+              <tr class="<%= category_row_classes(orchestrion) %>">
                 <td>
                   <%= link_to orchestrion_path(orchestrion) do %>
                     <%= image_tag('orchestrion.png') %>
