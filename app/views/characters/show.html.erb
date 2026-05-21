@@ -13,6 +13,8 @@
           <% unless @character == @profile %>
             <%= link_to fa_icon('user', text: t('characters.select')), select_character_path(@profile),
               method: :post, class: 'btn btn-primary btn-sm' %>
+            <%= link_to fa_icon('eye', text: t('characters.peek')), peek_character_path(@profile),
+              method: :post, class: 'btn btn-secondary btn-sm' %>
             <%= link_to fa_icon('sync', text: t('characters.refresh_profile')),
               refresh_character_path(@profile.id), method: :post,
               class: 'sync-profile btn btn-primary btn-sm' %>

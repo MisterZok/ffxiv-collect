@@ -34,7 +34,7 @@ module ManualCollection
   end
 
   def display_verify_alert!
-    return unless @character.present?
+    return if !@character.present? || @peeking
 
     if user_signed_in?
       unless verified?

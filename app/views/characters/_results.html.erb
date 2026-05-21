@@ -27,6 +27,10 @@
           <% end %>
           <%= link_to fa_icon('user', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
+          <% if character.id != @character&.id %>
+            <%= link_to fa_icon('eye', text: t('characters.peek')), peek_character_path(character[:id]),
+              method: :post, class: 'btn btn-secondary btn-sm' %>
+            <% end %>
           <% if user_signed_in? && !@search.present? %>
             <%= link_to fa_icon('times', text: t('forget')), character_path(character),
               method: :delete, class: 'btn btn-sm btn-danger' %>

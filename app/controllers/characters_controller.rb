@@ -143,6 +143,17 @@ class CharactersController < ApplicationController
     redirect_to character_path(@selected)
   end
 
+  def peek
+    set_permanent_cookie(:peek, params[:id])
+    flash[:success] = t('alerts.peek_set') unless flash[:notice].present?
+    redirect_to character_path(params[:id])
+  end
+
+  def unpeek
+    cookies.delete(:peek)
+    redirect_back(fallback_location: root_path)
+  end
+
   def forget
     if user_signed_in?
       current_user.update(character_id: nil)

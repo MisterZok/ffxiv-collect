@@ -131,7 +131,7 @@ Rails.application.routes.draw do
       get 'stats/recent', to: 'characters#stats_recent', as: :stats_recent
       get 'stats/rarity', to: 'characters#stats_rarity', as: :stats_rarity
       get :verify
-      post :view, :select, :validate
+      post :view, :select, :peek, :validate
     end
 
     collection do
@@ -183,6 +183,7 @@ Rails.application.routes.draw do
   post 'character/refresh/(:id)', to: 'characters#refresh', as: :refresh_character
 
   delete 'character/forget', to: 'characters#forget', as: :forget_character
+  delete 'character/unpeek', to: 'characters#unpeek', as: :unpeek_character
 
   namespace :api do
     resources :characters, only: :show do

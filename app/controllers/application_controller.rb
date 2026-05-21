@@ -71,7 +71,16 @@ class ApplicationController < ActionController::Base
   end
 
   def set_characters
-    if user_signed_in?
+    if cookies[:peek].present?
+      @character = Character.find_by(id: cookies[:peek])
+      @peeking = true
+
+      if @character&.private?
+        cookies[:peek] = nil
+        flash[:error] = t('alerts.character_set_to_private')
+        return redirect_to root_path
+      end
+    elsif user_signed_in?
       @character = current_user.character
 
       if @character&.private?(current_user)
