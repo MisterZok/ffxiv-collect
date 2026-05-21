@@ -32,7 +32,7 @@
         <thead>
           <tr>
             <th scope="col" data-defaultsort="disabled"></th><!-- Image -->
-            <th scope="col" class="text-center all-hide<%= ' hidden' unless @category.present? %>">#</th>
+            <th scope="col" class="text-center all-hide">#</th>
             <th scope="col" class="name"><%= t('name') %></th>
             <th scope="col" class="hide-xs"><%= t('source') %></th>
             <th scope="col" class="category text-center hide-xs"><%= t('category') %></th>
@@ -51,7 +51,7 @@
                     <%= image_tag('orchestrion.png') %>
                   <% end %>
                 </td>
-                <td class="text-center all-hide<%= ' hidden' unless @category.present? %>">
+                <td class="text-center all-hide">
                   <%= orchestrion_number(orchestrion) %>
                 </td>
                 <td class="orchestrion-name"><%= link_to(orchestrion.name, orchestrion_path(orchestrion), class: 'name') %></td>
