@@ -242,7 +242,11 @@ class CharactersController < ApplicationController
 
   def set_search
     @name, @server, @data_center = search_params.values_at(:name, :server, :data_center)
-    @search = @name.present?
+
+    if @name.present?
+      @name = @name.strip.gsub(/[‘’]/, "'")
+      @search = true
+    end
   end
 
   def set_selected
