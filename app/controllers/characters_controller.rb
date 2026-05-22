@@ -1,7 +1,7 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :set_search, only: [:search, :search_lodestone]
-  before_action :set_selected, only: [:search_lodestone_id, :view, :select]
+  before_action :set_selected, only: [:search_lodestone_id, :view, :select, :peek]
   after_action  :save_selected, only: [:select]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity, :verify, :validate]
   before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
@@ -144,9 +144,9 @@ class CharactersController < ApplicationController
   end
 
   def peek
-    set_permanent_cookie(:peek, params[:id])
+    set_permanent_cookie(:peek, @selected.id)
     flash[:success] = t('alerts.peek_set') unless flash[:notice].present?
-    redirect_to character_path(params[:id])
+    redirect_to character_path(@selected)
   end
 
   def unpeek
