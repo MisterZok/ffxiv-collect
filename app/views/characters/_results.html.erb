@@ -27,7 +27,7 @@
           <% end %>
           <%= link_to fa_icon('user', text: t('select')), select_character_path(character[:id]),
             method: :post, class: 'btn btn-sm btn-primary' %>
-          <% if character.id != @character&.id %>
+          <% if character[:id] != @character&.id %>
             <%= link_to fa_icon('eye', text: t('characters.peek')), peek_character_path(character[:id]),
               method: :post, class: 'btn btn-secondary btn-sm' %>
             <% end %>
