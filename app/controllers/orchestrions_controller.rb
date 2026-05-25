@@ -1,11 +1,10 @@
 class OrchestrionsController < ApplicationController
   include ManualCollection
-  before_action :set_collection!, only: [:index, :select]
+  before_action :set_categories!, only: [:index, :select]
   before_action :validate_user!, only: :select
   before_action :set_ids!, on: :select
 
   def index
-    @category = nil if @category < 2
     @q = Orchestrion.ransack(params[:q])
     @orchestrions = @q.result.include_related.with_filters(cookies).ordered
     @categories = OrchestrionCategory.with_filters(cookies).order(:order)
@@ -14,7 +13,6 @@ class OrchestrionsController < ApplicationController
 
   def select
     @orchestrions = Orchestrion.includes(:category).order(order: :asc, id: :asc).all
-    @category = 2 if @category < 2
   end
 
   def show
@@ -30,9 +28,8 @@ class OrchestrionsController < ApplicationController
   end
 
   private
-  def set_collection!
+  def set_categories!
     @categories = OrchestrionCategory.all.order(:order)
-    @category = params[:category].to_i
   end
 
   def validate_user!

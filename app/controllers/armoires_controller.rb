@@ -6,9 +6,6 @@ class ArmoiresController < ApplicationController
     @armoires = @q.result.include_related.with_filters(cookies, @character).ordered.distinct
     @types = source_types(:armoire)
     @categories = ArmoireCategory.all.order(:order)
-
-    @category = params[:category].to_i
-    @category = nil if @category < 1
   end
 
   def show

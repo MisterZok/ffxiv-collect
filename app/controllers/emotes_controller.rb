@@ -7,9 +7,6 @@ class EmotesController < ApplicationController
     @emotes = @q.result.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:emote)
     @categories = EmoteCategory.all.order(:id)
-
-    @category = params[:category].to_i
-    @category = nil if @category < 1
   end
 
   def show

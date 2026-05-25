@@ -1,3 +1,4 @@
+<% selected ||= nil %>
 <div class="d-flex flex-wrap justify-content-center category-buttons">
   <% unless local_assigns[:exclude_all] %>
     <button type="button" class="btn btn-dark bold<%= ' active' unless selected.present? %>" id="0">
