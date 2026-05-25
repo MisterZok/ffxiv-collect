@@ -103,6 +103,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def append_info_to_payload(payload)
+    super
+
+    payload[:character_id] = @character&.id
+    payload[:user_id] = current_user&.uid
+  end
+
   def display_announcements
     # flash.now[:success_fixed] = 'This is an announcement.'
   end

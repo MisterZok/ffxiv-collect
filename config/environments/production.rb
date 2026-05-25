@@ -54,7 +54,7 @@ Rails.application.configure do
     .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :remote_ip ]
+  config.log_tags = [ :request_id ]
 
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
@@ -63,19 +63,19 @@ Rails.application.configure do
 
   config.lograge.enabled = true
 
-  config.lograge.ignore_custom = lambda do |event|
-    %w(add remove).include?(event.payload[:action]) || event.payload[:format] == :js
-  end
-
   config.lograge.custom_options = lambda do |event|
+    options = event.payload.slice(:character_id, :user_id)
     params = event.payload[:params].except(*%i(controller action format id authenticity_token state code))
+
     if params.present?
       if event.payload.dig(:params, :controller) == 'discord'
-        { params: params['data'].except('resolved').merge(params.slice('type', 'version')) }
+        options[:params] = params['data'].except('resolved').merge(params.slice('type', 'version'))
       else
-        { params: params }
+        options[:params] = params
       end
     end
+
+    options.compact
   end
 
   # Use a different cache store in production.
