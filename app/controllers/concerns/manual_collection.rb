@@ -4,6 +4,8 @@ module ManualCollection
 
   included do
     before_action :display_verify_alert!, only: :index
+
+    rate_limit to: 10, within: 1.second, only: [:add, :remove], by: -> { @character.id }
   end
 
   def add_collectable(collection, collectable)
