@@ -19,7 +19,6 @@
         <th>Discord ID</th>
         <th>Character</th>
         <th>Created</th>
-        <th>Last Signed In</th>
       </tr>
       <% @users.each do |user| %>
         <tr>
@@ -28,7 +27,6 @@
           <td><%= user.uid %></td>
           <td><%= link_to(user.character.name, character_path(user.character_id)) if user.character.present? %></td>
           <td><%= format_date(user.created_at) %></td>
-          <td><%= format_date(user.current_sign_in_at) %></td>
         </tr>
       <% end %>
     </table>
