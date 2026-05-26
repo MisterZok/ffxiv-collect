@@ -5,21 +5,75 @@ namespace 'sources:shops' do
 
     include ActionView::Helpers::NumberHelper
 
+    cosmic_exploration_type = SourceType.find_by(name_en: 'Cosmic Exploration')
+    crafting_type = SourceType.find_by(name_en: 'Crafting')
     fate_type = SourceType.find_by(name_en: 'FATE')
+    gathering_type = SourceType.find_by(name_en: 'Gathering')
     gold_saucer_type = SourceType.find_by(name_en: 'Gold Saucer')
     hunts_type = SourceType.find_by(name_en: 'Hunts')
     island_sanctuary_type = SourceType.find_by(name_en: 'Island Sanctuary')
+    occult_crescent_type = SourceType.find_by(name_en: 'Occult Crescent')
     purchase_type = SourceType.find_by(name_en: 'Purchase')
     pvp_type = SourceType.find_by(name_en: 'PvP')
     skybuilders_type = SourceType.find_by(name_en: 'Skybuilders')
     vc_dungeon_type = SourceType.find_by(name_en: 'V&C Dungeon')
     wondrous_tails_type = SourceType.find_by(name_en: 'Wondrous Tails')
 
-    # Avoid creating outfit sources from limited time shops
-    restricted_outfit_shop_names = /seasonal event prizes/i
+    # Avoid creating sources from limited time shops, enhancement shops or specific NPCs
+    restricted_special_shop_names = /(seasonal event prizes|augmentation)/i
+    restricted_vendor_names = /(calamity salvager|journeyman salvager|recompense officer)/i
+
+    puts 'Fetching restricted vendors data'
+
+    topics = XIVData.sheet('TopicSelect').each_with_object({}) do |topic, h|
+      h[topic['#']] = Set.new
+
+      10.times do |i|
+        break if topic["Shop[#{i}]"] == '0'
+
+        h[topic['#']].add(topic["Shop[#{i}]"])
+      end
+    end
+
+    restricted_npc_ids = XIVData.sheet('ENpcResident', locale: 'en').filter_map do |npc|
+      next unless npc['Singular'].present? && npc['Singular'].match?(restricted_vendor_names)
+
+      npc['#']
+    end
+
+    restricted_shop_ids = Set.new
+    XIVData.sheet('ENpcBase').each do |npc|
+      next unless restricted_npc_ids.include?(npc['#'])
+
+      32.times do |i|
+        id = npc["ENpcData[#{i}]"]
+        break if id == '0'
+
+        # Only store IDs from GilShop or SpecialShop
+        case id
+        when /^(26|17[67])\d{4}$/ # GilShop / SpecialShop
+          restricted_shop_ids.add(id)
+        when /^3276\d{3}$/ # Shops from TopicSelect
+          if topics[id].present?
+            restricted_shop_ids.merge(topics[id])
+          end
+        else
+          next
+        end
+      end
+    end
 
     puts 'Creating GilShop sources'
-    item_ids = XIVData.sheet('GilShopItem').map do |entry|
+
+    restricted_gil_shops = XIVData.sheet('GilShop').filter_map do |shop|
+      next unless shop['FestivalId'] != '0' || restricted_shop_ids.include?(shop['#'])
+
+      shop['#']
+    end
+
+    item_ids = XIVData.sheet('GilShopItem').filter_map do |entry|
+      next if restricted_gil_shops.include?(entry['#'].split('.').first)
+
       entry['Item']
     end
 
@@ -44,19 +98,26 @@ namespace 'sources:shops' do
     end
 
     XIVData.sheet('SpecialShop').each do |shop|
-      2.times do |j|
+      next if shop["RequiredFestival"] != '0' ||
+        shop['Name']&.match?(restricted_special_shop_names) ||
+        restricted_shop_ids.include?(shop['#'])
+
+      3.times do |j|
         60.times do |i|
           item_id = shop["Item[#{i}].Item[#{j}]"]
-          break if item_id == '0'
+          print("Entry #{shop['#']}: item_id = #{item_id} (#{i}.#{j})\n")
+          break if item_id.nil? || item_id == '0'
 
+          puts("DEBUG 1")
           next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
 
+          puts("DEBUG 2")
           price = shop["Item[#{i}].CurrencyCost[#{j}]"]
           next if price == '0'
 
           currency_item_id = shop["Item[#{i}].ItemCost[#{j}]"].to_i
           type = case currency_item_id
-          when 25, 36656
+          when 25, 36656, 40479
             pvp_type
           when 27, 10307, 26533
             hunts_type
@@ -70,8 +131,12 @@ namespace 'sources:shops' do
             wondrous_tails_type
           when 37549
             island_sanctuary_type
-          when 38533, 39884, 41078
+          when 38533, 39884, 41078, 50434
             vc_dungeon_type
+          when 45043, 45044, 47868
+            occult_crescent_type
+          when 45690
+            cosmic_exploration_type
           else
             purchase_type
           end
@@ -84,18 +149,25 @@ namespace 'sources:shops' do
           when 3
             scrip_id = case currency_item_id
             when 1
+              type = crafting_type
               25199 # White Crafter's Scrip
             when 2
+              type = crafting_type
               33913 # Purple Crafters' Scrip
             when 3
+              type = gathering_type
               25200 # White Gatherers' Scrip
             when 4
+              type = gathering_type
               33914 # Purple Gatherers' Scrip
             when 5
+              type = hunts_type
               10307 # Centurio Seal
             when 6
+              type = crafting_type
               41784 # Orange Crafters' Scrip
             when 7
+              type = gathering_type
               41785 # Orange Gatherers' Scrip
             end
 
@@ -114,8 +186,7 @@ namespace 'sources:shops' do
           end
 
           # Add outfit source data
-          if outfit_item_ids.include?(item_id) && shop['Name'].present? &&
-              !shop['Name'].match?(restricted_outfit_shop_names)
+          if outfit_item_ids.include?(item_id)
             outfit_items[item_id] = { price: price.to_i, currency: currency, type: type }
           end
         end
@@ -158,7 +229,6 @@ end
 
 private
 # Create shop sources for collectables with no known sources.
-# In the event of Orchestrion rolls, set the details.
 def create_shop_source(unlock, type, texts)
   unless unlock.sources.any?
     unlock.sources.create!(**texts, type: type)
