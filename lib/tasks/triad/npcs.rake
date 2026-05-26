@@ -141,8 +141,6 @@ namespace :triad do
         difficulty = weighted_average(npc.fixed_cards, npc.fixed_cards.length) +
           weighted_average(npc.variable_cards, 5 - npc.fixed_cards.length)
         npc.update!(difficulty: difficulty)
-
-        npc.update!(patch: npc.rewards.pluck(:patch).min) unless npc.patch.present?
       end
 
       counts.each do |klass, count|

@@ -20,7 +20,7 @@ class SearchController < ApplicationController
     end
 
     # Collect a distinct set of patches across all models
-    @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.uniq
+    @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.compact.uniq
     @search = ransack_with_patch_search(@patches)
 
     @collectables = @models.flat_map do |model|
