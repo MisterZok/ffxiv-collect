@@ -46,7 +46,7 @@
           </tr>
         </thead>
         <tbody>
-          <% cache [@leves.cache_key_with_version, I18n.locale] do %>
+          <% cache [@leves.cache_key_with_version, @price_cache_key, I18n.locale] do %>
             <% @leves.each do |leve| %>
               <tr
                 class="<%= category_row_classes(leve, categories: @categories) %><%= ' hidden' unless leve.category.id == @category %>"
