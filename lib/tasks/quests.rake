@@ -14,8 +14,9 @@ namespace :quests do
 
           # Apparently this is only an item if the ItemRewardType is: 1, 3, 5
           7.times do |i|
-            reward_id = quest["Reward[#{i}]"].to_i
-            break if reward_id == 0
+            reward_id = quest["Reward[#{i}]"]
+            break if reward_id == '0'
+
             # We use find_by here because some item ids in the Quest file are linked to non-existing entries in Item
             Item.find_by(id: reward_id)&.update!(quest_id: quest['#'])
           end

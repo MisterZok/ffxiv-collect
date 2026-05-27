@@ -8,8 +8,8 @@ namespace 'sources:armoires' do
     DUNGEON_TYPE = SourceType.find_by(name_en: 'Dungeon').freeze
     PREMIUM_TYPE = SourceType.find_by(name_en: 'Premium').freeze
 
-    ARMOIRE_DUNGEON_CATEGORY = ArmoireCategory.find_by(name_en: 'Dungeon Gear')
-    PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id)
+    ARMOIRE_DUNGEON_CATEGORY = ArmoireCategory.find_by(name_en: 'Dungeon Gear').freeze
+    PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id).freeze
 
     sub_categories = XIVData.sheet('CabinetSubCategory').each_with_object({}) do |sub_category, h|
       next unless sub_category['Name'].present?

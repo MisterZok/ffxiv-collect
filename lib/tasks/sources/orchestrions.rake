@@ -59,7 +59,7 @@ end
 
 private
 def instance_text(orchestrion)
-  if matches = orchestrion.description_en.match(/^obtained (?:on|in|at) (.+?)\.$/im)
+  if matches = orchestrion.description_en.match(/^obtained (?:on|in|at) (.+?)\.$/i)
     matches[1]
   end
 end

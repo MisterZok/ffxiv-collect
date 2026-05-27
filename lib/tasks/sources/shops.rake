@@ -102,16 +102,13 @@ namespace 'sources:shops' do
         shop['Name']&.match?(restricted_special_shop_names) ||
         restricted_shop_ids.include?(shop['#'])
 
-      3.times do |j|
+      2.times do |j|
         60.times do |i|
           item_id = shop["Item[#{i}].Item[#{j}]"]
-          print("Entry #{shop['#']}: item_id = #{item_id} (#{i}.#{j})\n")
-          break if item_id.nil? || item_id == '0'
+          break if item_id == '0'
 
-          puts("DEBUG 1")
           next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
 
-          puts("DEBUG 2")
           price = shop["Item[#{i}].CurrencyCost[#{j}]"]
           next if price == '0'
 
@@ -150,7 +147,7 @@ namespace 'sources:shops' do
             scrip_id = case currency_item_id
             when 1
               type = crafting_type
-              25199 # White Crafter's Scrip
+              25199 # White Crafters' Scrip
             when 2
               type = crafting_type
               33913 # Purple Crafters' Scrip
