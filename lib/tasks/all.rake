@@ -184,7 +184,7 @@ def create_image(id, image_path, path, hd: false, mask_from: nil, mask_to: nil, 
   # Do not re-download existing images. These can be deleted manually if new versions are needed.
   return if output_path.exist?
 
-  asset = XIVData.download_image(image_path, hd: hd).body
+  asset = XIVData.download_image(image_path).body
 
   if mask_from.present?
     mask_to ||= mask_from
