@@ -9,7 +9,7 @@ namespace 'sources:quests' do
     Item.includes(:quest).where.not(unlock_id: nil).where.not(quest_id: nil).each do |item|
       next if item.unlock.sources.any?
 
-      create_quest_source(item, item.unlock)
+      create_quest_source(item.quest, item.unlock)
     end
 
     # Create quest sources for outfits based on their associated items
@@ -18,15 +18,23 @@ namespace 'sources:quests' do
 
       outfit.items.each do |item|
         if item.quest_id.present?
-          create_quest_source(item, outfit)
+          create_quest_source(item.quest, outfit)
           break
         end
       end
     end
+
+    Emote.where.not(quest_id: nil).each do |emote|
+      next if emote.sources.any?
+
+      quest = Quest.find_by(id: emote.quest_id)
+      if quest.present?
+        create_quest_source(quest, emote)
+      end
+    end
   end
 
-  def create_quest_source(item, collectable)
-    quest = item.quest
+  def create_quest_source(quest, collectable)
     source_type = SourceType.find_by(name_en: quest.event ? 'Event' : 'Quest')
 
     collectable.sources.find_or_create_by!(

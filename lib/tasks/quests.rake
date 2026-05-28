@@ -20,6 +20,10 @@ namespace :quests do
             # We use find_by here because some item ids in the Quest file are linked to non-existing entries in Item
             Item.find_by(id: reward_id)&.update!(quest_id: quest['#'])
           end
+
+          if quest['EmoteReward'] != '0'
+            Emote.find(quest['EmoteReward']).update!(quest_id: quest['#'])
+          end
         else
           data = h[quest['#']]
         end
