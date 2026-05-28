@@ -19,8 +19,8 @@ namespace 'sources:shops' do
     vc_dungeon_type = SourceType.find_by(name_en: 'V&C Dungeon')
     wondrous_tails_type = SourceType.find_by(name_en: 'Wondrous Tails')
 
-    # Avoid creating sources from limited time shops, enhancement shops or specific NPCs
-    restricted_special_shop_names = /(seasonal event prizes|augmentation)/i
+    # Avoid creating sources from limited time shops, most enhancement shops or specific NPCs
+    restricted_special_shop_names = /(seasonal event prizes|augmentation|artifact gear repair)/i
     restricted_vendor_names = /(calamity salvager|journeyman salvager|recompense officer)/i
 
     puts 'Fetching restricted vendors data'
@@ -102,13 +102,15 @@ namespace 'sources:shops' do
         shop['Name']&.match?(restricted_special_shop_names) ||
         restricted_shop_ids.include?(shop['#'])
 
-      2.times do |j|
-        60.times do |i|
-          item_id = shop["Item[#{i}].Item[#{j}]"]
-          break if item_id == '0'
+      60.times do |i|
+        item_id = shop["Item[#{i}].Item[0]"] # We only need the first item
+        break if item_id == '0'
 
-          next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
+        next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
 
+        source_to_create = {}
+
+        3.times do |j|
           price = shop["Item[#{i}].CurrencyCost[#{j}]"]
           next if price == '0'
 
@@ -176,16 +178,26 @@ namespace 'sources:shops' do
           # Do not create shop sources for Moogle Treasure Trove rewards
           next if currency['name_en'].match?('Irregular Tomestone')
 
-          # Create collectable source
+          # Add collectable source data
           if item_ids.include?(item_id)
-            texts = currency_texts(price, currency)
-            create_shop_source(Item.find(item_id).unlock, type, texts)
+            if source_to_create.present?
+              texts = join_source_texts(source_to_create[:texts], currency_texts(price, currency))
+              source_to_create.merge!({ texts: texts })
+            else
+              source_to_create = { item_id: item_id, type: type, texts: currency_texts(price, currency) }
+            end
           end
 
           # Add outfit source data
           if outfit_item_ids.include?(item_id)
             outfit_items[item_id] = { price: price.to_i, currency: currency, type: type }
           end
+        end
+
+        # Create source based on fetched data
+        if source_to_create.present?
+          type, texts = source_to_create.values_at(:type, :texts)
+          create_shop_source(Item.find(item_id).unlock, type, texts)
         end
       end
     end
@@ -245,4 +257,8 @@ def currency_texts(price, currency)
     formatted_price = number_with_delimiter(price, locale: locale)
     h["text_#{locale}"] = "#{formatted_price} #{formatted_currency}"
   end
+end
+
+def join_source_texts(old_hash, new_hash)
+  old_hash.merge(new_hash) { |key, old_value, new_value| [old_value, new_value].join(' + ') }
 end
