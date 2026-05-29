@@ -19,7 +19,6 @@
 #  order       :integer
 #  name_tc     :string(255)
 #  command_tc  :string(255)
-#  quest_id    :integer
 #
 
 class Emote < ApplicationRecord

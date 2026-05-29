@@ -10,7 +10,9 @@ namespace :quests do
 
         # Initialize the data and process rewards on the first pass
         if locale == 'en'
-          data = { id: quest['#'], event: quest['FestivalEnd'] != '0' }
+          data = { id: quest['#'],
+                   event: quest['FestivalEnd'] != '0',
+                   emote_reward_id: quest['EmoteReward'] != '0' ? quest['EmoteReward'] : nil }
 
           # Apparently this is only an item if the ItemRewardType is: 1, 3, 5
           7.times do |i|
@@ -19,10 +21,6 @@ namespace :quests do
 
             # We use find_by here because some item ids in the Quest file are linked to non-existing entries in Item
             Item.find_by(id: reward_id)&.update!(quest_id: quest['#'])
-          end
-
-          if quest['EmoteReward'] != '0'
-            Emote.find(quest['EmoteReward']).update!(quest_id: quest['#'])
           end
         else
           data = h[quest['#']]

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_28_125002) do
+ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -561,7 +561,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_125002) do
     t.integer "order"
     t.string "name_tc"
     t.string "command_tc"
-    t.integer "quest_id"
     t.index ["category_id"], name: "index_emotes_on_category_id"
     t.index ["name_de"], name: "index_emotes_on_name_de"
     t.index ["name_en"], name: "index_emotes_on_name_en"
@@ -1153,6 +1152,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_125002) do
     t.datetime "updated_at", precision: nil, null: false
     t.boolean "event"
     t.string "name_tc"
+    t.integer "emote_reward_id"
     t.index ["name_en"], name: "index_quests_on_name_en"
   end
 

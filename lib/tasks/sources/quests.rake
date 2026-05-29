@@ -24,13 +24,11 @@ namespace 'sources:quests' do
       end
     end
 
-    Emote.where.not(quest_id: nil).each do |emote|
+    Quest.where.not(emote_reward_id: nil).each do |quest|
+      emote = Emote.find(quest.emote_reward_id)
       next if emote.sources.any?
 
-      quest = Quest.find_by(id: emote.quest_id)
-      if quest.present?
-        create_quest_source(quest, emote)
-      end
+      create_quest_source(quest, emote)
     end
   end
 

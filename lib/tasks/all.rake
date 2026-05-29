@@ -21,13 +21,13 @@ namespace :data do
 
     Rake::Task['items:create'].invoke
     Rake::Task['instances:create'].invoke
-    Rake::Task['emotes:create'].invoke # Create emotes before quests so the linkage between the 2 can work properly
     Rake::Task['quests:create'].invoke
     Rake::Task['achievements:create'].invoke
     Rake::Task['titles:create'].invoke
     Rake::Task['mounts:create'].invoke
     Rake::Task['minions:create'].invoke
     Rake::Task['orchestrions:create'].invoke
+    Rake::Task['emotes:create'].invoke
     Rake::Task['bardings:create'].invoke
     Rake::Task['hairstyles:create'].invoke
     Rake::Task['armoires:create'].invoke
