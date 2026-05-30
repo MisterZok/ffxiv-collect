@@ -20,7 +20,7 @@ namespace 'sources:shops' do
     wondrous_tails_type = SourceType.find_by(name_en: 'Wondrous Tails')
 
     # Avoid creating sources from limited time shops, most enhancement shops or specific NPCs
-    restricted_special_shop_names = /(seasonal event prizes|augmentation|artifact gear repair)/i
+    restricted_special_shop_names = /(seasonal event prizes|augmentation|reoutfitting|artifact gear repair)/i
     restricted_vendor_names = /(calamity salvager|journeyman salvager|recompense officer)/i
 
     puts 'Fetching restricted vendors data'
