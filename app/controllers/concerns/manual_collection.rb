@@ -4,6 +4,8 @@ module ManualCollection
 
   included do
     before_action :display_verify_alert!, only: :index
+
+    rate_limit to: 10, within: 1.second, only: [:add, :remove], by: -> { @character.id }
   end
 
   def add_collectable(collection, collectable)
@@ -34,7 +36,7 @@ module ManualCollection
   end
 
   def display_verify_alert!
-    return unless @character.present?
+    return if !@character.present? || @peeking
 
     if user_signed_in?
       unless verified?

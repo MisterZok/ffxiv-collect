@@ -4,7 +4,6 @@ module Collection
   included do
     before_action :set_owned!, only: [:index, :type]
     before_action :set_ids!, on: :index
-    before_action :set_dates!, on: :index
     before_action :set_prices!, on: :index
   end
 
@@ -38,7 +37,7 @@ module Collection
 
   private
   def set_owned!
-    key = controller_name.downcase
+    key = controller_name
 
     @owned = {
       count: Redis.current.hgetall("#{key}-count"),
@@ -47,22 +46,20 @@ module Collection
   end
 
   def set_ids!
-    id_method = "#{controller_name.singularize}_ids"
-    @collection_ids = @character&.send(id_method) || []
-    @comparison_ids = @comparison&.send(id_method) || []
-  end
-
-  def set_dates!
-    @dates = @character&.send("character_#{controller_name}")
-      &.pluck("#{controller_name.singularize}_id", :created_at).to_h || {}
+    collection = controller_name.singularize
+    @collection_ids = @character&.send("#{collection}_ids") || []
+    @keyed_collection_ids = @collection_ids.map { |id| "#{collection}-#{id}"}
   end
 
   def set_prices!
-    data_center = @character&.pricing_data_center || @character&.data_center || 'primal'
-    data_center.downcase!
+    data_center = @character&.pricing_data_center || @character&.data_center || 'Primal'
+    key = "prices-#{data_center.downcase}"
+    last_updated = Redis.current.get("#{key}-last-updated")
+
+    @price_cache_key = "#{key}-#{last_updated}"
 
     begin
-      @prices = Redis.current.hgetall("prices-#{data_center}").each_with_object({}) do |(k, v), h|
+      @prices = Redis.current.hgetall(key).each_with_object({}) do |(k, v), h|
         h[k.to_i] = JSON.parse(v)
       end
     rescue

@@ -3,16 +3,9 @@ class TomestonesController < ApplicationController
   include TomestonesHelper
 
   before_action -> { check_privacy!(:mounts, :minions) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  skip_before_action :set_owned!, :set_ids!
 
   def index
-    if @character.present?
-      @owned_ids = TomestoneReward.collectables.pluck(:collectable_type).uniq.each_with_object({}) do |type, h|
-        h[type.downcase.pluralize.to_sym] =
-          "Character#{type}".constantize.where(character: @character).pluck("#{type.downcase}_id")
-      end
-    end
-
     @tomestones = Item.where('name_en like ?', 'Irregular Tomestone%')
       .where('name_en regexp ?', TomestoneReward.pluck(:tomestone).uniq.join('|'))
       .order(:created_at)
@@ -24,8 +17,15 @@ class TomestonesController < ApplicationController
     end
 
     @title = "#{t('tomestones.page_title', name: @tomestone.tomestone_name(locale: I18n.locale))}"
-    @collectables = collectables(@tomestone.tomestone_name)
+    @rewards = collectables(@tomestone.tomestone_name)
     @items = items(@tomestone.tomestone_name)
+
+    if @character.present?
+      @keyed_collection_ids = @rewards.collectables.map(&:collectable_type).uniq.flat_map do |type|
+        collection = type.underscore
+        @character.send("#{collection}_ids").map { |id| "#{collection}-#{id}"}
+      end
+    end
   end
 
   # Leverage ID param to dynamically route to tomestone rewards by name

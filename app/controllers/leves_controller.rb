@@ -7,10 +7,7 @@ class LevesController < ApplicationController
   def index
     @leves = Leve.include_related.where('leve_categories.craft_en = ?', @craft).with_filters(cookies).ordered
     @categories = LeveCategory.where(id: @leves.pluck(:category_id).uniq).ordered.to_a
-
-    @category = params[:category].to_i
-    @category = @categories.first.id unless @categories.pluck(:id).include?(@category)
-    @categories.unshift(nil) # Workaround for category buttons expecting the first category to be "All"
+    @category = @categories.first.id
 
     render :index
   end

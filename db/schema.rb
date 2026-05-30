@@ -1409,11 +1409,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "avatar_url"
     t.string "provider"
     t.string "uid"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at", precision: nil
-    t.datetime "last_sign_in_at", precision: nil
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "character_id"

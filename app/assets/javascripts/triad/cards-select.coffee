@@ -1,5 +1,5 @@
-$(document).on 'turbolinks:load', ->
-  return unless $('.card-select').length > 0
+$ ->
+  return unless $('.card-select').length
 
   all_cards = ->
     $('.card-select')
@@ -47,12 +47,8 @@ $(document).on 'turbolinks:load', ->
 
   navigate_to(page)
 
-  $(document).off 'turbolinks:before-visit'
-  $(document).on 'turbolinks:before-visit', ->
-    if $('.card-select').length > 0 && dirty then return confirm(I18n.t('triad.card_select.not_saved'))
-
   window.onbeforeunload = ->
-    if $('.card-select').length > 0 && dirty then return true
+    if $('.card-select').length && dirty then return true
 
   $('#add-all').click ->
     all_cards().removeClass('missing')

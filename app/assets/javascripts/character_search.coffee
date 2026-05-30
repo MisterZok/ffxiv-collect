@@ -1,14 +1,14 @@
-$(document).on 'turbolinks:load', ->
+$ ->
   filterServers = (data_center) ->
     $('#server option').show()
 
-    if data_center.length > 0
+    if data_center.length
       $("#server option:not(.dc-#{data_center.toLowerCase()})").hide()
 
   characters = $('.character-select')
 
   # Disable character selection on click to avoid multiple submissions
-  if characters.length > 0
+  if characters.length
     characters.find('a').click ->
       characters.addClass('disabled')
       $(this).blur()

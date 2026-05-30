@@ -2,23 +2,18 @@
 #
 # Table name: users
 #
-#  id                 :bigint(8)        not null, primary key
-#  username           :string(255)
-#  discriminator      :integer
-#  avatar_url         :string(255)
-#  provider           :string(255)
-#  uid                :string(255)
-#  sign_in_count      :integer          default(0), not null
-#  current_sign_in_at :datetime
-#  last_sign_in_at    :datetime
-#  current_sign_in_ip :string(255)
-#  last_sign_in_ip    :string(255)
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  character_id       :integer
-#  admin              :boolean          default(FALSE)
-#  mod                :boolean          default(FALSE)
-#  database           :string(255)      default("garland"), not null
+#  id            :bigint(8)        not null, primary key
+#  username      :string(255)
+#  discriminator :integer
+#  avatar_url    :string(255)
+#  provider      :string(255)
+#  uid           :string(255)
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  character_id  :integer
+#  admin         :boolean          default(FALSE)
+#  mod           :boolean          default(FALSE)
+#  database      :string(255)      default("garland"), not null
 #
 
 class User < ApplicationRecord
@@ -31,7 +26,7 @@ class User < ApplicationRecord
   has_many :decks, primary_key: :uid, foreign_key: :user_uid
   has_many :votes
 
-  devise :timeoutable, :trackable, :omniauthable, omniauth_providers: [:discord]
+  devise :timeoutable, :omniauthable, omniauth_providers: [:discord]
 
   def self.from_omniauth(auth)
     # Clean up any special characters in the username

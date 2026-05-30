@@ -1,5 +1,5 @@
-$(document).on 'turbolinks:load', ->
-  return unless $('#deck_search').length > 0
+$ ->
+  return unless $('#deck_search').length
 
   $('#q_rule_id_eq').change ->
     $('#q_npc_id_eq').val('')

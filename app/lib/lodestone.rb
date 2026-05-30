@@ -66,7 +66,7 @@ module Lodestone
     end
 
     doc = character_document(params: {
-      q: name.strip.gsub(/[‘’]/, "'"),
+      q: name,
       worldname: worldname,
       order: 3
     })

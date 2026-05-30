@@ -12,6 +12,8 @@ namespace :cache do
       log("Updating prices for #{dc}")
       key = "prices-#{dc.downcase}"
 
+      Redis.current.set("#{key}-last-updated", Time.now.utc.to_formatted_s(:usec))
+
       item_ids.each_slice(100) do |ids|
         begin
           url = "#{UNIVERSALIS_BASE_URL}/#{dc}/#{ids.join(',')}?listings=1&entries=0"

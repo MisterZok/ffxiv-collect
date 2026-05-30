@@ -2,7 +2,7 @@ class TitlesController < ApplicationController
   include PrivateCollection
 
   before_action -> { check_privacy!(:achievements) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
+  skip_before_action :set_owned!, :set_ids!, :set_prices!
 
   def index
     @q = Title.ransack(params[:q])
@@ -17,8 +17,7 @@ class TitlesController < ApplicationController
     end
 
     @collection_ids = @character&.achievement_ids || []
-    @comparison_ids = @comparison&.achievement_ids || []
-    @dates = @character&.character_achievements&.pluck(:achievement_id, :created_at).to_h || {}
+    @keyed_collection_ids = @collection_ids.map { |id| "achievement-#{id}"}
     @owned = {
       count: Redis.current.hgetall('achievements-count'),
       percentage: Redis.current.hgetall('achievements')

@@ -241,8 +241,10 @@ hr {
   }
 
   &.collection {
-    margin: 0 auto;
-    width: auto;
+    &:not(.collection-collapse, .fill) {
+      margin: 0 auto;
+      width: auto;
+    }
 
     @media (max-width: 575px) {
       min-width: 90vw;
@@ -601,4 +603,20 @@ dd.inline {
 img.fit {
   max-width: 100%;
   object-fit: cover;
+}
+
+.collection-wrapper {
+  display: none;
+}
+
+.collection-spinner {
+  opacity: 0;
+  // Display the spinner after a delay so we do not show it on quick pages
+  animation: show 0s linear 100ms forwards;
+}
+
+@keyframes show {
+  to {
+    opacity: 1;
+  }
 }

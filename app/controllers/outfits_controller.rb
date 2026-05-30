@@ -1,6 +1,8 @@
 class OutfitsController < ApplicationController
   include ManualCollection
 
+  skip_before_action :set_prices!
+
   def index
     @q = Outfit.ransack(params[:q])
     @outfits = @q.result.include_related.with_filters(cookies, @character).ordered.distinct

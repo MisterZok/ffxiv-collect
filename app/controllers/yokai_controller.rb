@@ -2,7 +2,7 @@ class YokaiController < ApplicationController
   include PrivateCollection
 
   before_action -> { check_privacy!(:achievements, :mounts, :minions) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
+  skip_before_action :set_owned!, :set_ids!, :set_prices!
 
   def index
     @minions = Achievement.where('name_en like ?', 'Watch Me If You Can%').order(:order)

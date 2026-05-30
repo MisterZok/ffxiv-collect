@@ -1,12 +1,82 @@
-$(document).on 'turbolinks:load', ->
-  return unless $('.collection').length > 0 || $('#filters').length > 0
+$ ->
+  return unless $('.collection').length || $('#filters').length
 
   # Collections
+
+  # Update cached table data with dynamic content
+  data = $('#collection-data').data()
+
+  if data?.characterSelected
+    owned_ids = new Set(data.collectionIds.split(',').filter(Boolean))
+
+    # Mark collectables as owned based on the character's collection IDs
+    $('table.collection td[data-id]').each ->
+      return unless owned_ids.has(this.dataset.id)
+
+      td = $(this)
+      td.attr('data-value', 1)
+      td.parent().addClass('owned')
+
+      # Manual collection checkbox
+      checkbox = td.find('input[type="checkbox"]')
+      if checkbox.length
+        checkbox.prop('checked', true)
+        checkbox.data('path', checkbox.data('path').replace('add', 'remove'))
+
+      # Automatic collection icon
+      icon = td.find('i')
+      if icon.length
+        icon.removeClass('fa-times').addClass('fa-check')
+
+    # Triple Triad
+
+    ## Card rewards
+    $('.card-toggle').each ->
+      return unless owned_ids.has(this.dataset.id)
+
+      card = $(this)
+      card.addClass('owned')
+      card.data('path', card.data('path').replace('add', 'remove'))
+
+    ## NPCs
+    $('.npc-row').each ->
+      npc = $(this)
+
+      if npc.find('input[type="checkbox"]').prop('checked')
+        npc.addClass('defeated')
+
+      # cardList.find('.owned').length == cardList.children().length
+      card_list = npc.find('.card-list')
+      if card_list.children().length == card_list.children('.owned').length
+        npc.addClass('completed')
+
+    if !data?.characterVerified
+      # Replace manual checkboxes with icons if the selected character is not verified
+      $('table.collection input:checked').replaceWith('<i class="fas fa-check"></i>')
+      $('table.collection input:not(:checked)').replaceWith('<i class="fas fa-times"></i>')
+
+      # And disable card toggling
+      $('.card-toggle').removeClass('card-toggle')
+
+  if !data?.characterSelected
+    # Hide checkbox column if no character is selected
+    $('.check-ownership').hide()
+    $('.card-toggle').removeClass('card-toggle')
+
+  # Hide collectables of the specified types
+  hidden_types = Cookies.get('hidden_types')?.split(',') || []
+  for type in hidden_types
+    $("tr[data-type='#{type}']").addClass('hidden')
+
+
+  # Reveal the page
+  $('.collection-spinner').hide()
+  $('.collection-wrapper').show()
 
   # Redo the table striping as some items may have shifted during the flight
   restripe = ->
     # Skip restripe for Orchestrion Quick Select
-    return if $('.quick-select').length > 0 || $('.npcs').length > 0
+    return if $('.quick-select').length || $('.npcs').length
 
     $('.collectable:not(.hidden)').show()
 
@@ -23,7 +93,7 @@ $(document).on 'turbolinks:load', ->
       $('.collection').removeClass('only-owned')
 
     # Only show/hide tradeables if the filter is available
-    if $('#tradeable').length > 0
+    if $('#tradeable').length
       if Cookies.get('tradeable') == 'tradeable'
         $('.collectable:not(.tradeable)').hide()
       else if Cookies.get('tradeable') == 'untradeable'
@@ -33,7 +103,7 @@ $(document).on 'turbolinks:load', ->
       $(@).css('background-color', if index % 2 == 0 then 'rgba(0, 0, 0, 0.1)' else 'rgba(0, 0, 0, 0.2)')
 
     # Update the collection progress bar based on visible collectables, with the exception of special pages
-    unless $('.materiel').length > 0
+    unless $('.materiel').length
       progress_bar = $('.progress:first .progress-bar')
       progress_label = $('.progress:first .progress-label')
       current = $('.owned:not(.hidden)').length
@@ -94,14 +164,11 @@ $(document).on 'turbolinks:load', ->
       collectable.closest('td').attr('data-value', 0)
       collectable.closest('td').tooltip('disable')
       collectable.closest('td').tooltip('dispose')
-      collectable.closest('td').next('.comparison').find('.avatar:first').addClass('faded')
     else
       path = collectable.data('path').replace('add', 'remove')
       collectable.closest('tr').addClass('owned')
       collectable.closest('td').attr('data-value', 1)
-      collectable.closest('td').attr('data-original-title', "#{I18n.t('acquired')} #{moment.utc().format('MMM DD, YYYY')}")
       collectable.closest('td').tooltip('enable')
-      collectable.closest('td').next('.comparison').find('.avatar:first').removeClass('faded')
 
     collectable.data('path', path)
     restripe()
@@ -163,11 +230,6 @@ $(document).on 'turbolinks:load', ->
     categories.removeClass('active')
     $(@).addClass('active')
 
-    # Update the query parameter without a refresh
-    url = new URL(window.location)
-    url.searchParams.set('category', category)
-    history.replaceState(history.state, '', url)
-
     # Set the category in the form so it is retained on search
     $('#category').val(category)
 
@@ -184,8 +246,6 @@ $(document).on 'turbolinks:load', ->
   # Type Buttons
 
   types = $('.type-buttons button:not("#reset")')
-  page_path = window.location.pathname.replaceAll('/', '_')
-  hidden_types_key = "hidden_types#{page_path}"
 
   types.click ->
     $(@).toggleClass('active')
@@ -195,12 +255,12 @@ $(document).on 'turbolinks:load', ->
     restripe()
     hidden_types = $('.type-buttons button:not(".active")').map ->
       $(@).data('value')
-    Cookies.set(hidden_types_key, hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
+    Cookies.set('hidden_types', hidden_types.get().join(','), { expires: 7300, sameSite: 'Lax' })
 
   $('.type-buttons button#reset').click ->
     $('.type-buttons button').addClass('active')
     $('.collectable').removeClass('hidden')
-    Cookies.remove(hidden_types_key)
+    Cookies.remove('hidden_types')
     restripe()
 
   # Filters
@@ -217,13 +277,13 @@ $(document).on 'turbolinks:load', ->
     unknown = $(@).find('#unknown')
     gender = $(@).find('#gender')
 
-    refresh = (premium.length > 0 && Cookies.get('premium') != checkboxValue(premium)) ||
-      (limited.length > 0 && Cookies.get('limited') != checkboxValue(limited)) ||
-      (ranked_pvp.length > 0 && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
-      (armoire.length > 0 && Cookies.get('armoire') != checkboxValue(armoire)) ||
-      (outfit.length > 0 && Cookies.get('outfit') != checkboxValue(outfit)) ||
-      (unknown.length > 0 && Cookies.get('unknown') != checkboxValue(unknown)) ||
-      (gender.length > 0 && Cookies.get('gender') != gender.val())
+    refresh = (premium.length && Cookies.get('premium') != checkboxValue(premium)) ||
+      (limited.length && Cookies.get('limited') != checkboxValue(limited)) ||
+      (ranked_pvp.length && Cookies.get('ranked_pvp') != checkboxValue(ranked_pvp)) ||
+      (armoire.length && Cookies.get('armoire') != checkboxValue(armoire)) ||
+      (outfit.length && Cookies.get('outfit') != checkboxValue(outfit)) ||
+      (unknown.length && Cookies.get('unknown') != checkboxValue(unknown)) ||
+      (gender.length && Cookies.get('gender') != gender.val())
 
     $(@).find('input[type="checkbox"]').each (_, option) ->
       Cookies.set("#{$(option).attr('id')}", checkboxValue(option), { expires: 7300, sameSite: 'Lax' })

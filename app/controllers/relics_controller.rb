@@ -7,7 +7,7 @@ class RelicsController < ApplicationController
   before_action -> { check_lodestone_privacy!(:achievements) }, only: [:weapons, :tools, :garo]
   before_action :display_verify_alert!, only: [:weapons, :ultimate, :tools, :armor, :garo]
   before_action :set_relic_collection!, only: [:weapons, :ultimate, :tools, :armor, :garo]
-  skip_before_action :set_owned!, :set_ids!, :set_dates!, :set_prices!
+  skip_before_action :set_owned!, :set_ids!, :set_prices!
 
   def weapons
     @types = RelicType.includes(:relics).where(category: 'weapons').order(order: :desc)

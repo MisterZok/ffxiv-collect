@@ -1,16 +1,12 @@
 class EmotesController < ApplicationController
   include PrivateCollection
   before_action -> { check_privacy!(:emotes) }
-  skip_before_action :set_dates!
 
   def index
     @q = Emote.ransack(params[:q])
     @emotes = @q.result.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:emote)
     @categories = EmoteCategory.all.order(:id)
-
-    @category = params[:category].to_i
-    @category = nil if @category < 1
   end
 
   def show

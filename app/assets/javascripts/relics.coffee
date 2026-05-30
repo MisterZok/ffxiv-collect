@@ -1,5 +1,5 @@
-$(document).on 'turbolinks:load', ->
-  return unless $('.armors').length > 0
+$ ->
+  return unless $('.armors').length
 
   buttons = $('.category-buttons button')
   buttons.click ->

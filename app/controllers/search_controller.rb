@@ -1,11 +1,14 @@
 class SearchController < ApplicationController
   include PrivateCollection
   include Typeable
-  before_action -> { check_privacy!(:mounts, :minions, :facewear) }
-  skip_before_action :set_owned!, :set_ids!, :set_dates!
+  before_action -> { check_privacy!(:mounts, :minions, :facewear, :emotes) }
+  skip_before_action :set_owned!, :set_ids!
 
   def index
-    @types = collectable_types.reject { |type| ['Armoire', 'Outfit'].include?(type[:value]) }
+    @types = collectable_types
+    @hidden_types = cookies[:hidden_types]&.split(',')&.map(&:constantize) || []
+    @source_types = SourceType.with_filters(cookies).ordered
+    @models = @types.pluck(:model)
 
     @owned = @types.each_with_object({}) do |type, h|
       key = type[:value].downcase.pluralize
@@ -16,12 +19,8 @@ class SearchController < ApplicationController
       }
     end
 
-    @hidden_types = cookies[:hidden_types_search]&.split(',')&.map(&:constantize) || []
-    @models = @types.pluck(:model)
-    @source_types = SourceType.with_filters(cookies).ordered
-
     # Collect a distinct set of patches across all models
-    @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.uniq
+    @patches = @models.flat_map { |model| model.distinct.pluck(:patch) }.compact.uniq
     @search = ransack_with_patch_search(@patches)
 
     @collectables = @models.flat_map do |model|
@@ -34,8 +33,9 @@ class SearchController < ApplicationController
     end
 
     if @character.present?
-      @owned_ids = @models.each_with_object({}) do |model, h|
-        h[model.to_s.underscore.pluralize.to_sym] = @character.send("#{model.to_s.underscore}_ids")
+      @keyed_collection_ids = @models.flat_map do |model|
+        collection = model.to_s.underscore
+        @character.send("#{collection}_ids").map { |id| "#{collection}-#{id}"}
       end
     end
   end

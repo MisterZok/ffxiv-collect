@@ -1,10 +1,6 @@
 module CollectionsHelper
-  def collectable_classes(collectable, generic: false)
-    if generic
-      "collectable#{' owned' if generic_collectable_owned?(collectable)}#{' tradeable' if collectable.tradeable?}"
-    else
-      "collectable#{' owned' if owned?(collectable.id)}#{' tradeable' if collectable.tradeable?}"
-    end
+  def collectable_classes(collectable)
+    "collectable#{' tradeable' if collectable.tradeable?}"
   end
 
   def collectable_name_link(collectable)
@@ -106,10 +102,6 @@ module CollectionsHelper
     end
   end
 
-  def generic_collectable_owned?(collectable)
-    @character.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id)
-  end
-
   def collectable_type(collectable)
     collectable.class.to_s.downcase.pluralize.to_sym
   end
@@ -163,11 +155,10 @@ module CollectionsHelper
                         [t('only.untradeable'), 'untradeable']], selected)
   end
 
-  def category_row_classes(collectable, active_category, categories = nil)
+  def category_row_classes(collectable, categories: [])
     category_id = collectable[:category_id] || categories.index(collectable.category)
-    hidden = active_category.present? && category_id != active_category
 
-    "#{collectable_classes(collectable)} category-row category-#{category_id}#{' hidden' if hidden }"
+    "#{collectable_classes(collectable)} category-row category-#{category_id}"
   end
 
   def rarity(collectable, numeric: false, percent: false, owned: nil)
@@ -210,41 +201,14 @@ module CollectionsHelper
   end
 
   def td_owned(collectable)
-    date = @dates&.dig(collectable.id)
-    owned = @collection_ids&.include?(collectable.id) ||
-      (@owned_ids.present? && @owned_ids[collectable_type(collectable)].include?(collectable.id))
+    id = "#{collectable.class.to_s.underscore}-#{collectable.id}"
 
-    if !collectable.class.automatic_collection? && @character.verified_user?(current_user)
-      content_tag(:td, class: 'text-center',
-                  data: { value: owned ? 1 : 0, toggle: 'tooltip', placement: 'right' },
-                  title: ("#{t('acquired')} #{format_date_short(date)}" if date.present?) ) do
-        check_box_tag(nil, nil, owned, class: 'own',
-                      data: { path: polymorphic_path(collectable, action: owned ? :remove : :add) })
-      end
-    else
-      if owned
-        if date.present?
-          content_tag(:td, fa_icon('check'), class: 'text-center',
-                      data: { value: 1, toggle: 'tooltip', placement: 'right' },
-                      title: "#{t('acquired')} #{format_date_short(date)}")
-        else
-          content_tag(:td, fa_icon('check'), class: 'text-center', data: { value: 1 })
-        end
+    content_tag(:td, class: 'text-center check-ownership', data: { id: id, value: 0 }) do
+      if collectable.class.automatic_collection?
+        fa_icon('times')
       else
-        content_tag(:td, fa_icon('times'), class: 'text-center', data: { value: 0 })
+        check_box_tag(collectable.id, nil, class: 'own', data: { path: polymorphic_path(collectable, action: :add) })
       end
-    end
-  end
-
-  def td_comparison(collectable)
-    owned = [@collection_ids.include?(collectable.id), @comparison_ids.include?(collectable.id)]
-    value = owned.reverse.map { |own| own ? 1 : 0 }.join.to_i(2) # Convert ownership to sortable bitstring
-
-    content_tag(:td, class: 'comparison no-wrap text-center px-2', data: { value: value }) do
-      [
-        image_tag(@character.avatar, class: "avatar mr-2#{' faded' unless owned[0]}"),
-        image_tag(@comparison.avatar, class: "avatar#{' faded' unless owned[1]}")
-      ].join.html_safe
     end
   end
 

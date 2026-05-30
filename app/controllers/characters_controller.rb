@@ -1,8 +1,8 @@
 class CharactersController < ApplicationController
   before_action :verify_signed_in!, only: [:verify, :validate, :destroy]
   before_action :set_search, only: [:search, :search_lodestone]
-  before_action :set_selected, only: [:search_lodestone_id, :view, :select, :compare]
-  after_action  :save_selected, only: [:select, :compare]
+  before_action :set_selected, only: [:search_lodestone_id, :view, :select, :peek]
+  after_action  :save_selected, only: [:select]
   before_action :set_profile, only: [:show, :stats_recent, :stats_rarity, :verify, :validate]
   before_action :set_stats_limit, only: [:stats_recent, :stats_rarity]
   before_action :set_verification_code, only: [:verify, :validate]
@@ -143,10 +143,15 @@ class CharactersController < ApplicationController
     redirect_to character_path(@selected)
   end
 
-  def compare
-    set_permanent_cookie(:comparison, params[:id])
-    flash[:success] = t('alerts.comparison_set') unless flash[:notice].present?
+  def peek
+    set_permanent_cookie(:peek, @selected.id)
+    flash[:success] = t('alerts.peek_set') unless flash[:notice].present?
     redirect_to character_path(@selected)
+  end
+
+  def unpeek
+    cookies.delete(:peek)
+    redirect_back(fallback_location: root_path)
   end
 
   def forget
@@ -158,11 +163,6 @@ class CharactersController < ApplicationController
 
     flash[:success] = t('alerts.no_longer_tracking')
     redirect_to root_path
-  end
-
-  def forget_comparison
-    cookies.delete(:comparison)
-    redirect_back(fallback_location: root_path)
   end
 
   def destroy
@@ -242,7 +242,11 @@ class CharactersController < ApplicationController
 
   def set_search
     @name, @server, @data_center = search_params.values_at(:name, :server, :data_center)
-    @search = @name.present?
+
+    if @name.present?
+      @name = @name.strip.gsub(/[‘’]/, "'")
+      @search = true
+    end
   end
 
   def set_selected
@@ -260,9 +264,6 @@ class CharactersController < ApplicationController
       redirect_back(fallback_location: root_path)
     elsif @selected.private?(current_user)
       render_private_character_flash!(@selected)
-      redirect_back(fallback_location: root_path)
-    elsif action_name == 'compare' && @selected == @character
-      flash[:alert] = t('alerts.comparison_is_you')
       redirect_back(fallback_location: root_path)
     end
   end

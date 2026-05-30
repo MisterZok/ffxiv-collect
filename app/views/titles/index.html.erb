@@ -2,59 +2,60 @@
 <% description("Automatically track your character's titles and discover how to obtain new ones.") %>
 
 <%= render 'shared/filters' %>
-<div class="d-flex justify-content-center">
-  <div class="d-inline-flex flex-column">
-    <div class="d-flex justify-content-between align-items-end mb-1">
-      <div></div>
-      <%= search_form_for(@q, url: titles_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-        <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: 'Title',
-          size: 40, class: 'form-control form-control-sm'%>
-        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-      <% end %>
-      <%= render 'shared/active_filters' %>
-    </div>
-    <%= render 'shared/collection_progress', ids: @titles.map(&:achievement_id) %>
-    <table class="table table-striped shadow p-3 collection sortable<%= ' comparing' if @comparison.present? %>">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Title</th>
-          <th scope="col" class="hide-xs">Achievement</th>
-          <th scope="col" class="hide-sm"><%= t('category') %></th>
-          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
-          <th scope="col" class="text-center"><%= t('patch') %></th>
-          <% if character_selected? %>
-            <th scope="col"></th><!-- Owned -->
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @titles.each do |title| %>
-          <tr class="collectable<%= ' owned' if owned?(title.achievement_id) %>">
-            <td data-value="<%= title.order %>"></td>
-            <td><%= title_name(title) %></td>
-            <td class="hide-xs">
-              <%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name',
-                          title: title.achievement.description, data: { toggle: 'tooltip' }) %>
-              <% if title.achievement.time_limited? %>
-                <%= far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited_achievement')) %>
-              <% end %>
-            </td>
-            <td class="hide-sm"><%= achievement_type_category_link(title.achievement) %></td>
-            <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
-              <%= rarity(title.achievement) %>
-            </td>
-            <td class="text-center"><%= title.achievement.patch %></td>
+<%= render 'shared/spinner' %>
+<%= render 'shared/collection_data' %>
+
+<div class="collection-wrapper">
+  <div class="d-flex justify-content-center">
+    <div class="d-inline-flex flex-column">
+      <div class="d-flex justify-content-between align-items-end mb-1">
+        <div></div>
+        <%= search_form_for(@q, url: titles_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+          <%= f.search_field "name_#{I18n.locale}_or_female_name_#{I18n.locale}_cont", placeholder: 'Title',
+            size: 40, class: 'form-control form-control-sm'%>
+          <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
+        <% end %>
+        <%= render 'shared/active_filters' %>
+      </div>
+      <%= render 'shared/collection_progress', ids: @titles.map(&:achievement_id) %>
+      <table class="table table-striped shadow collection sortable">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col" class="hide-xs">Achievement</th>
+            <th scope="col" class="hide-sm"><%= t('category') %></th>
+            <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+            <th scope="col" class="text-center"><%= t('patch') %></th>
             <% if character_selected? %>
-              <% if @comparison.present? %>
-                <%= td_comparison(title.achievement) %>
-              <% else %>
-                <%= td_owned(title.achievement) %>
-              <% end %>
+              <th scope="col" class="check-ownership"></th><!-- Owned -->
             <% end %>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% cache [@titles.cache_key_with_version, I18n.locale] do %>
+            <% @titles.each do |title| %>
+              <tr class="collectable<%= ' owned' if owned?(title.achievement_id) %>">
+                <td data-value="<%= title.order %>"></td>
+                <td><%= title_name(title) %></td>
+                <td class="hide-xs">
+                  <%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name',
+                              title: title.achievement.description, data: { toggle: 'tooltip' }) %>
+                  <% if title.achievement.time_limited? %>
+                    <%= far_icon('clock', data: { toggle: 'tooltip' }, title: t('tooltips.time_limited_achievement')) %>
+                  <% end %>
+                </td>
+                <td class="hide-sm"><%= achievement_type_category_link(title.achievement) %></td>
+                <td class="text-center hide-xs" data-value="<%= rarity(title.achievement, numeric: true) %>">
+                  <%= rarity(title.achievement) %>
+                </td>
+                <td class="text-center"><%= title.achievement.patch %></td>
+                <%= td_owned(title.achievement) %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

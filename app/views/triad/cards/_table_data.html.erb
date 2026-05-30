@@ -37,12 +37,7 @@
       <td class="text-center" data-value="<%= sort_value(card) %>"><%= card.patch %></td>
     <% end %>
     <% unless local_assigns[:skip_checkbox] %>
-      <% if character_selected? %>
-        <%= td_owned(card) %>
-      <% end %>
-      <% if @comparison.present? %>
-        <%= td_comparison(card) %>
-      <% end %>
+      <%= td_owned(card) %>
     <% end %>
     <% if local_assigns[:deck] %>
       <td class="text-center">

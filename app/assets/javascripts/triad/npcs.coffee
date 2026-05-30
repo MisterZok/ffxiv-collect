@@ -1,5 +1,5 @@
-$(document).on 'turbolinks:load', ->
-  return unless $('.npcs').length > 0
+$ ->
+  return unless $('.npcs').length
 
   restripe = ->
     # Apply any selected filters

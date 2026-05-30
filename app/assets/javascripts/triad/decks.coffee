@@ -1,5 +1,5 @@
-$(document).on 'turbolinks:load', ->
-  return unless $('#deck').length > 0
+$ ->
+  return unless $('#deck').length
 
   updateView = (source) ->
     card_ids = $('#deck_card_ids').val()

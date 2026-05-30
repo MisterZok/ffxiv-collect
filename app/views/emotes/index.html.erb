@@ -1,65 +1,64 @@
 <% title(t('emotes.title')) %>
 <% description("Track your character's emotes and discover how to obtain new ones.") %>
 
-<%= render 'shared/category_buttons', categories: @categories, selected: @category %>
 <%= render 'shared/filters' %>
-<div class="d-flex justify-content-center">
-  <div class="d-inline-flex flex-column">
-    <div class="d-flex justify-content-between align-items-end mt-2 mb-1">
-      <div></div>
-      <%= search_form_for(@q, url: emotes_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
-        <%= hidden_field_tag :category, params[:category] %>
-        <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
-          class: 'form-control form-control-sm flex-grow-1' %>
-        <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
-          { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
-        <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
-      <% end %>
-      <%= render 'shared/active_filters' %>
-    </div>
-    <%= render 'shared/collection_progress', ids: @emotes.map(&:id) %>
-    <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
-    <table class="table table-striped table-sm shadow sortable collection categorized <%= ' comparing' if @comparison.present? %>">
-      <thead>
-        <tr>
-          <th scope="col">#</th><!-- Image -->
-          <th scope="col"><%= t('name') %></th>
-          <th scope="col" class="hide-xs"><%= t('source') %></th>
-          <th scope="col" class="hide-md"><%= t('emotes.command') %></th>
-          <th scope="col" class="text-center hide-md"><%= t('category') %></th>
-          <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
-          <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
-          <th scope="col" class="text-center"><%= t('patch') %></th>
-          <% if character_selected? %>
-            <th scope="col"></th><!-- Owned -->
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @emotes.each do |emote| %>
-          <tr class="<%= category_row_classes(emote, @category) %>">
-            <td data-value="<%= emote.order %>">
-              <%= link_to emote_path(emote) do %>
-                <%= sprite(emote, :emote) %>
-              <% end %>
-            </td>
-            <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
-            <td class="hide-xs" data-value="<%= source_sort_value(emote) %>"><%= sources(emote) %></td>
-            <td class="hide-md"><%= emote.command.split(', ').first %></td>
-            <td class="text-center hide-md"><%= emote.category.name %></td>
-            <td class="text-center" data-value="<%= price_sort_value(emote) %>"><%= market_link(emote) %></td>
-            <td class="text-center hide-xs" data-value="<%= rarity(emote, numeric: true) %>"><%= rarity(emote) %></td>
-            <td class="text-center" data-value="<%= sort_value(emote) %>"><%= emote.patch %></td>
-            <% if character_selected? %>
-              <% if @comparison.present? %>
-                <%= td_comparison(emote) %>
-              <% else %>
-                <%= td_owned(emote) %>
-              <% end %>
-            <% end %>
-          </tr>
+<%= render 'shared/spinner' %>
+<%= render 'shared/collection_data' %>
+
+<div class="collection-wrapper">
+  <div class="d-flex justify-content-center">
+    <div class="d-inline-flex flex-column">
+      <%= render 'shared/category_buttons', categories: @categories %>
+      <div class="d-flex justify-content-between align-items-end mt-2 mb-1">
+        <div></div>
+        <%= search_form_for(@q, url: emotes_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+          <%= hidden_field_tag :category, params[:category] %>
+          <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
+            class: 'form-control form-control-sm flex-grow-1' %>
+          <%= f.collection_select :sources_type_id_eq, @types, :id, :name,
+            { include_blank: t('all.sources') }, class: 'form-control form-control-sm' %>
+          <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
         <% end %>
-      </tbody>
-    </table>
+        <%= render 'shared/active_filters' %>
+      </div>
+      <%= render 'shared/collection_progress', ids: @emotes.map(&:id) %>
+      <%= javascript_tag "window._token = '#{form_authenticity_token}'" %>
+      <table class="table table-striped table-sm shadow sortable collection categorized>">
+        <thead>
+          <tr>
+            <th scope="col">#</th><!-- Image -->
+            <th scope="col"><%= t('name') %></th>
+            <th scope="col" class="hide-xs"><%= t('source') %></th>
+            <th scope="col" class="hide-md"><%= t('emotes.command') %></th>
+            <th scope="col" class="text-center hide-md"><%= t('category') %></th>
+            <th scope="col" class="text-center"><%= fa_icon('dollar-sign') %></th>
+            <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
+            <th scope="col" class="text-center"><%= t('patch') %></th>
+            <th scope="col" class="check-ownership"></th><!-- Owned -->
+          </tr>
+        </thead>
+        <tbody>
+          <% cache [@emotes.cache_key_with_version, @price_cache_key, I18n.locale] do %>
+            <% @emotes.each do |emote| %>
+              <tr class="<%= category_row_classes(emote) %>">
+                <td data-value="<%= emote.order %>">
+                  <%= link_to emote_path(emote) do %>
+                    <%= sprite(emote, :emote) %>
+                  <% end %>
+                </td>
+                <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>
+                <td class="hide-xs" data-value="<%= source_sort_value(emote) %>"><%= sources(emote) %></td>
+                <td class="hide-md"><%= emote.command.split(', ').first %></td>
+                <td class="text-center hide-md"><%= emote.category.name %></td>
+                <td class="text-center" data-value="<%= price_sort_value(emote) %>"><%= market_link(emote) %></td>
+                <td class="text-center hide-xs" data-value="<%= rarity(emote, numeric: true) %>"><%= rarity(emote) %></td>
+                <td class="text-center" data-value="<%= sort_value(emote) %>"><%= emote.patch %></td>
+                <%= td_owned(emote) %>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

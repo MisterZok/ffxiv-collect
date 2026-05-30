@@ -71,8 +71,18 @@ class ApplicationController < ActionController::Base
   end
 
   def set_characters
-    if user_signed_in?
+    if cookies[:peek].present?
+      @character = Character.find_by(id: cookies[:peek])
+      @peeking = true
+
+      if @character&.private?
+        cookies[:peek] = nil
+        flash[:error] = t('alerts.character_set_to_private')
+        return redirect_to root_path
+      end
+    elsif user_signed_in?
       @character = current_user.character
+
       if @character&.private?(current_user)
         current_user.update(character_id: nil)
         flash[:error] = t('alerts.character_set_to_private')
@@ -80,6 +90,7 @@ class ApplicationController < ActionController::Base
       end
     elsif cookies[:character].present?
       @character = Character.find_by(id: cookies[:character])
+
       if @character&.private?
         cookies[:character] = nil
         flash[:error] = t('alerts.character_set_to_private')
@@ -87,24 +98,16 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    if cookies[:comparison].present?
-      unless @character.present?
-        cookies[:comparison] = nil
-      end
-
-      @comparison = Character.find_by(id: cookies[:comparison])
-      if @comparison&.private?(current_user)
-        cookies[:comparison] = nil
-        flash[:error] = t('alerts.comparison_set_to_private')
-        return redirect_to root_path
-      end
+    if @character&.syncable?
+      @character.sync
     end
+  end
 
-    [@character, @comparison].each do |character|
-      if character&.syncable?
-        character.sync
-      end
-    end
+  def append_info_to_payload(payload)
+    super
+
+    payload[:character_id] = @character&.id
+    payload[:user_id] = current_user&.uid
   end
 
   def display_announcements
