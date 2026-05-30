@@ -8,7 +8,7 @@ namespace 'sources:armoires' do
     DUNGEON_TYPE = SourceType.find_by(name_en: 'Dungeon').freeze
     PREMIUM_TYPE = SourceType.find_by(name_en: 'Premium').freeze
 
-    ARMOIRE_DUNGEON_CATEGORY = ArmoireCategory.find_by(name_en: 'Dungeon Gear').freeze
+    ARMOIRE_DUNGEON_CATEGORY = ArmoireCategory.find_by(name_en: 'Dungeon Gear')[:id].freeze
     PREMIUM_CATEGORIES = ArmoireCategory.where(name_en: %w(Costumes Fashions Mascots)).pluck(:id).freeze
 
     sub_categories = XIVData.sheet('CabinetSubCategory').each_with_object({}) do |sub_category, h|
@@ -21,8 +21,8 @@ namespace 'sources:armoires' do
       next if armoire.sources.any?
 
       # Automatically create Dungeon and Premium sources
-      if armoire['category_id'] == ARMOIRE_DUNGEON_CATEGORY['id']
-        related = Instance.find_by(name_en: sub_categories[armoire["order_group"]])
+      if armoire['category_id'] == ARMOIRE_DUNGEON_CATEGORY
+        related = Instance.find_by(name_en: sub_categories[armoire['order_group']])
 
         next unless related.present?
 
