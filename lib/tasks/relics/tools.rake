@@ -72,11 +72,13 @@ namespace :relics do
 
       ids = (45679..45689).to_a + # Cosmic
         (49053..49063).to_a + # Stellar
-        (49148..49158).to_a # Hyper
+        (49148..49158).to_a + # Hyper
+        (51778..51788).to_a # Stars
 
       achievement_ids = (3691..3701).to_a +
         (3792..3802).to_a +
-        (3877..3887).to_a
+        (3877..3887).to_a +
+        (3914..3924).to_a
 
       create_relics(type, ids, achievement_ids)
 
