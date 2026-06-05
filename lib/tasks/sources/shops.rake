@@ -91,13 +91,14 @@ namespace 'sources:shops' do
     outfit_item_ids = OutfitItem.pluck(:item_id).uniq.map(&:to_s)
     outfit_items = {}
 
-    tomestone_items = XIVData.sheet('TomestonesItem').each_with_object({}) do |tomestone, h|
+    tomestone_item_ids = XIVData.sheet('TomestonesItem').each_with_object({}) do |tomestone, h|
       next if tomestone['Tomestones'] == '0'
 
-      h[tomestone['Tomestones'].to_i] = Item.find(tomestone['Item'])
+      h[tomestone['Tomestones'].to_i] = tomestone['Item']
     end
 
     XIVData.sheet('SpecialShop').each do |shop|
+      # Skip if shop is associated to a seasonal event or is restricted
       next if shop["RequiredFestival"] != '0' ||
         shop['Name']&.match?(restricted_special_shop_names) ||
         restricted_shop_ids.include?(shop['#'])
@@ -109,13 +110,42 @@ namespace 'sources:shops' do
 
           next unless item_ids.include?(item_id) || outfit_item_ids.include?(item_id)
 
-          source_to_create = {}
+          source_to_create = []
+          type = purchase_type
 
           3.times do |k|
             price = shop["Item[#{i}].CurrencyCost[#{k}]"]
             next if price == '0'
 
-            currency_item_id = shop["Item[#{i}].ItemCost[#{k}]"].to_i
+            item_cost = shop["Item[#{i}].ItemCost[#{k}]"].to_i
+            currency_item_id = case shop["Item[#{i}].CostType[#{k}]"].to_i
+            when 0, 1
+              item_cost
+            when 2
+              tomestone_item_ids[item_cost]
+            when 3
+              scrip_id = case item_cost
+              when 1
+                25199 # White Crafters' Scrip
+              when 2
+                33913 # Purple Crafters' Scrip
+              when 3
+                25200 # White Gatherers' Scrip
+              when 4
+                33914 # Purple Gatherers' Scrip
+              when 5
+                10307 # Centurio Seal
+              when 6
+                41784 # Orange Crafters' Scrip
+              when 7
+                41785 # Orange Gatherers' Scrip
+              end
+
+              scrip_id
+            else
+              next
+            end
+
             type = case currency_item_id
             when 25, 36656, 40479
               pvp_type
@@ -125,6 +155,10 @@ namespace 'sources:shops' do
               gold_saucer_type
             when 26807
               fate_type
+            when 25199, 33913, 41784
+              crafting_type
+            when 25200, 33914, 41785
+              gathering_type
             when 28063
               skybuilders_type
             when 30341
@@ -141,52 +175,14 @@ namespace 'sources:shops' do
               purchase_type
             end
 
-            currency = case shop["Item[#{i}].CostType[#{k}]"].to_i
-            when 0, 1
-              Item.find(currency_item_id)
-            when 2
-              tomestone_items[currency_item_id]
-            when 3
-              scrip_id = case currency_item_id
-              when 1
-                type = crafting_type
-                25199 # White Crafters' Scrip
-              when 2
-                type = crafting_type
-                33913 # Purple Crafters' Scrip
-              when 3
-                type = gathering_type
-                25200 # White Gatherers' Scrip
-              when 4
-                type = gathering_type
-                33914 # Purple Gatherers' Scrip
-              when 5
-                type = hunts_type
-                10307 # Centurio Seal
-              when 6
-                type = crafting_type
-                41784 # Orange Crafters' Scrip
-              when 7
-                type = gathering_type
-                41785 # Orange Gatherers' Scrip
-              end
-
-              Item.find(scrip_id)
-            else
-              next # Skip currencies that cannot be resolved to items
-            end
+            currency = Item.find_by(id: currency_item_id)
 
             # Do not create shop sources for Moogle Treasure Trove rewards
-            next if currency['name_en'].match?('Irregular Tomestone')
+            next if currency.nil? || currency['name_en'].match?('Irregular Tomestone')
 
             # Add collectable source data
             if item_ids.include?(item_id)
-              if source_to_create.present?
-                texts = join_source_texts(source_to_create[:texts], currency_texts(price, currency))
-                source_to_create.merge!({ texts: texts })
-              else
-                source_to_create = { item_id: item_id, type: type, texts: currency_texts(price, currency) }
-              end
+              source_to_create << currency_texts(price, currency)
             end
 
             # Add outfit source data
@@ -197,7 +193,7 @@ namespace 'sources:shops' do
 
           # Create source based on fetched data
           if source_to_create.present?
-            type, texts = source_to_create.values_at(:type, :texts)
+            texts = join_source_texts(*source_to_create)
             create_shop_source(Item.find(item_id).unlock, type, texts)
           end
         end
@@ -223,6 +219,7 @@ namespace 'sources:shops' do
     end
 
     puts 'Creating Grand Company sources'
+
     XIVData.sheet('GCScripShopItem').each do |entry|
       next unless item_ids.include?(entry['Item'])
 
@@ -261,6 +258,6 @@ def currency_texts(price, currency)
   end
 end
 
-def join_source_texts(old_hash, new_hash)
-  old_hash.merge(new_hash) { |_, old_value, new_value| [old_value, new_value].join(' + ') }
+def join_source_texts(old_hash, *new_hashes)
+  old_hash.merge(*new_hashes) { |_, old_value, new_value| [old_value, new_value].join(' + ') }
 end
