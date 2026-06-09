@@ -43,7 +43,7 @@
               <tr class="<%= category_row_classes(emote) %>">
                 <td data-value="<%= emote.order %>">
                   <%= link_to emote_path(emote) do %>
-                    <%= sprite(emote, :emote) %>
+                    <%= small_image(emote) %>
                   <% end %>
                 </td>
                 <td><%= link_to(emote.name, emote_path(emote), class: 'name') %></td>

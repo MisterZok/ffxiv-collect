@@ -37,7 +37,7 @@ namespace :spells do
         next unless data.present?
 
         data[:order] ||= spell['Number']
-        data[:icon] ||= spell['Icon']
+        data[:image_url] ||= XIVData.image_url(spell['Icon'])
         data["location_#{locale}"] ||= sanitize_name(spell['Location'], locale: locale) if spell['Location'].present?
         data["tooltip_#{locale}"] = sanitize_text(spell['Description'])
 
@@ -54,9 +54,7 @@ namespace :spells do
     spells.values.each do |spell|
       aspect = SpellAspect.find_or_create_by!(spell.delete(:aspects))
       spell[:aspect_id] = aspect.id.to_s
-      data = spell.except('location_en', 'location_de', 'location_fr', 'location_ja', 'location_tc', :icon)
-
-      create_image(spell[:id], XIVData.image_path(spell[:icon]), 'spells', width: 42, height: 42)
+      data = spell.except('location_en', 'location_de', 'location_fr', 'location_ja', 'location_tc')
 
       if existing = Spell.find_by(id: spell[:id])
         existing.update!(data) if updated?(existing, data)
@@ -74,8 +72,6 @@ namespace :spells do
         spell.sources.create!(**texts, type_id: other_type)
       end
     end
-
-    create_spritesheet('spells')
 
     puts "Created #{Spell.count - count} new blue magic spells"
   end

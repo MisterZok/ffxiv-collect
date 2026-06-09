@@ -1,12 +1,12 @@
 <% title(@orchestrion.name) %>
 <% description(@orchestrion.description.truncate(150)) %>
-<% image(image_url('orchestrion.png', skip_pipeline: true)) %>
+<% image(@orchestrion.image_url) %>
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
     <div class="card">
       <div class="card-header d-flex align-items-center">
-        <%= image_tag('orchestrion.png') %>
+        <%= small_image(@orchestrion) %>
         <h5 class="card-title ml-2">
           <%= orchestrion_number(@orchestrion) %>
           <%= @orchestrion.name %>

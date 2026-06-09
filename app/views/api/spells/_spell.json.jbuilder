@@ -1,6 +1,6 @@
 json.(spell, :id, :name, :description, :tooltip, :order, :rank, :patch)
 json.owned @owned.fetch(spell.id.to_s, '0%')
-json.icon image_url("spells/#{spell.id}.png", skip_pipeline: true)
+json.icon spell.image_url
 
 json.type do
   json.(spell.type, :id, :name)

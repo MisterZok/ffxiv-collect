@@ -16,6 +16,7 @@
 #  updated_at     :datetime         not null
 #  name_tc        :string(255)
 #  description_tc :text(65535)
+#  image_url      :string(255)
 #
 class OccultRecord < ApplicationRecord
   include Collectable

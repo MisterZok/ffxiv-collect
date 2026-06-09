@@ -39,7 +39,7 @@
               <tr class="<%= collectable_classes(fashion) %>">
                 <td data-value="<%= fashion.order %>">
                   <%= link_to fashion_path(fashion) do %>
-                    <%= sprite(fashion, 'fashions-small') %>
+                    <%= small_image(fashion) %>
                   <% end %>
                 </td>
                 <td><%= link_to(fashion.name, fashion_path(fashion), class: 'name') %></td>

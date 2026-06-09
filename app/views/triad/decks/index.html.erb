@@ -68,7 +68,7 @@
                     <% deck.cards.each do |card| %>
                       <%= link_to(card_path(card), data: { toggle: 'tooltip', title: "#{card.name}" },
                                   class: ('card-missing' if !@collection_ids&.include?(card.id))) do %>
-                        <%= sprite(card, 'cards-small') %>
+                        <%= small_image(card) %>
                       <% end %>
                     <% end %>
                   </div>

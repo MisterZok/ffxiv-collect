@@ -27,14 +27,18 @@ module ApplicationHelper
   def safe_image_url(src, options = {})
     begin
       image_url(src, options)
-    rescue Sprockets::Rails::Helper::AssetNotFound
+    rescue Sprockets::Rails::Helper::AssetNotFound, ArgumentError
+      # Fail gracefully when asset is missing from pipeline or image URL is nil
+      nil
     end
   end
 
   def safe_image_tag(src, options = {})
     begin
       image_tag(src, options)
-    rescue Sprockets::Rails::Helper::AssetNotFound
+    rescue Sprockets::Rails::Helper::AssetNotFound, ArgumentError
+      # Fail gracefully when asset is missing from pipeline or image URL is nil
+      content_tag(:div, nil, options.slice(:class))
     end
   end
 

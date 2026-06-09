@@ -1,6 +1,6 @@
 <% title(@fashion.name) %>
 <% description(@fashion.description.truncate(150)) %>
-<% image(image_url("fashions/large/#{@fashion.id}.png", skip_pipeline: true)) %>
+<% image(@fashion.large_image_url) %>
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
@@ -11,7 +11,7 @@
       <div class="card-body pb-3">
         <div class="d-flex">
           <div class="d-none d-sm-block mr-4">
-            <%= safe_image_tag("fashions/large/#{@fashion.id}.png", class: 'image-large') %>
+            <%= large_image(@fashion) %>
           </div>
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
@@ -31,7 +31,7 @@
             <dd class="mb-0"><%= sources(@fashion, list: true) %></dd>
             <%= render('shared/item', collectable: @fashion) %>
             <div class="d-block d-sm-none">
-              <%= safe_image_tag("fashions/large/#{@fashion.id}.png", class: 'image-large') %>
+              <%= large_image(@fashion) %>
             </div>
           </div>
         </div>

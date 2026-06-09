@@ -5,7 +5,7 @@
   <div class="card-body">
     <div class="d-flex">
       <div class="d-none d-sm-block mr-4">
-        <%= safe_image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
+        <%= large_image(@minion) %>
       </div>
       <div class="d-flex flex-column flex-info">
         <div class="d-flex flex-wrap mb-0">
@@ -33,12 +33,12 @@
         <dt><%= t('tooltip') %></dt>
         <dd><%= format_text(minion.tooltip) %></dd>
         <div class="d-block d-sm-none">
-          <%= safe_image_tag("minions/large/#{@minion.id}.png", class: 'image-large') %>
+          <%= large_image(@minion) %>
         </div>
       </div>
     </div>
-    <div class="minion-footprint">
-      <%= safe_image_tag("minions/footprint/#{@minion.id}.png") %>
+    <div class="footprint">
+      <%= image_tag(@minion.footprint_image_url) %>
     </div>
   </div>
 </div>

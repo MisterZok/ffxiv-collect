@@ -28,7 +28,8 @@ namespace :survey_records do
       XIVData.sheet('VVDNotebookContents', locale: locale).each do |record|
         next unless record['Name'].present?
 
-        data = h[record['#']] || { id: record['#'], icon: record['Icon'], image: record['Image'] }
+        data = h[record['#']] || { id: record['#'], image_url: XIVData.image_url(record['Icon']),
+                                   large_image_url: XIVData.image_url(record['Image']) }
         data["name_#{locale}"] = sanitize_name(record['Name'], locale: locale)
         data["description_#{locale}"] = sanitize_text(record['Description'].gsub(/(?<!\n)\n(?!\n)/, "\n\n"),
                                                       preserve_space: true)
@@ -45,17 +46,12 @@ namespace :survey_records do
     end
 
     records.values.each do |record|
-      create_image(record[:id], XIVData.image_path(record.delete(:image)), 'survey_records/large')
-      create_image(record[:id], XIVData.image_path(record.delete(:icon)), 'survey_records/small')
-
       if existing = SurveyRecord.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)
       else
         SurveyRecord.create!(record)
       end
     end
-
-    create_spritesheet('survey_records/small')
 
     puts "Created #{SurveyRecord.count - count} new Survey Records"
   end

@@ -40,7 +40,7 @@ namespace :emotes do
 
         data = h[emote['#']] ||
           {
-            id: emote['#'], order: emote['Order'], icon: XIVData.image_path(emote['Icon']),
+            id: emote['#'], order: emote['Order'], image_url: XIVData.image_url(emote['Icon']),
             category_id: emote['EmoteCategory']
           }.merge(commands[emote['TextCommand']])
 
@@ -52,16 +52,12 @@ namespace :emotes do
     count = Emote.count
 
     emotes.values.each do |emote|
-      create_image(emote[:id], emote.delete(:icon), 'emotes')
-
       if existing = Emote.find_by(id: emote[:id])
         existing.update!(emote) if updated?(existing, emote)
       else
         Emote.create!(emote)
       end
     end
-
-    create_spritesheet('emotes')
 
     puts "Created #{Emote.count - count} new emotes"
   end

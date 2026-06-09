@@ -22,15 +22,19 @@ module XIVData
     icon_id.to_s.rjust(6, '0')
   end
 
-  def image_path(icon_id)
+  def image_path(icon_id, hd: false)
     number = format_icon_id(icon_id)
     directory = number.first(3).ljust(6, '0')
-    "ui/icon/#{directory}/#{number}.tex"
+    "ui/icon/#{directory}/#{number}#{'_hr1' if hd}.tex"
   end
 
-  def download_image(path, format: 'png', hd: false)
+  def image_url(icon_id)
+    query = { path: image_path(icon_id, hd: true), format: 'webp' }.to_query
+    "#{BASE_URL}?#{query}"
+  end
+
+  def download_image(path, format: 'png')
     params = { path: path, format: format }
-    params[:path].sub!('.tex', '_hr1.tex') if hd
 
     RestClient::Request.execute(
       method: :get,

@@ -1,3 +1,8 @@
+.card-large img {
+  width: 104px;
+  height: 128px;
+}
+
 .stats div {
   width: 60px;
   line-height: 1.1rem;
@@ -6,7 +11,6 @@
 img.card-type {
   width: 20px;
   height: 20px;
-  background: url(asset_path('cards/types.png')) no-repeat;
 }
 
 .card-info > div {

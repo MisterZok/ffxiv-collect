@@ -44,7 +44,7 @@
               <tr class="<%= collectable_classes(frame) %>">
                 <td data-value="<%= frame.order %>">
                   <%= link_to frame_path(frame) do %>
-                    <%= image_tag('frame.png') %>
+                    <%= small_image(frame) %>
                   <% end %>
                 </td>
                 <td><%= link_to(frame.name, frame_path(frame), class: 'name') %></td>

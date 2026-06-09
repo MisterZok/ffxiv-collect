@@ -630,7 +630,7 @@ fr:
     auto_attack: "Attaque auto."
     cost: "Coût"
     def: "DEF"
-    effective: "Efficace contre"
+    effective: "Efficace contre %{type}"
     full_title: "Choc des mascottes"
     gates: "Portails"
     hp: "PV"

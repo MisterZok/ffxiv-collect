@@ -629,7 +629,7 @@ en:
     auto_attack: "Auto-attack"
     cost: "Cost"
     def: "DEF"
-    effective: "Effective against"
+    effective: "Effective against %{type}"
     full_title: "Lord of Verminion"
     gates: "Gates"
     hp: "HP"

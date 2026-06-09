@@ -54,13 +54,13 @@
         <% @details.each do |yokai| %>
           <tr>
             <td data-toggle="tooltip" title="<%= yokai[:minion].name %>">
-              <%= sprite(yokai[:minion], 'achievement') %>
+              <%= small_image(yokai[:minion]) %>
             </td>
             <% yokai[:zones].each do |zone| %>
               <td><%= zone %></td>
             <% end %>
             <td data-toggle="tooltip" title="<%= yokai[:weapon].name %>">
-              <%= sprite(yokai[:weapon], 'achievement') %>
+              <%= small_image(yokai[:weapon]) %>
             </td>
             <% if character_selected? %>
               <td>

@@ -10,7 +10,6 @@ Rails.application.routes.draw do
   end
 
   # Memes
-  resources :battle_pass, only: :index
   resources :p2w, only: [:index, :show]
   resources :endless, only: [:index]
   resources :random, only: [:index]

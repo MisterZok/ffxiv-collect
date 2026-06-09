@@ -1,6 +1,6 @@
 <% title(@record.name) %>
 <% description(@record.description.truncate(150)) %>
-<% image(image_url("records/large/#{@record.id}.png", skip_pipeline: true)) %>
+<% image(@record.large_image_url) %>
 
 <div class="row">
   <div class="col-12 col-xl-8 offset-xl-2">
@@ -12,7 +12,7 @@
       <div class="card-body">
         <div class="d-flex">
           <div class="d-none d-sm-block mr-4">
-            <%= safe_image_tag("records/large/#{@record.id}.png", class: 'image-record') %>
+            <%= safe_image_tag(@record.large_image_url, class: 'image-field-record-large') %>
           </div>
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="d-block d-sm-none">
-              <%= safe_image_tag("records/large/#{@record.id}.png", class: 'fit') %>
+              <%= safe_image_tag(@record.large_image_url, class: 'image-field-record-large fit') %>
             </div>
             <dt><%= t('source') %></dt>
             <dd><%= sources(@record, list: true) %></dd>

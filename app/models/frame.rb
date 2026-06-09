@@ -26,6 +26,10 @@ class Frame < ApplicationRecord
   delegate :description, to: :item, allow_nil: true
   delegate :name, to: :item, prefix: :item, allow_nil: true
 
+  def image_url
+    'frame.webp'.freeze
+  end
+
   def tradeable?
     false
   end

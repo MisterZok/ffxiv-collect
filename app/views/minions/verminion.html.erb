@@ -56,7 +56,7 @@
             <tr class="collectable no-fade<%= ' owned' if owned?(minion.id) %>">
               <td data-value="<%= minion.order %>">
                 <%= link_to(minion_path(minion)) do %>
-                  <%= sprite(minion, 'minions-small') %>
+                  <%= small_image(minion) %>
                 <% end %>
               </td>
               <td class="hide-xs"><%= link_to(minion.name, minion_path(minion), class: 'name') %></td>

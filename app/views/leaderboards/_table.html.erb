@@ -14,7 +14,7 @@
       <% @rankings.each do |ranking| %>
         <tr class="<%= 'mine' if @character == ranking[:character] %>">
           <td class="text-center"><%= ranking[:rank] %></td>
-          <td><%= image_tag(ranking[:character].avatar, class: 'avatar') %></td>
+          <td><%= image_tag(ranking[:character].avatar, loading: 'lazy', class: 'avatar') %></td>
           <td><%= link_to(ranking[:character].name, character_path(ranking[:character]), class: 'name') %></td>
           <td><%= ranking[:character].data_center %></td>
           <td><%= ranking[:character].server %></td>

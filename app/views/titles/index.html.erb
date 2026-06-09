@@ -36,9 +36,12 @@
           <% cache [@titles.cache_key_with_version, I18n.locale] do %>
             <% @titles.each do |title| %>
               <tr class="collectable<%= ' owned' if owned?(title.achievement_id) %>">
-                <td data-value="<%= title.order %>"></td>
+                <td data-value="<%= title.order %>">
+
+                </td>
                 <td><%= title_name(title) %></td>
                 <td class="hide-xs">
+                  <%= small_image(title.achievement) %>
                   <%= link_to(title.achievement.name, achievement_path(title.achievement), class: 'name',
                               title: title.achievement.description, data: { toggle: 'tooltip' }) %>
                   <% if title.achievement.time_limited? %>

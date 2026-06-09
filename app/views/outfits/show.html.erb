@@ -1,14 +1,12 @@
 <% title(@outfit.name) %>
-<% image(image_url("outfits/#{@outfit.id}.png", skip_pipeline: true)) %>
+<% image(@outfit.image_url) %>
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center">
-          <div class="image-small">
-            <%= sprite(@outfit, 'outfit') %>
-          </div>
+          <%= small_image(@outfit) %>
           <h5 class="card-title mx-2">
             <%= @outfit.name %>
             <%= gender_symbol(@outfit.gender) %>

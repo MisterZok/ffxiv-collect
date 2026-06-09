@@ -629,7 +629,7 @@ de:
     auto_attack: "Auto-Attacke"
     cost: "Kosten"
     def: "ABW"
-    effective: "Effektiv gegen"
+    effective: "Effektiv gegen %{type}"
     full_title: "Kampf der Trabanten"
     gates: "Tore"
     hp: "LP"

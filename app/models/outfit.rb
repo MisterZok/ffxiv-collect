@@ -20,7 +20,7 @@ class Outfit < ApplicationRecord
   include Collectable
   translates :name
 
-  scope :include_related, -> { include_sources.includes(:items) }
+  scope :include_related, -> { include_sources.includes(:items, :item) }
   scope :ordered, -> { order(patch: :desc, id: :desc) }
 
   # The items that comprise the outfit
@@ -29,6 +29,7 @@ class Outfit < ApplicationRecord
 
   # Override tradeable logic since outfits cannot be linked to a single item
   delegate :tradeable?, to: self
+  delegate :image_url, to: :item
 
   def tradeable?
     self.tradeable

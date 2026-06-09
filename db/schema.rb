@@ -66,6 +66,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "icon_id", limit: 6
     t.string "name_tc"
     t.string "description_tc"
+    t.string "image_url"
     t.index ["category_id"], name: "index_achievements_on_category_id"
     t.index ["name_de"], name: "index_achievements_on_name_de"
     t.index ["name_en"], name: "index_achievements_on_name_en"
@@ -142,6 +143,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.integer "order"
     t.string "name_tc"
     t.string "description_tc"
+    t.string "image_url"
     t.index ["name_de"], name: "index_bardings_on_name_de"
     t.index ["name_en"], name: "index_bardings_on_name_en"
     t.index ["name_fr"], name: "index_bardings_on_name_fr"
@@ -193,6 +195,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.integer "item_id"
     t.string "name_tc"
     t.text "description_tc"
+    t.string "image_url"
+    t.string "large_image_url"
     t.index ["card_type_id"], name: "index_cards_on_card_type_id"
     t.index ["deck_order"], name: "index_cards_on_deck_order"
     t.index ["item_id"], name: "index_cards_on_item_id"
@@ -561,6 +565,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.integer "order"
     t.string "name_tc"
     t.string "command_tc"
+    t.string "image_url"
     t.index ["category_id"], name: "index_emotes_on_category_id"
     t.index ["name_de"], name: "index_emotes_on_name_de"
     t.index ["name_en"], name: "index_emotes_on_name_en"
@@ -583,6 +588,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.datetime "updated_at", null: false
     t.string "lodestone_name"
     t.string "name_tc"
+    t.string "image_url"
+    t.text "image_urls"
     t.index ["name_de"], name: "index_facewear_on_name_de"
     t.index ["name_en"], name: "index_facewear_on_name_en"
     t.index ["name_fr"], name: "index_facewear_on_name_fr"
@@ -608,6 +615,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.datetime "updated_at", precision: nil, null: false
     t.string "name_tc"
     t.string "description_tc", limit: 1000
+    t.string "image_url"
+    t.string "large_image_url"
     t.index ["name_de"], name: "index_fashions_on_name_de"
     t.index ["name_en"], name: "index_fashions_on_name_en"
     t.index ["name_fr"], name: "index_fashions_on_name_fr"
@@ -690,6 +699,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.boolean "femhrothable", default: false
     t.string "name_tc"
     t.string "description_tc", limit: 1000
+    t.string "image_url"
+    t.text "image_urls"
     t.index ["gender"], name: "index_hairstyles_on_gender"
     t.index ["name_de"], name: "index_hairstyles_on_name_de"
     t.index ["name_en"], name: "index_hairstyles_on_name_en"
@@ -738,6 +749,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "name_tc"
     t.string "description_tc", limit: 1000
     t.string "plural_tc"
+    t.string "image_url"
     t.index ["name_de"], name: "index_items_on_name_de"
     t.index ["name_en"], name: "index_items_on_name_en"
     t.index ["name_fr"], name: "index_items_on_name_fr"
@@ -915,6 +927,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "skill_tc"
     t.string "skill_description_tc"
     t.string "enhanced_description_tc", limit: 1000
+    t.string "image_url"
+    t.string "large_image_url"
+    t.string "footprint_image_url"
     t.index ["behavior_id"], name: "index_minions_on_behavior_id"
     t.index ["name_de"], name: "index_minions_on_name_de"
     t.index ["name_en"], name: "index_minions_on_name_en"
@@ -958,6 +973,9 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "description_tc"
     t.string "enhanced_description_tc", limit: 1000
     t.string "tooltip_tc"
+    t.string "image_url"
+    t.string "large_image_url"
+    t.string "footprint_image_url"
     t.index ["name_de"], name: "index_mounts_on_name_de"
     t.index ["name_en"], name: "index_mounts_on_name_en"
     t.index ["name_fr"], name: "index_mounts_on_name_fr"
@@ -1033,6 +1051,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.datetime "updated_at", null: false
     t.string "name_tc"
     t.text "description_tc"
+    t.string "image_url"
     t.index ["name_de"], name: "index_occult_records_on_name_de"
     t.index ["name_en"], name: "index_occult_records_on_name_en"
     t.index ["name_fr"], name: "index_occult_records_on_name_fr"
@@ -1173,6 +1192,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "location"
     t.string "name_tc"
     t.text "description_tc"
+    t.string "image_url"
+    t.string "large_image_url"
     t.index ["linked_record_id"], name: "index_records_on_linked_record_id"
     t.index ["name_de"], name: "index_records_on_name_de"
     t.index ["name_en"], name: "index_records_on_name_en"
@@ -1319,6 +1340,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "name_tc"
     t.string "description_tc", limit: 1000
     t.string "tooltip_tc", limit: 1000
+    t.string "image_url"
     t.index ["aspect_id"], name: "index_spells_on_aspect_id"
     t.index ["name_de"], name: "index_spells_on_name_de"
     t.index ["name_en"], name: "index_spells_on_name_en"
@@ -1360,6 +1382,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_28_142256) do
     t.string "name_tc"
     t.text "description_tc"
     t.string "solution_tc", limit: 1000
+    t.string "image_url"
+    t.string "large_image_url"
     t.index ["order"], name: "index_survey_records_on_order"
     t.index ["series_id"], name: "index_survey_records_on_series_id"
   end

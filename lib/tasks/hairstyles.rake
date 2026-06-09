@@ -7,12 +7,27 @@ namespace :hairstyles do
 
     count = Hairstyle.count
 
-    XIVData.sheet('CharaMakeCustomize').each_with_object(Set.new) do |custom, created|
-      next if custom['HintItem'] == '0'
-      item = Item.find_by(id: custom['HintItem'])
-      next unless item.present?
+    hairstyles = XIVData.sheet('CharaMakeCustomize').each_with_object({}) do |custom, h|
+      # Skip most hairstyle that are not unlocked by items
+      next if custom['HintItem'] == '0' && custom['UnlockLink'] != '228'
 
-      data = { id: custom['UnlockLink'] }
+      id = custom['UnlockLink']
+
+      # If the initial data exists, just add the image
+      if data = h[id]
+        data[:image_urls] << XIVData.image_url(custom['Icon'])
+        next
+      end
+
+      data = { id: id, image_urls: [XIVData.image_url(custom['Icon'])] }
+
+      item = Item.find_by(id: custom['HintItem'])
+
+      # The rest of the data will be set manually for hairstyles without linked items
+      unless item.present?
+        h[id] = data
+        next
+      end
 
       # Set the Hairstyle name to the item name sans the "Modern Aesthetics"
       data["name_en"] = sanitize_name(item["name_en"], locale: 'en')
@@ -47,41 +62,30 @@ namespace :hairstyles do
       data[:femhrothable] = !item.description_en.match(/hrothgar/i) && data[:gender] != 'male'
       data[:hrothable] = !item.description_en.match(/(?<!female )hrothgar/i) && data[:gender] != 'female'
 
-      if existing = Hairstyle.find_by(id: data[:id])
-        existing.update!(data) if updated?(existing, data)
+      h[id] = data
+    end
+
+    hairstyles['228'].merge!(name_en: 'Eternal Bonding', name_de: 'Ewige Bund',
+                             name_fr: 'Lien Éternel', name_ja: 'Eternal Bonding',
+                             name_tc: '永恆誓約', patch: '2.4',
+                             vierable: true, hrothable: true, femhrothable: true)
+
+    hairstyles.values.each do |hairstyle|
+      # Skip incomplete hairstyles
+      next unless hairstyle['name_en'].present?
+
+      # Use the second (cuter) image as the primary image
+      hairstyle[:image_url] = hairstyle[:image_urls].second
+
+      # Store image URLs as a comma separated list
+      hairstyle[:image_urls] = hairstyle[:image_urls].join(',')
+
+      if existing = Hairstyle.find_by(id: hairstyle[:id])
+        existing.update!(hairstyle) if updated?(existing, hairstyle)
       else
-        Hairstyle.create!(data)
+        Hairstyle.create!(hairstyle)
       end
-
-      # Create the hairstyle images
-      path = Rails.root.join('public/images/hairstyles', data[:id])
-      Dir.mkdir(path) unless Dir.exist?(path)
-
-      output_path = path.join("#{custom['#']}.png")
-      create_image(nil, XIVData.image_path(custom['Icon']), output_path, hd: true)
-
-      # Use the first image as a sample of the hairstyle
-      sample_path = Rails.root.join('public/images/hairstyles/samples', "#{data[:id]}.png")
-
-      # Create one sample image the second time we see the style (cuteness guaranteed)
-      if !File.exist?(sample_path) && created.include?(item.id)
-        FileUtils.cp(output_path, sample_path) unless File.exist?(sample_path)
-      end
-
-      created.add(item.id)
     end
-
-    # Create the Eternal Bonding hairstyle which lacks an item unlock
-    Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Ewige Bund',
-                                 name_fr: 'Lien Éternel', name_ja: 'Eternal Bonding', name_tc: '永恆誓約',
-                                 vierable: true, hrothable: true, femhrothable: true)
-
-    # Cache hairstyle image counts in the database
-    Hairstyle.all.each do |hairstyle|
-      hairstyle.update!(image_count: Dir.glob(Rails.root.join("public/images/hairstyles/#{hairstyle.id}/*.png")).size)
-    end
-
-    create_hair_spritesheets
 
     puts "Created #{Hairstyle.count - count} new hairstyles"
   end

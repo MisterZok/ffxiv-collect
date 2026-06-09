@@ -17,15 +17,11 @@ namespace :relics do
       data = { id: item.id.to_s, order: (i + 1).to_s, type_id: type.id.to_s, achievement_id: achievement_ids[i]&.to_s }
         .merge(item.slice(:name_en, :name_de, :name_fr, :name_ja, :name_tc))
 
-      create_image(data[:id], XIVData.image_path(item.icon_id), "relics/#{type.category}")
-
       if existing = Relic.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)
       else
         Relic.create!(data)
       end
     end
-
-    create_spritesheet("relics/#{type.category}")
   end
 end

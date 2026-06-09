@@ -19,6 +19,7 @@
 #  order       :integer
 #  name_tc     :string(255)
 #  command_tc  :string(255)
+#  image_url   :string(255)
 #
 
 class Emote < ApplicationRecord

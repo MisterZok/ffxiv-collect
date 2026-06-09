@@ -12,7 +12,7 @@ namespace :bardings do
         next unless barding['Name'].present? && barding['Order'] != '0'
 
         data = h[barding['#']] || { id: barding['#'], order: barding['Order'],
-                                    icon: barding['IconBody'].present? ? barding['IconBody'] : barding['IconHead'] }
+                                    image_url: XIVData.image_url(barding['IconBody'] == '0' ? barding['IconHead'] : barding['IconBody']) }
 
         data["name_#{locale}"] = sanitize_name(barding['Name'], locale: locale)
         h[data[:id]] = data
@@ -20,16 +20,12 @@ namespace :bardings do
     end
 
     bardings.values.each do |barding|
-      create_image(barding[:id], XIVData.image_path(barding.delete(:icon)), 'bardings')
-
       if existing = Barding.find_by(id: barding[:id])
         existing.update!(barding) if updated?(existing, barding)
       else
         Barding.create!(barding)
       end
     end
-
-    create_spritesheet('bardings')
 
     puts "Created #{Barding.count - count} new bardings"
   end

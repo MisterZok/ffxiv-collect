@@ -7,6 +7,13 @@
   }
 
   img {
+    // Fit the frame within the container, which also sizes down the HR image
     max-width: 100%;
+
+    // Fixed dimensions for portrait-only since the max-width does not size down the HR image
+    &.portrait {
+      width: 256px;
+      height: 420px;
+    }
   }
 }

@@ -76,7 +76,7 @@
             <% cache [@items.cache_key_with_version, @price_cache_key, I18n.locale] do %>
               <% @items.each do |reward| %>
                 <tr>
-                  <td><%= image_tag("items/#{reward.collectable.icon_id}.png") %></td>
+                  <td><%= small_image(reward.collectable) %></td>
                   <td><%= reward.collectable.name %></td>
                   <td class="text-center" data-value="<%= !reward.collectable.tradeable %>">
                     <%= reward_market_link(reward) %>

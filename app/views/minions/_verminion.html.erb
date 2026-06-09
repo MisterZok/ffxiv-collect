@@ -3,7 +3,7 @@
     <h6 class="card-title">
       <% if local_assigns[:variant] %>
         <div class="d-flex align-items-center">
-          <%= sprite(minion, 'minions-small') %>
+          <%= small_image(minion) %>
           <span class="ml-2"><%= minion.name %></span>
         </div>
       <% else %>
@@ -50,21 +50,23 @@
       <hr>
       <div class="d-flex">
         <div class="d-flex flex-column flex-info mr-3">
-          <b><u><%= minion.skill %></u></b>
-          <span><%= format_text_long(minion.skill_description) %></span>
+          <div>
+            <dt class="underline"><%= minion.skill %></dt>
+            <dd><%= format_text_long(minion.skill_description) %></dd>
+          </div>
+          <div class="d-flex flex-wrap">
+            <div>
+              <dt><%= t('verminion.points') %></dt>
+              <dd><%= minion.skill_cost %></dd>
+            </div>
+            <div>
+              <dt><%= t('verminion.special_type') %></dt>
+              <dd><%= minion.skill_type.name %></dd>
+            </div>
+          </div>
         </div>
         <div class="minion-skill-angle mt-4">
           <%= minion_skill_angle(minion) %>
-        </div>
-      </div>
-      <div class="d-flex flex-wrap mt-3">
-        <div>
-          <dt><%= t('verminion.points') %></dt>
-          <dd><%= minion.skill_cost %></dd>
-        </div>
-        <div>
-          <dt><%= t('verminion.special_type') %></dt>
-          <dd><%= minion.skill_type.name %></dd>
         </div>
       </div>
     </div>

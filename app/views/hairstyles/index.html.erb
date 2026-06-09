@@ -41,8 +41,8 @@
             <% @hairstyles.each do |hairstyle| %>
               <tr class="<%= collectable_classes(hairstyle) %>">
                 <td data-value="<%= hairstyle.id %>">
-                  <%= link_to hairstyle_path(hairstyle), class: 'hairstyle-small' do %>
-                    <%= hairstyle_sample_image(hairstyle) %>
+                  <%= link_to hairstyle_path(hairstyle) do %>
+                    <%= medium_image(hairstyle) %>
                   <% end %>
                 </td>
                 <td>

@@ -14,7 +14,7 @@
                 <% collectables.each do |data| %>
                   <li class="mb-2">
                     <%= link_to(polymorphic_path(data[:collectable]), class: 'unstyled d-flex align-items-center') do %>
-                      <%= generic_sprite(collection, data[:collectable]) %>
+                      <%= small_image(data[:collectable]) %>
                       <span class="ml-2">
                         <%= collectable_name(collection, data[:collectable]) %>
                         <% if data[:count].present? %>

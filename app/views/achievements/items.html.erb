@@ -34,7 +34,7 @@
               <tr class="<%= collectable_classes(achievement) %>">
                 <td class="wide hide-xs">
                   <div class="d-flex align-items-center">
-                    <%= achievement_item_sprite(achievement) %>
+                    <%= achievement_item_image(achievement) %>
                     <span class="ml-2 unstyled">
                       <%= achievement_item_link(achievement) %>
                     </span>
@@ -43,7 +43,7 @@
                 <td class="wide">
                   <div class="d-flex align-items-center">
                     <%= link_to(achievement_path(achievement)) do %>
-                      <%= sprite(achievement, 'achievement') %>
+                      <%= small_image(achievement) %>
                     <% end %>
                     <%= link_to(achievement.name, achievement_path(achievement), class: 'name ml-2') %>
                   </div>

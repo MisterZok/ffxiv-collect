@@ -11,7 +11,7 @@ namespace :occult_records do
       XIVData.sheet('MKDLore', locale: locale).each do |record|
         next unless record['Name'].present?
 
-        data = h[record['#']] || { id: record['#'], image: record['Image'] }
+        data = h[record['#']] || { id: record['#'], image_url: XIVData.image_url(record['Image']) }
 
         data["name_#{locale}"] = sanitize_name(record['Name'], locale: locale)
         data["description_#{locale}"] = sanitize_text(record['Description'], preserve_space: true)
@@ -20,8 +20,6 @@ namespace :occult_records do
     end
 
     records.values.each do |record|
-      create_image(record[:id], XIVData.image_path(record.delete(:image)), 'occult_records')
-
       if existing = OccultRecord.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)
       else

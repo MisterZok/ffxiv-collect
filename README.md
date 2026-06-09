@@ -76,7 +76,7 @@ bin/rake data:update
 bin/rake assets:precompile
 # Restart the application
 bin/rails console
-[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Outfit, Fashion, Facewear, Frame, Card, NPC].each { |model| count = model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH'); puts "#{model}: #{count}" if count != 0 }
+[Achievement, Mount, Minion, Orchestrion, Emote, Barding, Hairstyle, Armoire, Outfit, Fashion, Facewear, Frame, Card, NPC].each { |model| count = model.where('created_at > ?', Date.current.beginning_of_day).update_all(patch: 'CURRENT PATCH', updated_at: Time.now); puts "#{model}: #{count}" if count != 0 }
 exit
 ```
 

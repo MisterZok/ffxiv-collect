@@ -1,5 +1,5 @@
 <% title(@facewear.name) %>
-<% image(image_url(facewear_sample_image_path(@facewear), skip_pipeline: true)) %>
+<% image(@facewear.image_url) %>
 
 <div class="row">
   <div class="col-12 col-xl-6 mx-auto">
@@ -24,8 +24,8 @@
         <%= render('shared/item', collectable: @facewear) %>
         <hr>
         <div class="d-flex flex-wrap facewear-list">
-          <% 12.times do |i| %>
-            <%= facewear_image(@facewear, i) %>
+          <% @facewear.image_urls.split(',').each do |url| %>
+            <%= safe_image_tag(url, class: 'drop-shadow') %>
           <% end %>
         </div>
       </div>
