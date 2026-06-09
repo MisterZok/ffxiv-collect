@@ -1,12 +1,14 @@
 class AddImageUrls < ActiveRecord::Migration[7.2]
   def change
-    add_column :achievements, :image_url
+    add_column :achievements, :image_url, :string
 
-    add_column :mounts, :image_url
+    add_column :mounts, :image_url, :string
     add_column :mounts, :large_image_url, :string
+    add_column :mounts, :footprint_image_url, :string
 
     add_column :minions, :image_url, :string
     add_column :minions, :large_image_url, :string
+    add_column :minions, :footprint_image_url, :string
 
     add_column :hairstyles, :image_url, :string
     add_column :hairstyles, :image_urls, :text

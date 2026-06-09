@@ -29,7 +29,7 @@ namespace :deploy do
 
       # Framer's kit images
       execute :rm, '-rf', release_path.join('public/images/frames')
-      execute :ln, '-s', shared_path.join('public/images/frames'), release_path.join('public/images', model)
+      execute :ln, '-s', shared_path.join('public/images/frames'), release_path.join('public/images/frames')
 
       # Triple Triad card images
       execute :rm, '-rf', release_path.join('public/images/cards/large')
