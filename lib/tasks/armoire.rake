@@ -57,8 +57,6 @@ namespace :armoires do
       # Update the Item to indicate that it unlocks this Armoire
       item.update!(unlock_type: 'Armoire', unlock_id: data[:id])
 
-      create_image(data[:id], XIVData.image_path(item.icon_id), 'armoires')
-
       if existing = Armoire.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)
       else
@@ -80,8 +78,6 @@ namespace :armoires do
         end
       end
     end
-
-    create_spritesheet('armoires')
 
     puts "Created #{Armoire.count - count} new armoire items"
   end

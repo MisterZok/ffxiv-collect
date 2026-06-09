@@ -41,7 +41,7 @@
               <tr class="<%= collectable_classes(outfit) %>">
                 <td data-value="<%= outfit.id %>">
                   <%= link_to outfit_path(outfit) do %>
-                    <%= sprite(outfit, 'outfit') %>
+                    <%= small_image(outfit) %>
                   <% end %>
                 </td>
                 <td>

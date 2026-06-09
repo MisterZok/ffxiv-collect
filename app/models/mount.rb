@@ -33,6 +33,9 @@
 #  description_tc          :string(255)
 #  enhanced_description_tc :string(1000)
 #  tooltip_tc              :string(255)
+#  image_url               :string(255)
+#  large_image_url         :string(255)
+#  footprint_image_url     :string(255)
 #
 
 class Mount < ApplicationRecord

@@ -1,6 +1,6 @@
 <% title(@mount.name) %>
 <% description(@mount.enhanced_description.truncate(150)) %>
-<% image(image_url("mounts/large/#{@mount.id}.png", skip_pipeline: true)) %>
+<% image(@mount.image_url) %>
 
 <div class="row">
   <div class="col-12 col-xl-8 offset-xl-2">
@@ -11,7 +11,7 @@
       <div class="card-body">
         <div class="d-flex">
           <div class="d-none d-sm-block mr-4">
-            <%= safe_image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>
+            <%= large_image(@mount) %>
           </div>
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
@@ -47,12 +47,12 @@
             <dt><%= t('tooltip') %></dt>
             <dd><%= format_text(@mount.tooltip) %></dd>
             <div class="d-block d-sm-none">
-              <%= safe_image_tag("mounts/large/#{@mount.id}.png", class: 'image-large') %>
+              <%= large_image(@mount) %>
             </div>
           </div>
         </div>
-        <div class="mount-footprint">
-          <%= safe_image_tag("mounts/footprint/#{@mount.id}.png") %>
+        <div class="footprint">
+          <%= image_tag(@mount.footprint_image_url) %>
         </div>
       </div>
     </div>

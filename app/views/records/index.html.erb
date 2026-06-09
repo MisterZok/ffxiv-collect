@@ -40,7 +40,7 @@
                   <%= link_to(record_path(record), class: 'unstyled d-flex align-items-center') do %>
                     <span class="mr-2"><%= format_record_number(record) %></span>
                     <div class="hide-xs">
-                      <%= sprite(record, 'records-small') %>
+                      <%= safe_image_tag(record.image_url, loading: 'lazy', class: 'image-field-record-small') %>
                     </div>
                   <% end %>
                 </td>

@@ -36,7 +36,8 @@ namespace :triad do
         cards[card['#']].merge!(top: card['Top'], bottom: card['Bottom'], left: card['Left'], right: card['Right'],
                                 stars: stars, card_type_id: card['TripleTriadCardType'], sell_price: card['SaleValue'],
                                 deck_order: card['SortKey'], order_group: card['UIPriority'],
-                                order: card['Order'], formatted_number: formatted_number)
+                                order: card['Order'], formatted_number: formatted_number,
+                                image_url: XIVData.image_url(88000 + card['#'].to_i))
       end
 
       # Then create or update them

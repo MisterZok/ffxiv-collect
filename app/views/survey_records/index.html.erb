@@ -37,7 +37,7 @@
                 <div class="d-flex align-items-center">
                   <span class="mr-2"><%= format_record_number(record) %></span>
                   <%= link_to(survey_record_path(record), class: 'unstyled d-flex align-items-center') do %>
-                    <%= sprite(record, 'survey_records-small') %>
+                    <%= small_image(record) %>
                   <% end %>
                 </div>
               </td>

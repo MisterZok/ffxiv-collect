@@ -133,7 +133,7 @@ namespace :frames do
       id = base['UnlockCondition']
 
       if frames.key?(id)
-        frames[id][:base] = XIVData.image_path(base['Image'])
+        frames[id][:base] = XIVData.image_path(base['Image'], hd: true)
       end
     end
 
@@ -149,7 +149,7 @@ namespace :frames do
               when '5' then :accent
               end
 
-        frames[id][key] = XIVData.image_path(decoration['Image'])
+        frames[id][key] = XIVData.image_path(decoration['Image'], hd: true)
       end
     end
 
@@ -158,7 +158,7 @@ namespace :frames do
         id = banner['UnlockCondition']
 
         if frames.key?(id)
-          frames[id][key] = XIVData.image_path(banner['Image'])
+          frames[id][key] = XIVData.image_path(banner['Image'], hd: true)
         end
       end
     end
@@ -167,8 +167,8 @@ namespace :frames do
       id = header['UnlockCondition']
 
       if frames.key?(id)
-        frames[id][:top_border] = XIVData.image_path(header['TopImage']) if header['TopImage'] != '0'
-        frames[id][:bottom_border] = XIVData.image_path(header['BottomImage']) if header['BottomImage'] != '0'
+        frames[id][:top_border] = XIVData.image_path(header['TopImage'], hd: true) if header['TopImage'] != '0'
+        frames[id][:bottom_border] = XIVData.image_path(header['BottomImage'], hd: true) if header['BottomImage'] != '0'
       end
     end
 
@@ -182,27 +182,23 @@ namespace :frames do
       output_path = FRAME_IMAGES_DIR.join("#{id}.png")
 
       unless output_path.exist?
-        begin
-          # Download BLOBs for each image layer
-          layers = images.each_with_object({}) do |(k, image), h|
-            h[k] = XIVData.download_image(image).body
+        # Download BLOBs for each image layer
+        layers = images.each_with_object({}) do |(k, image), h|
+          h[k] = XIVData.download_image(image).body
+        end
+
+        if frame.portrait_only?
+          image = ChunkyPNG::Image.new(512, 840, ChunkyPNG::Color::TRANSPARENT)
+
+          layers.values.each do |layer|
+            image.compose!(ChunkyPNG::Image.from_blob(layer))
           end
 
-          if frame.portrait_only?
-            image = ChunkyPNG::Image.new(256, 420, ChunkyPNG::Color::TRANSPARENT)
-
-            layers.values.each do |layer|
-              image.compose!(ChunkyPNG::Image.from_blob(layer))
-            end
-
-            image.save(output_path)
-          else
-            # Create two frame versions to support standard and mirrored portraits
-            save_frame_image(layers, output_path)
-            save_frame_image(layers, output_path, mirrored: true)
-          end
-        rescue StandardError
-          puts "Could not create image: #{output_path}"
+          image.save(output_path)
+        else
+          # Create two frame versions to support standard and mirrored portraits
+          save_frame_image(layers, output_path)
+          save_frame_image(layers, output_path, mirrored: true)
         end
       end
     end
@@ -210,26 +206,26 @@ namespace :frames do
 
   def save_frame_image(layers, output_path, mirrored: false)
     if mirrored
-      portrait_x = 302
+      portrait_x = 604
       path = output_path.to_s.sub('.png', '_2.png')
     else
-      portrait_x = 722
+      portrait_x = 1444
       path = output_path.to_s
     end
 
-    image = ChunkyPNG::Image.new(1280, 806, ChunkyPNG::Color::TRANSPARENT)
+    image = ChunkyPNG::Image.new(2560, 1612, ChunkyPNG::Color::TRANSPARENT)
 
     image.compose!(ChunkyPNG::Image.from_blob(layers[:backing]), 0, 0) if layers.key?(:backing)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:base]), 270, 150) if layers.key?(:base)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:overlay]), 270, 150) if layers.key?(:overlay)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:background]), portrait_x, 150) if layers.key?(:background)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:portrait_frame]), portrait_x, 150) if layers.key?(:portrait_frame)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:portrait_accent]), portrait_x, 150) if layers.key?(:portrait_accent)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:plate_portrait]), portrait_x - 96, 0) if layers.key?(:plate_portrait)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:plate_frame]), 160, 86) if layers.key?(:plate_frame)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:top_border]), 160, 86) if layers.key?(:top_border)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:bottom_border]), 160, 478) if layers.key?(:bottom_border)
-    image.compose!(ChunkyPNG::Image.from_blob(layers[:accent]), mirrored ? portrait_x - 128 : portrait_x + 131, 380) if layers.key?(:accent)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:base]), 540, 300) if layers.key?(:base)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:overlay]), 540, 300) if layers.key?(:overlay)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:background]), portrait_x, 300) if layers.key?(:background)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:portrait_frame]), portrait_x, 300) if layers.key?(:portrait_frame)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:portrait_accent]), portrait_x, 300) if layers.key?(:portrait_accent)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:plate_portrait]), portrait_x - 192, 0) if layers.key?(:plate_portrait)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:plate_frame]), 320, 172) if layers.key?(:plate_frame)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:top_border]), 320, 172) if layers.key?(:top_border)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:bottom_border]), 320, 956) if layers.key?(:bottom_border)
+    image.compose!(ChunkyPNG::Image.from_blob(layers[:accent]), mirrored ? portrait_x - 256 : portrait_x + 262, 760) if layers.key?(:accent)
 
     image.trim!
     image.save(path)

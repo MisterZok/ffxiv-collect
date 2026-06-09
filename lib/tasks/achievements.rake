@@ -55,7 +55,7 @@ namespace :achievements do
       data = { id: achievement['#'], name_en: sanitize_name(achievement['Name']),
                description_en: sanitize_text(achievement['Description']), points: achievement['Points'],
                category_id: achievement['AchievementCategory'], order: achievement['Order'],
-               image_path: XIVData.image_path(achievement['Icon']), icon_id: XIVData.format_icon_id(achievement['Icon']) }
+               image_url: XIVData.image_url(achievement['Icon']) }
 
       if achievement['Item'] != '0'
         data[:item_id] = Item.find(achievement['Item']).id.to_s
@@ -74,22 +74,12 @@ namespace :achievements do
     end
 
     achievements.values.each do |achievement|
-      item_id = achievement[:item_id]
-      if item_id.present?
-        create_image(item_id, XIVData.image_path(Item.find(item_id).icon_id), 'achievement_items')
-      end
-
-      create_image(achievement[:icon_id], achievement.delete(:image_path), 'achievements')
-
       if existing = Achievement.find_by(id: achievement[:id])
         existing.update!(achievement) if updated?(existing, achievement)
       else
         Achievement.create!(achievement)
       end
     end
-
-    create_spritesheet('achievements')
-    create_spritesheet('achievement_items')
 
     puts "Created #{Achievement.count - count} new achievements"
   end

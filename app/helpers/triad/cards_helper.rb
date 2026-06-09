@@ -1,18 +1,8 @@
 module Triad::CardsHelper
-  def card_image(card)
-    if card.ex?
-      image_tag('cards/item_ex.png')
-    else
-      image_tag("cards/item#{card.stars}.png")
-    end
-  end
-
   def type_image(card)
-    if card.card_type_id > 0
-      image_tag('blank.png', class: 'card-type',
-                style: "background-position: -#{20 * (card.card_type_id - 1)}px 0",
-                data: { toggle: 'tooltip', placement: 'top', title: card.type.name })
-    end
+    return if card.card_type_id == 0
+
+    image_tag("cards/#{card.type.name_en.downcase}.png", class: 'card-type')
   end
 
   def card_number_badge(card)

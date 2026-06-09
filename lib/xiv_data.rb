@@ -28,6 +28,11 @@ module XIVData
     "ui/icon/#{directory}/#{number}#{'_hr1' if hd}.tex"
   end
 
+  def image_url(icon_id)
+    query = { path: image_path(icon_id, hd: true), format: 'webp' }.to_query
+    "#{BASE_URL}?#{query}"
+  end
+
   def download_image(path, format: 'png')
     params = { path: path, format: format }
 

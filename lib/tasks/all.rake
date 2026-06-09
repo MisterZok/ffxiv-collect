@@ -47,7 +47,6 @@ namespace :data do
     # Sources
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
-    Rake::Task['items:create_images'].invoke
     Rake::Task['sources:update'].invoke
 
     # Create NPCs after cards are linked to their items
@@ -55,7 +54,6 @@ namespace :data do
 
     # Events
     Rake::Task['tomestones:latest:create'].invoke
-    Rake::Task['tomestones:images:create'].invoke
   end
 end
 
@@ -126,6 +124,8 @@ def updated?(model, data)
   end
 
   if updated = data != current
+    # return updated # TODO: revert this
+
     puts "  Found new data for #{model.name_en} (#{model.id}):"
     diff = data.map do |k, v|
       "#{k}: #{current[k]} → #{v}" if current[k] != v

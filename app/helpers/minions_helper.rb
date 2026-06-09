@@ -1,17 +1,16 @@
 module MinionsHelper
   def minion_type(minion)
-    image_tag('blank.png', class: 'minion-type', style: "background-position: -#{24 * (minion.race_id - 1)}px 0")
+    image_tag("minions/#{minion.race.name_en.downcase}.png", class: 'minion-type')
   end
 
   def minion_strength(type, index)
-    name = t("verminion.#{type.parameterize(separator: '_')}")
-    image_tag('blank.png', class: 'minion-strength', style: "background-position: -#{24 * index}px 0",
-              data: { toggle: 'tooltip', title: "#{t('verminion.effective')} #{name}" })
+    name = type.parameterize(separator: '_')
+    image_tag("minions/#{name}.png", class: 'minion-strength',
+              data: { toggle: 'tooltip', title: t('verminion.effective', type: t("verminion.#{name}"))})
   end
 
   def minion_skill_angle(minion)
-    index = Minion.angles.index(minion.skill_angle)
-    image_tag('blank.png', class: 'minion-skill-angle', style: "background-position: -#{40 * index}px 0")
+    image_tag("minions/angle#{minion.skill_angle}.png", class: 'minion-skill-angle')
   end
 
   def speed(minion)

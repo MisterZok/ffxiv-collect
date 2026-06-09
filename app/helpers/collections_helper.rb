@@ -7,35 +7,21 @@ module CollectionsHelper
     link_to(collectable.name, polymorphic_path(collectable), class: 'name')
   end
 
-  def sprite(collectable, model)
-    id = model == 'achievement' ? collectable.icon_id : collectable.id
-    image_tag('blank.png', class: "#{model} #{model}-#{id}")
+  def small_image(collectable)
+    safe_image_tag(collectable.image_url, loading: 'lazy', class: 'image-small drop-shadow')
   end
 
-  def collectable_image(collectable)
-    type = collectable.class.to_s
+  def medium_image(collectable)
+    safe_image_tag(collectable.image_url, loading: 'lazy', class: 'image-medium')
+  end
 
-    case type
-    when 'Card'
-      card_image(collectable)
-    when 'Frame'
-      image_tag('frame.png')
-    when 'Orchestrion'
-      image_tag('orchestrion.png')
-    when 'Hairstyle'
-      hairstyle_sample_image(collectable)
-    when 'Facewear'
-      facewear_sample_image(collectable)
-    when 'Mount', 'Minion', 'Fashion'
-      sprite(collectable, "#{type.downcase.pluralize}-small")
-    else
-      sprite(collectable, type.downcase)
-    end
+  def large_image(collectable)
+    safe_image_tag(collectable.large_image_url, class: 'image-large')
   end
 
   def collectable_image_link(collectable)
     link_to(polymorphic_path(collectable)) do
-      collectable_image(collectable)
+      small_image(collectable)
     end
   end
 
@@ -74,31 +60,6 @@ module CollectionsHelper
       fa_icon('book-open')
     when 'OccultRecord'
       fa_icon('moon')
-    end
-  end
-
-  def generic_sprite(collection, collectable)
-    case collection
-    when 'titles'
-      sprite(collectable, 'achievement')
-    when /(mounts|minions|fashions|records)/
-      sprite(collectable, "#{collection}-small")
-    when 'spells'
-      content_tag :div, class: 'spell-sprite' do
-        sprite(collectable, :spell)
-      end
-    when 'hairstyles'
-      hairstyle_sample_image(collectable)
-    when 'facewear'
-      facewear_sample_image(collectable)
-    when 'orchestrions'
-      image_tag('orchestrion.png')
-    when 'frames'
-      image_tag('frame.png')
-    when 'cards'
-      card_image(collectable)
-    else
-      sprite(collectable, collection.singularize)
     end
   end
 

@@ -1,6 +1,6 @@
 <% title(@record.name) %>
 <% description(@record.description.truncate(150)) %>
-<% image(image_url("survey_records/large/#{@record.id}.png", skip_pipeline: true)) %>
+<% image(@record.large_image_url) %>
 
 <div class="row">
   <div class="col-12 col-xl-8 offset-xl-2">
@@ -23,8 +23,8 @@
           </div>
           <dt><%= t('survey_records.solution') %></dt>
           <dd><span class="spoiler"><%= @record.solution %></span></dd>
-          <div class="d-none d-sm-block survey-image-large">
-            <%= safe_image_tag("survey_records/large/#{@record.id}.png") %>
+          <div class="survey-record-large">
+            <%= safe_image_tag(@record.large_image_url, class: 'fit') %>
           </div>
           <dt><%= t('description') %></dt>
           <dd><%= format_text_long(@record.description) %></dd>

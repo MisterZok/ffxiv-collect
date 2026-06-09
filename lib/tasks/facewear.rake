@@ -15,7 +15,7 @@ namespace :facewear do
         name_en: sanitize_name(facewear['Name']),
         lodestone_name: sanitize_name(facewear['Singular'], capitalize: true),
         order: facewear['Order'],
-        icons: [],
+        image_urls: [],
       }
     end
 
@@ -34,38 +34,27 @@ namespace :facewear do
 
       next unless facewear['Name'].present?
 
-      facewears[id][:icons] << facewear['Icon']
+      facewears[id][:image_urls] << XIVData.image_url(facewear['Icon'])
     end
 
     count = Facewear.count
 
     facewears.values.each do |facewear|
       # Skip incomplete facewear
-      next if facewear[:icons].empty?
+      next if facewear[:image_urls].empty?
 
-      data = facewear.except(:icons)
+      # Use the first image as the primary image
+      facewear[:image_url] = facewear[:image_urls].first
+
+      # Store image URLs as a comma separated list
+      facewear[:image_urls] = facewear[:image_urls].join(',')
 
       if existing = Facewear.find_by(id: facewear[:id])
-        existing.update!(data) if updated?(existing, data)
+        existing.update!(facewear) if updated?(existing, facewear)
       else
-        Facewear.create!(data)
-      end
-
-      # Create the facewear images
-      facewear[:icons].each do |icon|
-        path = Rails.root.join('public/images/facewear', facewear[:id])
-        Dir.mkdir(path) unless Dir.exist?(path)
-
-        output_path = path.join("#{icon}.png")
-        create_image(nil, XIVData.image_path(icon, hd: true), output_path)
-
-        # Use the first image as a sample of the facewear
-        sample_path = Rails.root.join('public/images/facewear/samples', "#{facewear[:id]}.png")
-        FileUtils.cp(output_path, sample_path) unless File.exist?(sample_path)
+        Facewear.create!(facewear)
       end
     end
-
-    create_facewear_spritesheets
 
     puts "Created #{Facewear.count - count} new facewear"
   end

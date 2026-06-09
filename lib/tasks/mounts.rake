@@ -13,7 +13,7 @@ namespace :mounts do
         next unless mount['Order'].to_i >= 0 && mount['Singular'].present?
 
         data = h[mount['#']] || { id: mount['#'], order: mount['Order'], order_group: mount['UIPriority'],
-                                  seats: (mount['ExtraSeats'].to_i + 1).to_s, icon: XIVData.format_icon_id(mount['Icon']),
+                                  seats: (mount['ExtraSeats'].to_i + 1).to_s, image_url: XIVData.image_url(mount['Icon']),
                                   movement: mount['IsAirborne'] == 'True' ? 'Airborne' : 'Terrestrial',
                                   custom_music: !COMMON_MUSIC_IDS.include?(mount['RideBGM'].to_i) }
         data["name_#{locale}"] = sanitize_name(mount['Singular'], locale: locale, capitalize: true)
@@ -35,12 +35,8 @@ namespace :mounts do
     end
 
     mounts.values.each do |mount|
-      large_icon = mount[:icon].sub(/^004/, '068')
-      footprint_icon = mount[:icon].sub(/^004/, '069')
-
-      create_image(mount[:id], XIVData.image_path(large_icon), 'mounts/large')
-      create_image(mount[:id], XIVData.image_path(mount.delete(:icon)), 'mounts/small')
-      create_image(mount[:id], XIVData.image_path(footprint_icon), 'mounts/footprint', mask_from: '#151515ff')
+      mount[:large_image_url] = mount[:image_url].gsub(/004(\d{3})/, '068\1')
+      mount[:footprint_image_url] = mount[:image_url].gsub(/004(\d{3})/, '069\1')
 
       if existing = Mount.find_by(id: mount[:id])
         existing.update!(mount) if updated?(existing, mount)
@@ -48,8 +44,6 @@ namespace :mounts do
         Mount.create!(mount)
       end
     end
-
-    create_spritesheet('mounts/small')
 
     puts "Created #{Mount.count - count} new mounts"
   end

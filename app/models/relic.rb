@@ -19,9 +19,13 @@ class Relic < ApplicationRecord
   has_many :characters, through: "character_#{name.pluralize}".to_sym
   belongs_to :type, class_name: 'RelicType'
   belongs_to :achievement, required: false
+  belongs_to :item, foreign_key: :id
+
   translates :name
 
-  scope :include_related, -> { includes(:type) }
+  delegate :image_url, to: :item
+
+  scope :include_related, -> { includes(:type, :item) }
   scope :ordered, -> { joins(:type).order('relic_types.category desc', expansion: :desc, order: :desc) }
 
   def self.categories

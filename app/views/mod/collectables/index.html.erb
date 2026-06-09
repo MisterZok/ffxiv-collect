@@ -32,7 +32,7 @@
       <% @collectables.each do |collectable| %>
         <tr>
           <% if @sprite_key.present? %>
-            <td><%= sprite(collectable, @sprite_key) %></td>
+            <td><%= small_image(collectable) %></td>
           <% end %>
           <td>
             <%= collectable.name %>

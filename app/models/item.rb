@@ -28,6 +28,7 @@
 #  name_tc        :string(255)
 #  description_tc :string(1000)
 #  plural_tc      :string(255)
+#  image_url      :string(255)
 #
 class Item < ApplicationRecord
   translates :name, :description, :plural

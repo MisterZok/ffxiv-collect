@@ -11,7 +11,7 @@ module LevesHelper
 
     database_link('item', text, leve.item_id) do
       content_tag(:div, class: 'd-inline-flex align-items-center') do
-        content_tag(:div, sprite(leve.item, 'leve_item'), class: 'hide-sm') +
+        content_tag(:div, small_image(leve.item), class: 'hide-sm mr-2') +
         content_tag(:span, text, class: 'underline')
       end
     end
