@@ -10,27 +10,27 @@ class RelicsController < ApplicationController
   skip_before_action :set_owned!, :set_ids!, :set_prices!
 
   def weapons
-    @types = RelicType.includes(relics: :item).where(category: 'weapons').order(order: :desc)
+    @types = RelicType.include_related.where(category: 'weapons').order(order: :desc)
   end
 
   def ultimate
-    @types = RelicType.includes(relics: :item).where(category: 'ultimate').order(order: :desc)
+    @types = RelicType.include_related.where(category: 'ultimate').order(order: :desc)
   end
 
   def tools
-    @types = RelicType.includes(relics: :item).where(category: 'tools').order(order: :desc)
+    @types = RelicType.include_related.where(category: 'tools').order(order: :desc)
   end
 
   def armor
-    @types = RelicType.includes(relics: :item).where(category: 'armor').order(expansion: :desc, order: :desc)
+    @types = RelicType.include_related.where(category: 'armor').order(expansion: :desc, order: :desc)
     @categories = @types.pluck(:expansion).uniq.sort.map do |expansion|
       OpenStruct.new(id: expansion, name: t("expansions.#{expansion}"))
     end
   end
 
   def garo
-    @weapons = RelicType.includes(:relics).find_by(name_en: 'GARO Weapons')
-    @armor = RelicType.includes(:relics).find_by(name_en: 'GARO Armor')
+    @weapons = RelicType.include_related.find_by(name_en: 'GARO Weapons')
+    @armor = RelicType.include_related.find_by(name_en: 'GARO Armor')
     @mounts = Mount.includes(:sources).where(id: [95, 96, 102]).order(:order)
     @mount_ids = @character&.mount_ids || []
   end

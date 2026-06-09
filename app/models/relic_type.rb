@@ -17,7 +17,10 @@
 #
 class RelicType < ApplicationRecord
   has_many :relics, foreign_key: 'type_id', dependent: :delete_all
+
   translates :name
+
+  scope :include_related, -> { includes(:relics) }
 
   def relics_by_tier
     if category == 'armor' || name_en == 'GARO Armor'

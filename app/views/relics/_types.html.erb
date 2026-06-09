@@ -11,8 +11,7 @@
   <% end %>
   <div class="collapse<%= ' show' if type_counter == 0 %>" id="<%= collapse_id(type) %>">
     <div class="card-body relics-<%= type.jobs %> collection py-3">
-      <%= render partial: 'relics', collection: type.relics_by_tier, as: :relics,
-        locals: { sprite_class: "relics-#{type.category.singularize}" } %>
+      <%= render partial: 'relics', collection: type.relics_by_tier, as: :relics %>
     </div>
   </div>
 </div>

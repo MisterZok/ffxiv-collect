@@ -13,6 +13,7 @@
 #  type_id        :integer
 #  achievement_id :integer
 #  name_tc        :string(255)
+#  image_url      :string(255)
 #
 class Relic < ApplicationRecord
   has_many "character_#{name.pluralize}".to_sym
@@ -23,9 +24,7 @@ class Relic < ApplicationRecord
 
   translates :name
 
-  delegate :image_url, to: :item
-
-  scope :include_related, -> { includes(:type, :item) }
+  scope :include_related, -> { includes(:type) }
   scope :ordered, -> { joins(:type).order('relic_types.category desc', expansion: :desc, order: :desc) }
 
   def self.categories

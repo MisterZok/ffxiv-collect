@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_05_27_121752) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_09_222750) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -1228,6 +1228,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_05_27_121752) do
     t.integer "type_id"
     t.integer "achievement_id"
     t.string "name_tc"
+    t.string "image_url"
     t.index ["achievement_id"], name: "index_relics_on_achievement_id"
     t.index ["order"], name: "index_relics_on_order"
     t.index ["type_id"], name: "index_relics_on_type_id"
