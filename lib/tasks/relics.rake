@@ -23,7 +23,5 @@ namespace :relics do
         Relic.create!(data)
       end
     end
-
-    create_spritesheet("relics/#{type.category}")
   end
 end

@@ -195,8 +195,6 @@ namespace :leves do
       end
     end
 
-    create_spritesheet('leve_items')
-
     puts "Created #{Leve.count - count} new leves"
   end
 end
