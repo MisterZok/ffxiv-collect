@@ -6,7 +6,7 @@
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
     <div class="card">
       <div class="card-header d-flex align-items-center">
-        <%= image_tag('frame.png') %>
+        <%= small_image(@frame) %>
         <h5 class="card-title ml-2">
           <%= @frame.name %>
           <span class="ml-1">
@@ -44,7 +44,7 @@
           "https://ffxiv.consolegameswiki.com/wiki/Echoes_of_Vana'diel_Framer's_Kit",
           target: '_blank') %>
       <% elsif @frame.portrait_only? %>
-        <%= safe_image_tag("frames/#{@frame.id}.png") %>
+        <%= safe_image_tag("frames/#{@frame.id}.png", class: 'portrait') %>
       <% else %>
         <%= render 'carousel' %>
       <% end %>

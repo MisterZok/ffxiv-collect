@@ -49,9 +49,9 @@
                 <td class="number">
                   <%= link_to("#{t('spells.number')} #{spell.order}", spell_path(spell), class: 'unstyled') %>
                 </td>
-                <td class="spell-sprite">
+                <td class="image-spell">
                   <%= link_to(spell_path(spell)) do %>
-                    <%= sprite(spell, :spell) %>
+                    <%= small_image(spell) %>
                   <% end %>
                 </td>
                 <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>

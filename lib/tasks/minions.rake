@@ -66,7 +66,7 @@ namespace :minions do
 
         data = h[minion['#']] || { id: minion['#'], order: minion['Order'], hp: minion['HP'], cost: minion['Cost'],
                                    skill_angle: minion['SkillAngle'], skill_cost: minion['SkillCost'],
-                                   icon: XIVData.format_icon_id(minion['Icon']),
+                                   image_url: XIVData.image_url(minion['Icon']),
                                    behavior_id: minion['Behavior'], race_id:  minion['MinionRace'] }
 
         data["name_#{locale}"] = sanitize_name(minion['Singular'], locale: locale, capitalize: true)
@@ -93,12 +93,8 @@ namespace :minions do
     end
 
     minions.values.each do |minion|
-      large_icon = minion[:icon].sub(/^004/, '068')
-      footprint_icon = 65000 + minion[:icon].to_i
-
-      create_image(minion[:id], XIVData.image_path(large_icon), 'minions/large')
-      create_image(minion[:id], XIVData.image_path(minion.delete(:icon)), 'minions/small')
-      create_image(minion[:id], XIVData.image_path(footprint_icon), 'minions/footprint', mask_from: '#151515ff')
+      minion[:large_image_url] = minion[:image_url].gsub(/004(\d{3})/, '068\1')
+      minion[:footprint_image_url] = minion[:image_url].gsub(/004(\d{3})/, '069\1')
 
       if existing = Minion.find_by(id: minion[:id])
         existing.update!(minion) if updated?(existing, minion)
@@ -106,8 +102,6 @@ namespace :minions do
         Minion.create!(minion)
       end
     end
-
-    create_spritesheet('minions/small')
 
     puts "Created #{Minion.count - count} new minions"
   end

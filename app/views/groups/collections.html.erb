@@ -36,11 +36,7 @@
           <th class="expansion-<%= collectable.expansion %>" title="<%= collectable.name %>"
             data-toggle="tooltip" data-placement="top" data-boundary="window">
             <%= link_to(polymorphic_path(collectable), target: '_blank') do %>
-              <% if @collection == 'cards' %>
-                <%= sprite(collectable, 'cards-small') %>
-              <% else %>
-                <%= generic_sprite(@collection, collectable) %>
-              <% end %>
+              <%= small_image(collectable) %>
             <% end %>
           </th>
         <% end %>

@@ -18,6 +18,7 @@
 #  order          :integer
 #  name_tc        :string(255)
 #  description_tc :string(255)
+#  image_url      :string(255)
 #
 
 class Barding < ApplicationRecord

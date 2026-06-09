@@ -47,7 +47,6 @@ namespace :data do
     # Sources
     Rake::Task['items:set_unlocks'].invoke
     Rake::Task['items:set_extras'].invoke
-    Rake::Task['items:create_images'].invoke
     Rake::Task['sources:update'].invoke
 
     # Create NPCs after cards are linked to their items
@@ -55,7 +54,6 @@ namespace :data do
 
     # Events
     Rake::Task['tomestones:latest:create'].invoke
-    Rake::Task['tomestones:images:create'].invoke
   end
 end
 
@@ -126,6 +124,8 @@ def updated?(model, data)
   end
 
   if updated = data != current
+    # return updated # TODO: revert this
+
     puts "  Found new data for #{model.name_en} (#{model.id}):"
     diff = data.map do |k, v|
       "#{k}: #{current[k]} → #{v}" if current[k] != v
@@ -184,7 +184,7 @@ def create_image(id, image_path, path, hd: false, mask_from: nil, mask_to: nil, 
   # Do not re-download existing images. These can be deleted manually if new versions are needed.
   return if output_path.exist?
 
-  asset = XIVData.download_image(image_path, hd: hd).body
+  asset = XIVData.download_image(image_path).body
 
   if mask_from.present?
     mask_to ||= mask_from
@@ -202,53 +202,4 @@ def create_image(id, image_path, path, hd: false, mask_from: nil, mask_to: nil, 
   end
 
   URI.open(output_path, 'wb') { |file| file << image }
-end
-
-def create_spritesheet(path)
-  output_image = path.gsub('/', '-')
-  class_name = output_image.singularize
-  options = { style: :scss, layout: :packed, library: :chunkypng,
-              nocomments: true, output_image: Rails.root.join('app/assets/images', "#{output_image}.png"),
-              output_style: Rails.root.join('app/assets/stylesheets/images', "#{output_image}.scss") }
-
-  SpriteFactory.run!(Rails.root.join('public/images', path), options) do |images|
-    rules = []
-    image = images.values.first
-
-    rules << "img.#{class_name} { width: #{image[:width]}px; height: #{image[:height]}px; " \
-      "background: url(image_path('#{output_image}.png')) no-repeat }"
-
-    images.each do |_, img|
-      rules << "img.#{class_name}-#{img[:name]} { background-position: #{-img[:cssx]}px #{-img[:cssy]}px }"
-    end
-
-    rules.join("\n")
-  end
-end
-
-def create_hair_spritesheets
-  Hairstyle.all.each do |hairstyle|
-    images = Dir.glob(Rails.root.join('public/images/hairstyles', hairstyle.id.to_s, '*.png'))
-      .sort_by { |filename| filename[/(\d+).png/].to_i }
-    sheet = ChunkyPNG::Image.new(192 * images.size, 192)
-
-    images.each_with_index do |image, i|
-      sheet.compose!(ChunkyPNG::Image.from_file(image), 192 * i, 0)
-    end
-
-    sheet.save(Rails.root.join('app/assets/images/hairstyles', "#{hairstyle.id}.png").to_s)
-  end
-end
-
-def create_facewear_spritesheets
-  Facewear.all.each do |facewear|
-    images = Dir.glob(Rails.root.join('public/images/facewear', facewear.id.to_s, '*.png')).sort
-    sheet = ChunkyPNG::Image.new(80 * images.size, 80)
-
-    images.each_with_index do |image, i|
-      sheet.compose!(ChunkyPNG::Image.from_file(image), 80 * i, 0)
-    end
-
-    sheet.save(Rails.root.join('app/assets/images/facewear', "#{facewear.id}.png").to_s)
-  end
 end

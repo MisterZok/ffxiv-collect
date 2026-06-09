@@ -6,7 +6,7 @@ if @prices.present?
 end
 
 json.owned @owned.fetch(emote.id.to_s, '0%')
-json.icon image_url("emotes/#{emote.id}.png", skip_pipeline: true)
+json.icon emote.image_url
 
 json.category do
   json.(emote.category, :id, :name)

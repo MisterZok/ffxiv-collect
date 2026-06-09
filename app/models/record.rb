@@ -19,6 +19,8 @@
 #  location         :string(255)
 #  name_tc          :string(255)
 #  description_tc   :text(65535)
+#  image_url        :string(255)
+#  large_image_url  :string(255)
 #
 class Record < ApplicationRecord
   include Collectable

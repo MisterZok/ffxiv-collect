@@ -7,7 +7,7 @@ end
 
 json.owned @owned.fetch(orchestrion.id.to_s, '0%')
 json.number orchestrion_number(orchestrion)
-json.icon image_url("orchestrion.png", skip_pipeline: true)
+json.icon image_url(orchestrion.image_url, skip_pipeline: true)
 
 json.category do
   json.(orchestrion.category, :id, :name)

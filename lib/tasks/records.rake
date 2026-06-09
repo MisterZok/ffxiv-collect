@@ -18,7 +18,8 @@ namespace :records do
         end
 
         data = h[record['Number']] || { id: record['Number'], rarity: record['Rarity'],
-                                        icon: record['Icon'], image: record['Image'] }
+                                        image_url: XIVData.image_url(record['Icon']),
+                                        large_image_url: XIVData.image_url(record['Image']) }
 
         data["name_#{locale}"] = sanitize_name(record['Name'], locale: locale)
         data["description_#{locale}"] = sanitize_text(record['Description'], preserve_space: true)
@@ -40,9 +41,6 @@ namespace :records do
         end
       end
 
-      create_image(record[:id], XIVData.image_path(record.delete(:image)), 'records/large')
-      create_image(record[:id], XIVData.image_path(record.delete(:icon)), 'records/small')
-
       if existing = Record.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)
       else
@@ -53,8 +51,6 @@ namespace :records do
     Record.where(id: 1..20).update_all(location: 'Southern Front', patch: '5.35')
     Record.where(id: 21..30).update_all(location: 'Delubrium Reginae', patch: '5.45')
     Record.where(id: 31..50).update_all(location: 'Zadnor', patch: '5.55')
-
-    create_spritesheet('records/small')
 
     puts "Created #{Record.count - count} new field records"
   end

@@ -30,6 +30,8 @@ class Armoire < ApplicationRecord
   belongs_to :category, class_name: 'ArmoireCategory'
   belongs_to :item
 
+  delegate :image_url, to: :item
+
   scope :include_related, -> { include_sources.includes(:category, :item) }
   scope :ordered, -> { order(patch: :desc, order_group: :desc, order: :desc) }
 

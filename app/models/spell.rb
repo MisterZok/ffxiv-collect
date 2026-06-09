@@ -25,6 +25,7 @@
 #  name_tc        :string(255)
 #  description_tc :string(1000)
 #  tooltip_tc     :string(1000)
+#  image_url      :string(255)
 #
 
 class Spell < ApplicationRecord

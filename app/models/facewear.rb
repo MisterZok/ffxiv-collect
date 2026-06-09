@@ -14,6 +14,8 @@
 #  updated_at     :datetime         not null
 #  lodestone_name :string(255)
 #  name_tc        :string(255)
+#  image_url      :string(255)
+#  image_urls     :text(65535)
 #
 class Facewear < ApplicationRecord
   include Collectable

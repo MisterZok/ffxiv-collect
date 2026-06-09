@@ -1,6 +1,6 @@
 <% title(@hairstyle.name) %>
 <% description(@hairstyle.description&.truncate(150)) %>
-<% image(image_url("hairstyles/samples/#{@hairstyle.id}.png", skip_pipeline: true)) %>
+<% image(@hairstyle.image_url) %>
 
 <div class="row">
   <div class="col-12 col-xl-7 mx-auto">
@@ -40,8 +40,8 @@
           <%= render 'screenshots' %>
         <% end %>
         <div class="d-flex flex-wrap hairstyle-list">
-          <% @hairstyle.image_count.times do |i| %>
-            <%= hairstyle_image(@hairstyle, i) %>
+          <% @hairstyle.image_urls.split(',').each do |url| %>
+            <%= safe_image_tag(url, class: 'image-large') %>
           <% end %>
         </div>
       </div>

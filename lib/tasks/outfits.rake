@@ -37,22 +37,12 @@ namespace :outfits do
         end
       end
 
-      create_image(outfit['#'], XIVData.image_path(item.icon_id), 'outfits')
-
       if existing = Outfit.find_by(id: data[:id])
         existing.update!(data) if updated?(existing, data)
       else
         created = Outfit.create!(data)
       end
     end
-
-    # Create images for outfit items
-    Item.joins(:outfit_items).distinct.each do |item|
-      create_image(item.id, XIVData.image_path(item.icon_id), 'outfit_items')
-    end
-
-    create_spritesheet('outfits')
-    create_spritesheet('outfit_items')
 
     puts "Created #{Outfit.count - count} new outfits"
   end

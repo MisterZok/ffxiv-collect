@@ -13,11 +13,13 @@ module AchievementsHelper
             achievement_type_path(achievement.type, anchor: achievement.category_id), class: 'unstyled')
   end
 
-  def achievement_item_sprite(achievement)
-    if achievement.item.unlock.present?
-      generic_sprite(achievement.item.unlock_type.downcase.pluralize, achievement.item.unlock)
+  def achievement_item_image(achievement)
+    item = achievement.item
+
+    if item.unlock.present?
+      small_image(achievement.item.unlock)
     else
-      sprite(achievement.item, 'achievement_item')
+      small_image(item)
     end
   end
 
@@ -35,9 +37,11 @@ module AchievementsHelper
 
   def achievement_reward(achievement)
     if achievement.title.present?
-      image_tag('title.png', data: { toggle: 'tooltip', title: title_name(achievement.title), html: true })
+      image_tag('achievements/title.png', class: 'achievement-reward',
+                data: { toggle: 'tooltip', title: title_name(achievement.title), html: true })
     elsif achievement.item_id.present?
-      image_tag('item.png', data: { toggle: 'tooltip', title: achievement.item.name })
+      image_tag('achievements/item.png', class: 'achievement-reward',
+                data: { toggle: 'tooltip', title: achievement.item.name })
     end
   end
 

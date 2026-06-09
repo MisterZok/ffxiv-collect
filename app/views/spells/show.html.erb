@@ -1,14 +1,14 @@
 <% title(@spell.name) %>
 <% description(@spell.description.truncate(150)) %>
-<% image(image_url("spells/#{@spell.id}.png", skip_pipeline: true)) %>
+<% image(@spell.image_url) %>
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
     <div class="card">
       <div class="card-header d-flex align-items-center justify-content-between">
         <div class="d-flex align-items-center">
-          <div class="image-small spell-sprite">
-            <%= sprite(@spell, 'spell') %>
+          <div class="image-spell">
+            <%= small_image(@spell) %>
           </div>
           <h5 class="card-title ml-3"><%= @spell.name %></h5>
         </div>

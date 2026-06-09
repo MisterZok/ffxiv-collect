@@ -1,6 +1,6 @@
 json.(armoire, :id, :name, :order_group, :order, :patch)
 json.owned @owned.fetch(armoire.id.to_s, '0%')
-json.icon image_url("armoires/#{armoire.id}.png", skip_pipeline: true)
+json.icon armoire.image_url
 
 json.category do
   json.(armoire.category, :id, :name)

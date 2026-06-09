@@ -6,7 +6,7 @@ if @prices.present?
 end
 
 json.owned @owned.fetch(fashion.id.to_s, '0%')
-json.image image_url("fashions/large/#{fashion.id}.png", skip_pipeline: true)
-json.icon image_url("fashions/small/#{fashion.id}.png", skip_pipeline: true)
+json.image fashion.large_image_url
+json.icon fashion.image_url
 
 json.partial! 'api/shared/sources', collectable: fashion

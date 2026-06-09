@@ -41,17 +41,6 @@ namespace :tomestones do
     end
   end
 
-  # Clean up changed icon IDs on item rewards
-  namespace :images do
-    task create: :environment do
-      TomestoneReward.where(collectable_type: 'Item').each do |reward|
-        item = reward.collectable
-        create_image(item.id, XIVData.image_path(item.icon_id),
-                     Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
-      end
-    end
-  end
-
   desc 'Create the latest tomestone rewards from SpecialShop data'
   namespace :latest do
     task create: :environment do
@@ -73,10 +62,6 @@ namespace :tomestones do
           tomestone = Item.find(shop["Item[#{i}].ItemCost[0]"]).tomestone_name
 
           TomestoneReward.find_or_create_by!(collectable: collectable || item, cost: cost, tomestone: tomestone)
-
-          unless collectable.present?
-            create_image(item.icon_id, XIVData.image_path(item.icon_id), 'items')
-          end
         end
       end
 
@@ -89,11 +74,5 @@ def create_rewards(tomestone)
   CSV.foreach(Rails.root.join("vendor/#{tomestone}.csv"), headers: true, header_converters: :symbol) do |row|
     collectable = row[:type].constantize.find_by(name_en: row[:name])
     TomestoneReward.find_or_create_by!(collectable: collectable, cost: row[:cost], tomestone: tomestone.capitalize)
-
-    if row[:type] == 'Item'
-      item = Item.find_by(name_en: row[:name])
-      create_image(item.id, XIVData.image_path(item.icon_id),
-                   Rails.root.join('app/assets/images/items', "#{item.icon_id}.png"))
-    end
   end
 end

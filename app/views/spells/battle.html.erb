@@ -52,9 +52,9 @@
             <% @spells.each do |spell| %>
               <tr class="collectable no-fade<%= ' owned' if owned?(spell.id) %>">
                 <td class="number"><%= t('spells.number') %> <%= spell.order %></td>
-                <td class="spell-sprite">
+                <td class="image-spell">
                   <%= link_to(spell_path(spell)) do %>
-                    <%= sprite(spell, :spell) %>
+                    <%= small_image(spell) %>
                   <% end %>
                 </td>
                 <td><%= link_to(spell.name, spell_path(spell), class: 'name') %></td>

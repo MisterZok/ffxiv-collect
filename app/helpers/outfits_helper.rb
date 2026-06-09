@@ -10,7 +10,7 @@ module OutfitsHelper
   def outfit_items(outfit)
     content_tag(:div, class: 'd-flex flex-wrap outfit-items') do
       outfit.items.each do |item|
-        concat content_tag(:div, data: { toggle: 'tooltip', title: item.name }) { sprite(item, 'outfit_item') }
+        concat content_tag(:div, data: { toggle: 'tooltip', title: item.name }) { small_image(item) }
       end
     end
   end

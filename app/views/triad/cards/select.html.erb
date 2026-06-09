@@ -16,7 +16,7 @@
       <div class="card-select<%= ' missing' unless @owned_cards.include?(card.id) %><%= ' ex' if card.ex? %>"
            data-id="<%= card.id %>" data-toggle="tooltip" data-placement="top"
            data-delay="<%= select_tooltip_delay %>" title="<%= card.name %>">
-        <%= sprite(card, 'cards-small') %>
+        <%= small_image(card) %>
       </div>
     <% end %>
   </div>

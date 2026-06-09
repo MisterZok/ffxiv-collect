@@ -22,6 +22,8 @@
 #  femhrothable   :boolean          default(FALSE)
 #  name_tc        :string(255)
 #  description_tc :string(1000)
+#  image_url      :string(255)
+#  image_urls     :text(65535)
 #
 
 class Hairstyle < ApplicationRecord

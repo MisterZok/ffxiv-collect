@@ -13,8 +13,8 @@ json.race do
   json.(minion.race, :id, :name)
 end
 
-json.image image_url("minions/large/#{minion.id}.png", skip_pipeline: true)
-json.icon image_url("minions/small/#{minion.id}.png", skip_pipeline: true)
+json.image minion.large_image_url
+json.icon minion.image_url
 
 unless minion.variant?
   json.owned @owned.fetch(minion.id.to_s, '0%')
