@@ -21,9 +21,7 @@
   <div class="card-body card-table">
     <table class="table table-striped table-sm">
       <tr>
-        <% if @sprite_key.present? %>
-          <th></th> <!-- Image -->
-        <% end %>
+        <th></th> <!-- Image -->
         <th><%= t('name') %></th>
         <th><%= t('source') %></th>
         <th><%= t('patch') %></th>
@@ -31,9 +29,7 @@
       </tr>
       <% @collectables.each do |collectable| %>
         <tr>
-          <% if @sprite_key.present? %>
-            <td><%= small_image(collectable) %></td>
-          <% end %>
+          <td><%= small_image(collectable) %></td>
           <td>
             <%= collectable.name %>
             <%= gender_symbol(collectable.try(:gender)) %>
