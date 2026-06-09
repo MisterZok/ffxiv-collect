@@ -72,7 +72,7 @@ namespace :hairstyles do
 
     hairstyles.values.each do |hairstyle|
       # Skip incomplete hairstyles
-      next unless hairstyle[:name_en].present?
+      next unless hairstyle['name_en'].present?
 
       # Use the second (cuter) image as the primary image
       hairstyle[:image_url] = hairstyle[:image_urls].second
@@ -85,16 +85,6 @@ namespace :hairstyles do
       else
         Hairstyle.create!(hairstyle)
       end
-    end
-
-    # Create the Eternal Bonding hairstyle which lacks an item unlock
-    Hairstyle.find_or_create_by!(id: 228, patch: '2.4', name_en: 'Eternal Bonding', name_de: 'Ewige Bund',
-                                 name_fr: 'Lien Éternel', name_ja: 'Eternal Bonding', name_tc: '永恆誓約',
-                                 vierable: true, hrothable: true, femhrothable: true)
-
-    # Cache hairstyle image counts in the database
-    Hairstyle.all.each do |hairstyle|
-      hairstyle.update!(image_count: Dir.glob(Rails.root.join("public/images/hairstyles/#{hairstyle.id}/*.png")).size)
     end
 
     puts "Created #{Hairstyle.count - count} new hairstyles"
