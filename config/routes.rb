@@ -24,7 +24,8 @@ Rails.application.routes.draw do
 
   post 'shared/filter', to: 'shared#filter'
 
-  resources :search, only: [:index]
+  get 'database/:type/:id/link', to: 'databases#link', as: :database_link
+
   get 'latest', to: redirect('search')
 
   resources :mounts, only: [:index, :show]
@@ -103,6 +104,8 @@ Rails.application.routes.draw do
   resources :relics, as: :relic, only: [] do
     post :add, :remove, on: :member
   end
+
+  resources :search, only: [:index]
 
   resources :tools, only: [] do
     collection do

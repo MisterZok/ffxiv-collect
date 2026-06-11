@@ -240,30 +240,14 @@ module CollectionsHelper
   def database_link(type, text, id = nil, &block)
     return text unless id.present?
 
-    if current_user&.database == 'teamcraft'
-      teamcraft_link(type, text, id, &block)
-    else
-      garland_tools_link(type, text, id, &block)
-    end
-  end
+    path = database_link_path(type: type, id: id)
 
-  def garland_tools_link(type, text, id, &block)
     if block_given?
-      link_to(garland_tools_url(type, id), target: '_blank') do
+      link_to(path, target: '_blank') do
         block.call
       end
     else
-      link_to(text, garland_tools_url(type, id), target: '_blank')
-    end
-  end
-
-  def teamcraft_link(type, text, id, &block)
-    if block_given?
-      link_to(teamcraft_url(type, id), target: '_blank') do
-        block.call
-      end
-    else
-      link_to(text, teamcraft_url(type, id), target: '_blank')
+      link_to(text, path, target: '_blank')
     end
   end
 

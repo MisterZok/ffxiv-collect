@@ -85,15 +85,6 @@ module ApplicationHelper
     content_tag(:span, small ? '!' : t('new'), class: "badge badge-success#{ ' badge-pill' if small}")
   end
 
-  def teamcraft_url(type, id)
-    locale = I18n.locale == :tc ? :tw : I18n.locale
-    "https://ffxivteamcraft.com/db/#{locale}/#{type}/#{id}"
-  end
-
-  def garland_tools_url(type, id)
-    "https://www.garlandtools.org/db/##{type}/#{id}"
-  end
-
   def universalis_url(item_id)
     "https://universalis.app/market/#{item_id}"
   end
