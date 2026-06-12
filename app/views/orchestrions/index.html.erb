@@ -12,7 +12,8 @@
       <div class="d-flex justify-content-between align-items-end mt-2 mb-1">
         <div>
           <% if @character&.verified_user?(current_user) %>
-            <%= link_to t('orchestrions.quick_select'), select_orchestrions_path, class: 'btn btn-secondary btn-sm' %>
+            <%= link_to t('orchestrions.quick_select'), select_orchestrions_path,
+              class: "btn btn-secondary btn-sm#{' btn-attention' if @collection_ids.empty?}" %>
           <% end %>
         </div>
         <%= search_form_for(@q, url: orchestrions_path, enforce_utf8: false,
