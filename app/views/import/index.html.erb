@@ -1,0 +1,35 @@
+<% title(t('import.title')) %>
+<% description('Perform a bulk import of your collections') %>
+
+<div class="row">
+  <div class="col-12 col-xl-6 offset-xl-3">
+    <div class="card shadow">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5><%= t('import.title') %></h5>
+        <%= link_to fa_icon('download', text: t('import.export')), export_import_path(format: :json),
+          class: 'btn btn-secondary btn-sm' %>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><%= t('import.explanation1').html_safe %></li>
+          <li><%= t('import.explanation2') %></li>
+          <li><%= t('import.explanation3').html_safe %></li>
+          <li>
+            <%= t('import.explanation4') %><br>
+            <%= import_keys_list(@keys) %>
+          </li>
+          <li><%= t('import.explanation5') %></li>
+        </ul>
+        <h6><%= t('import.example') %></h6>
+        <%= render 'example' %>
+        <%= form_tag(verify_import_path, class: 'form search-form') do %>
+          <%= label_tag :data, t('import.json'), class: 'form-label' %>
+          <%= text_area_tag :data, params[:data], rows: 10, required: true, class: 'form-control' %>
+          <div class="d-flex justify-content-end mt-3">
+            <%= submit_tag t('verify'), name: nil, class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

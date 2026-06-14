@@ -1,0 +1,27 @@
+<% title(t('import.title')) %>
+<% description('Perform a bulk import of your collections') %>
+
+<div class="row">
+  <div class="col-12 col-xl-6 offset-xl-3">
+    <div class="card shadow">
+      <h5 class="card-header"><%= t('import.title') %></h5>
+      <div class="card-body">
+        <p class="text-danger bold"><%= t('import.warning') %></p>
+        <ul>
+          <% @current_counts.keys.each do |key| %>
+            <li><%= t("#{key}.title") %>: <%= @current_counts[key] %> → <%= @new_counts[key] %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div class="card-footer pr-0">
+        <%= form_tag(submit_import_path, class: 'form search-form') do %>
+          <%= hidden_field_tag :data, params[:data], class: 'form-control' %>
+          <div class="d-flex justify-content-end">
+            <%= link_to t('back'), import_path, class: 'btn btn-secondary' %>
+            <%= submit_tag t('import.button'), name: nil, class: 'btn btn-primary' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

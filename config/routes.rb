@@ -28,6 +28,15 @@ Rails.application.routes.draw do
 
   get 'latest', to: redirect('search')
 
+  resource :import, only: [] do
+    collection do
+      get :index
+      get :export
+      post :verify
+      post :submit
+    end
+  end
+
   resources :mounts, only: [:index, :show]
 
   resources :minions, only: [:index, :show] do
