@@ -442,22 +442,28 @@ class Character < ApplicationRecord
   end
 
   def self.bulk_insert(character_id, model, model_name, ids)
-    date = Time.now.to_formatted_s(:db)
-    values = ids.map { |id| "(#{character_id}, #{id}, '#{date}', '#{date}')" }
-    model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
-                             " values #{values.join(',')}")
+    id_field = "#{model_name}_id"
+
+    model.insert_all(ids.map { |id| { character_id: character_id, id_field => id }})
+
     Character.reset_counters(character_id, "#{model_name.to_s.pluralize}_count")
   end
 
   def self.bulk_insert_with_dates(character_id, model, model_name, collectables)
     return unless collectables.present?
 
-    values = collectables.map do |collectable|
-      "(#{character_id}, #{collectable[:id]}, '#{collectable[:date]}', '#{collectable[:date]}')"
+    id_field = "#{model_name}_id"
+
+    data = collectables.map do |collectable|
+      {
+        character_id: character_id,
+        id_field => collectable[:id],
+        created_at: collectable[:date],
+        updated_at: collectable[:date]
+      }
     end
 
-    model.connection.execute("INSERT INTO #{model.table_name}(character_id, #{model_name}_id, created_at, updated_at)" \
-                             " values #{values.join(',')}")
+    model.insert_all(data)
 
     Character.reset_counters(character_id, "#{model_name.to_s.pluralize}_count")
   end
