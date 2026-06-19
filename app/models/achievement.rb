@@ -18,7 +18,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  item_id        :integer
-#  icon_id        :string(6)
 #  name_tc        :string(255)
 #  description_tc :string(255)
 #  image_url      :string(255)

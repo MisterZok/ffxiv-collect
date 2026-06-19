@@ -11,7 +11,7 @@ class ApplicationRecord < ActiveRecord::Base
       enhanced_description_en enhanced_description_de enhanced_description_fr enhanced_description_ja enhanced_description_tc
       tooltip_en tooltip_de tooltip_fr tooltip_ja tooltip_tc
       gender order order_group patch
-      type_id item_id icon_id
+      type_id item_id
     )
   end
 

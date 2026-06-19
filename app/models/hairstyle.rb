@@ -17,7 +17,6 @@
 #  item_id        :integer
 #  gender         :string(255)
 #  vierable       :boolean          default(FALSE)
-#  image_count    :integer          default(0)
 #  hrothable      :boolean          default(FALSE)
 #  femhrothable   :boolean          default(FALSE)
 #  name_tc        :string(255)

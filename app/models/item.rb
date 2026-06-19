@@ -11,7 +11,6 @@
 #  description_de :string(1000)     not null
 #  description_fr :string(1000)     not null
 #  description_ja :string(1000)     not null
-#  icon_id        :string(6)
 #  tradeable      :boolean
 #  unlock_type    :string(255)
 #  unlock_id      :integer

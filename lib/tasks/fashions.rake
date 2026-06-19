@@ -11,8 +11,6 @@ namespace :fashions do
         next unless fashion['Singular'].present?
         next if Fashion.facewear_ids.include?(fashion['#'].to_i)
 
-        icon = XIVData.format_icon_id(fashion['Icon'])
-
         data = h[fashion['#']] || { id: fashion['#'], order: fashion['Order'],
                                     image_url: XIVData.image_url(fashion['Icon']) }
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_09_222750) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -63,7 +63,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_09_222750) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "item_id"
-    t.string "icon_id", limit: 6
     t.string "name_tc"
     t.string "description_tc"
     t.string "image_url"
@@ -694,7 +693,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_09_222750) do
     t.integer "item_id"
     t.string "gender"
     t.boolean "vierable", default: false
-    t.integer "image_count", default: 0
     t.boolean "hrothable", default: false
     t.boolean "femhrothable", default: false
     t.string "name_tc"
@@ -732,7 +730,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_09_222750) do
     t.string "description_de", limit: 1000, null: false
     t.string "description_fr", limit: 1000, null: false
     t.string "description_ja", limit: 1000, null: false
-    t.string "icon_id", limit: 6
     t.boolean "tradeable"
     t.string "unlock_type"
     t.integer "unlock_id"
