@@ -134,9 +134,6 @@ class Character < ApplicationRecord
       collectables = send(collection).order("character_#{collection}.created_at desc")
     end
 
-    # Only show half as many Field Records due to the size of their icons
-    limit /= 2 if collection == 'field_records'
-
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables.first(limit).map do |collectable|
       { collectable: collectable }
@@ -163,9 +160,6 @@ class Character < ApplicationRecord
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
       .sort_by { |collectable| sorted_ids.index(collectable.id) }
-
-    # Only show half as many Field Records due to the size of their icons
-    limit /= 2 if collection == 'field_records'
 
     collectables.first(limit).map do |collectable|
       { collectable: collectable,
