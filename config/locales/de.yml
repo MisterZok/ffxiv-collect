@@ -243,6 +243,9 @@ de:
     dropdown: "Mode"
     title: "Modeaccessoires"
     title_short: "Accessoires"
+  field_records:
+    page: "Seite"
+    title: "Frontberichte"
   filters: "Filter"
   fish:
     title: "Fische"
@@ -444,11 +447,9 @@ de:
     title: "Gewertete Begleiter"
   ranked_mounts:
     title: "Gewertete Reittiere"
+  rarity: "Seltenheit"
   records:
     dropdown: "Berichte"
-    page: "Seite"
-    rarity: "Seltenheit"
-    title: "Frontberichte"
   relics:
     a_relic_reborn: "Restaurierung der Reliktwaffen"
     anima_weapons: "Anima Waffen"

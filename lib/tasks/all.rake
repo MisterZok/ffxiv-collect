@@ -37,7 +37,7 @@ namespace :data do
     Rake::Task['spells:create'].invoke
     Rake::Task['fashions:create'].invoke
     Rake::Task['facewear:create'].invoke
-    Rake::Task['records:create'].invoke
+    Rake::Task['field_records:create'].invoke
     Rake::Task['survey_records:create'].invoke
     Rake::Task['occult_records:create'].invoke
     Rake::Task['frames:create'].invoke

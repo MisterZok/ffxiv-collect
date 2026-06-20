@@ -1,4 +1,4 @@
-<% title(t('records.title')) %>
+<% title(t('field_records.title')) %>
 <% description("Track your character's field records and discover how to obtain new ones.") %>
 
 <%= render 'shared/filters' %>
@@ -10,7 +10,7 @@
     <div class="d-inline-flex flex-column">
       <div class="d-flex justify-content-between align-items-end mb-1">
         <div></div>
-        <%= search_form_for(@q, url: records_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
+        <%= search_form_for(@q, url: field_records_path, enforce_utf8: false, class: 'form form-inline search-form d-flex') do |f| %>
           <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 40,
             class: 'form-control form-control-sm flex-grow-1' %>
           <%= f.submit t('search'), name: nil, class: 'btn btn-primary btn-sm mr-0' %>
@@ -24,7 +24,7 @@
           <tr>
             <th scope="col">#</th>
             <th scope="col"><%= t('name') %></th>
-            <th scope="col" class="hide-xs"><%= t('records.rarity') %></th>
+            <th scope="col" class="hide-xs"><%= t('rarity') %></th>
             <th scope="col"><%= t('spells.location') %></th>
             <th scope="col"><%= t('source') %></th>
             <th scope="col" class="text-center hide-xs"><%= t('own') %></th>
@@ -37,15 +37,15 @@
             <% @records.each do |record| %>
               <tr class="<%= collectable_classes(record) %>">
                 <td class="record-icon">
-                  <%= link_to(record_path(record), class: 'unstyled d-flex align-items-center') do %>
+                  <%= link_to(field_record_path(record), class: 'unstyled d-flex align-items-center') do %>
                     <span class="mr-2"><%= format_record_number(record) %></span>
                     <div class="hide-xs">
                       <%= safe_image_tag(record.image_url, loading: 'lazy', class: 'image-field-record-small') %>
                     </div>
                   <% end %>
                 </td>
-                <td><%= link_to(record.name, record_path(record), class: 'name') %></td>
-                <td class="no-wrap hide-xs" data-value="<%= record.rarity %>"><%= record_rarity(record) %></td>
+                <td><%= link_to(record.name, field_record_path(record), class: 'name') %></td>
+                <td class="no-wrap hide-xs" data-value="<%= record.rarity %>"><%= field_record_rarity(record) %></td>
                 <td><%= record.location %></td>
                 <td data-value="<%= source_sort_value(record) %>"><%= sources(record) %></td>
                 <td class="text-center hide-xs" data-value="<%= rarity(record, numeric: true) %>"><%= rarity(record) %></td>

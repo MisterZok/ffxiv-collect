@@ -1,0 +1,9 @@
+<%= link_to field_record_path(@record.linked_record) do %>
+  <span class="badge badge-secondary">
+    <% if @record.linked_record.id > @record.id %>
+      <%= fa_icon('fast-forward', text: "#{t('field_records.page')} 1/2", right: true) %>
+    <% else %>
+      <%= fa_icon('fast-backward', text: "#{t('field_records.page')} 2/2") %>
+    <% end %>
+  </span>
+<% end %>

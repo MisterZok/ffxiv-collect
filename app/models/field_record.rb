@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: records
+# Table name: field_records
 #
 #  id               :bigint(8)        not null, primary key
 #  name_en          :string(255)      not null
@@ -22,10 +22,10 @@
 #  image_url        :string(255)
 #  large_image_url  :string(255)
 #
-class Record < ApplicationRecord
+class FieldRecord < ApplicationRecord
   include Collectable
 
-  belongs_to :linked_record, class_name: 'Record', optional: true
+  belongs_to :linked_record, class_name: 'FieldRecord', optional: true
   translates :name, :description
 
   alias_attribute :order, :id

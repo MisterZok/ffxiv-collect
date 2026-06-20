@@ -54,7 +54,7 @@ module CollectionsHelper
       fa_icon('id-badge')
     when 'Spell'
       fa_icon('magic')
-    when 'Record'
+    when 'FieldRecord'
       fa_icon('file-alt')
     when 'SurveyRecord'
       fa_icon('book-open')
