@@ -69,6 +69,17 @@ namespace :relics do
              44729, 44733, 44734, 44735, 44736, 44737, 44739, 44738, 44740, 44741]
       create_relics(type, ids)
 
+      # UMAD
+      type = RelicType.find_or_create_by!(name_en: "Dancing Mad",
+                                          name_de: "Tanzender Wahn",
+                                          name_fr: "Danse démente",
+                                          name_ja: "絶妖星乱舞",
+                                          category: 'ultimate', order: 7, jobs: 21)
+
+      ids = [52299, 52300, 52301, 52302, 52303, 52308, 52309, 52310, 52304, 52305, 52306,
+             52307, 52311, 52312, 52313, 52314, 52315, 52317, 52316, 52318, 52319]
+      create_relics(type, ids)
+
       puts "Created #{Relic.count - count} new ultimate weapons"
     end
   end
