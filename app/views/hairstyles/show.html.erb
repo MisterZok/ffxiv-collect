@@ -36,9 +36,6 @@
           <dd class="mb-0"><%= format_text(@hairstyle.description) %></dd>
         <% end %>
         <hr>
-        <% if @screenshots.present? %>
-          <%= render 'screenshots' %>
-        <% end %>
         <div class="d-flex flex-wrap hairstyle-list">
           <% @hairstyle.image_urls.split(',').each do |url| %>
             <%= safe_image_tag(url, class: 'image-large') %>

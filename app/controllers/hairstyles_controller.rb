@@ -9,9 +9,6 @@ class HairstylesController < ApplicationController
 
   def show
     @hairstyle = Hairstyle.include_sources.find(params[:id])
-    @screenshots = Dir.chdir(Rails.root.join('public/images')) do
-      Dir.glob("hairstyles/screenshots/#{params[:id]}/*.png").sort
-    end
   end
 
   def add
