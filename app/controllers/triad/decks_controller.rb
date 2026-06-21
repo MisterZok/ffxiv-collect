@@ -168,9 +168,9 @@ class Triad::DecksController < ApplicationController
     parms
   end
 
-  def flash_errors(record)
-    if record.errors.any?
-      flash.now[:error] = record.errors.messages.values.flatten.join('<br>').html_safe
+  def flash_errors(deck)
+    if deck.errors.any?
+      flash.now[:error] = deck.errors.messages.values.flatten.join('<br>').html_safe
     end
   end
 end
