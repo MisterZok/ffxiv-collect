@@ -52,11 +52,15 @@ Rails.application.routes.draw do
   end
 
   %i(orchestrions emotes bardings hairstyles armoires outfits spells fashions facewear frames
-  records survey_records occult_records).each do |resource|
+  field_records survey_records occult_records).each do |resource|
     resources resource, only: [:index, :show] do
       post :add, :remove, on: :member
     end
   end
+
+  # Backwards compatibility for old field records URLs
+  get 'records', to: redirect('field_records')
+  get 'records/:id', to: redirect('field_records/%{id}')
 
   resources :leves, only: [] do
     collection do
@@ -208,9 +212,13 @@ Rails.application.routes.draw do
     end
 
     %i(achievements titles mounts minions orchestrions emotes bardings hairstyles armoires outfits spells
-    fashions facewear frames records survey_records relics leves tomestones).each do |resource|
+    fashions facewear frames field_records survey_records relics leves tomestones).each do |resource|
       resources resource, only: [:index, :show]
     end
+
+    # Backwards compatibility for old field records URLs
+    get 'records', to: redirect('api/field_records')
+    get 'records/:id', to: redirect('api/field_records/%{id}')
 
     namespace :triad do
       %i(cards decks npcs packs).each do |resource|
@@ -244,7 +252,7 @@ Rails.application.routes.draw do
 
   namespace :mod do
     %i(mounts minions orchestrions emotes bardings hairstyles armoires outfits spells fashions facewear
-    frames cards records survey_records occult_records).each do |resource|
+    frames cards field_records survey_records occult_records).each do |resource|
       resources resource, only: [:index, :edit, :update]
     end
 

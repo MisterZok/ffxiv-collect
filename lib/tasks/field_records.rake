@@ -1,11 +1,11 @@
-namespace :records do
+namespace :field_records do
   desc 'Create the field records'
   task create: :environment do
     PaperTrail.enabled = false
 
     puts 'Creating field records'
 
-    count = Record.count
+    count = FieldRecord.count
     links = Hash.new { [] }
 
     records = %w(en de fr ja tc).each_with_object({}) do |locale, h|
@@ -41,17 +41,17 @@ namespace :records do
         end
       end
 
-      if existing = Record.find_by(id: record[:id])
+      if existing = FieldRecord.find_by(id: record[:id])
         existing.update!(record) if updated?(existing, record)
       else
-        Record.create!(record)
+        FieldRecord.create!(record)
       end
     end
 
-    Record.where(id: 1..20).update_all(location: 'Southern Front', patch: '5.35')
-    Record.where(id: 21..30).update_all(location: 'Delubrium Reginae', patch: '5.45')
-    Record.where(id: 31..50).update_all(location: 'Zadnor', patch: '5.55')
+    FieldRecord.where(id: 1..20).update_all(location: 'Southern Front', patch: '5.35')
+    FieldRecord.where(id: 21..30).update_all(location: 'Delubrium Reginae', patch: '5.45')
+    FieldRecord.where(id: 31..50).update_all(location: 'Zadnor', patch: '5.55')
 
-    puts "Created #{Record.count - count} new field records"
+    puts "Created #{FieldRecord.count - count} new field records"
   end
 end

@@ -1,7 +1,7 @@
 class RandomController < ApplicationController
   COLLECTIONS = [
     Achievement, Mount, Minion, Orchestrion, Spell, Hairstyle, Emote, Barding, Armoire, Outfit, Fashion,
-    Facewear, Frame, Card, NPC, Record, SurveyRecord
+    Facewear, Frame, Card, NPC, FieldRecord, SurveyRecord
   ].freeze
 
   def index

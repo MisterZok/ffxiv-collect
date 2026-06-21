@@ -12,7 +12,7 @@ module LeaderboardsHelper
        [t('fashions.title'), 'fashions'],
        [t('facewear.title'), 'facewear'],
        [t('cards.title'), 'cards'],
-       [t('records.title'), 'records'],
+       [t('field_records.title'), 'field_records'],
        [t('survey_records.title'), 'survey_records'],
        [t('occult_records.title'), 'occult_records'],
       ], selected).freeze

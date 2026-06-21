@@ -39,7 +39,7 @@ class DiscordController < ApiController
           # Normalize fields names to match models and construct Ransack query
           if type == 'spell' && field == 'number'
             query = "order_eq=#{value}"
-          elsif type == 'record' && field == 'number'
+          elsif type == 'field_record' && field == 'number'
             query = "id_eq=#{value}"
           elsif type == 'title'
             query = "name_en_or_female_name_en_cont=#{value}"

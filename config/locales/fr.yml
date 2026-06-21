@@ -243,6 +243,9 @@ fr:
     dropdown: "Mode"
     title: "Accessoires de mode"
     title_short: "Accessoires"
+  field_records:
+    page: "Page"
+    title: "Rapport du front bozjien"
   filters: "Filtres"
   fish:
     title: "Poissons"
@@ -445,11 +448,9 @@ fr:
     title: "Mascottes permanentes"
   ranked_mounts:
     title: "Montures permanentes"
+  rarity: "Rareté"
   records:
     dropdown: "Rapports"
-    page: "Page"
-    rarity: "Rareté"
-    title: "Rapport du front bozjien"
   relics:
     a_relic_reborn: "Armes antiques"
     anima_weapons: "Armes anima"

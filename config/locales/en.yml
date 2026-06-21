@@ -243,6 +243,9 @@ en:
     dropdown: "Fashion"
     title: "Fashion Accessories"
     title_short: "Accessories"
+  field_records:
+    page: "Page"
+    title: "Field Records"
   filters: "Filters"
   fish:
     title: "Fish"
@@ -444,11 +447,9 @@ en:
     title: "Ranked Minions"
   ranked_mounts:
     title: "Ranked Mounts"
+  rarity: "Rarity"
   records:
     dropdown: "Records"
-    page: "Page"
-    rarity: "Rarity"
-    title: "Field Records"
   relics:
     a_relic_reborn: "A Relic Reborn"
     anima_weapons: "Anima Weapons"

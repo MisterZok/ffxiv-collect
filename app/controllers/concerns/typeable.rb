@@ -16,7 +16,7 @@ module Typeable
       { model: Outfit, label: I18n.t('outfits.title'), value: 'Outfit' },
       { model: Armoire, label: I18n.t('armoires.title'), value: 'Armoire' },
       { model: Card, label: I18n.t('cards.title'), value: 'Card' },
-      dashboard ? { model: Record, label: I18n.t('records.title'), value: 'Record' } : nil,
+      dashboard ? { model: FieldRecord, label: I18n.t('field_records.title'), value: 'FieldRecord' } : nil,
       dashboard ? { model: SurveyRecord, label: I18n.t('survey_records.title'), value: 'SurveyRecord' } : nil,
       dashboard ? { model: OccultRecord, label: I18n.t('occult_records.title'), value: 'OccultRecord' } : nil,
     ].compact

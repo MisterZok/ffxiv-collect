@@ -28,7 +28,7 @@
 #  relics_count                 :integer          default(0)
 #  queued_at                    :datetime         default(Thu, 01 Jan 1970 00:00:00.000000000 UTC +00:00)
 #  fashions_count               :integer          default(0)
-#  records_count                :integer          default(0)
+#  field_records_count          :integer          default(0)
 #  data_center                  :string(255)
 #  ranked_achievement_points    :integer          default(0)
 #  ranked_mounts_count          :integer          default(0)
@@ -69,7 +69,7 @@ class Character < ApplicationRecord
   scope :with_public_achievements, -> { where(public_achievements: true) }
 
   %i(achievements mounts minions orchestrions emotes bardings hairstyles armoires outfits spells relics
-  fashions facewear records survey_records occult_records frames leves cards npcs).each do |model|
+  fashions facewear field_records survey_records occult_records frames leves cards npcs).each do |model|
     has_many "character_#{model}".to_sym, dependent: :delete_all
     has_many model, through: "character_#{model}".to_sym
   end
@@ -134,9 +134,6 @@ class Character < ApplicationRecord
       collectables = send(collection).order("character_#{collection}.created_at desc")
     end
 
-    # Only show half as many Field Records due to the size of their icons
-    limit /= 2 if collection == 'records'
-
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables.first(limit).map do |collectable|
       { collectable: collectable }
@@ -163,9 +160,6 @@ class Character < ApplicationRecord
     collectables = collectables.with_filters(filters, self) if filters.present?
     collectables = collectables.select { |collectable| valid_ids.include?(collectable.id) }
       .sort_by { |collectable| sorted_ids.index(collectable.id) }
-
-    # Only show half as many Field Records due to the size of their icons
-    limit /= 2 if collection == 'records'
 
     collectables.first(limit).map do |collectable|
       { collectable: collectable,

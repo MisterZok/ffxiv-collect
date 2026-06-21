@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
+ActiveRecord::Schema[7.2].define(version: 2026_06_20_105112) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -280,6 +280,16 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.index ["fashion_id"], name: "index_character_fashions_on_fashion_id"
   end
 
+  create_table "character_field_records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.integer "character_id"
+    t.integer "field_record_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["character_id", "field_record_id"], name: "idx_on_character_id_field_record_id_e85f42d7de", unique: true
+    t.index ["character_id"], name: "index_character_field_records_on_character_id"
+    t.index ["field_record_id"], name: "index_character_field_records_on_field_record_id"
+  end
+
   create_table "character_frames", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "character_id"
     t.integer "frame_id"
@@ -370,16 +380,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.index ["outfit_id"], name: "index_character_outfits_on_outfit_id"
   end
 
-  create_table "character_records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
-    t.integer "character_id"
-    t.integer "record_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.index ["character_id", "record_id"], name: "index_character_records_on_character_id_and_record_id", unique: true
-    t.index ["character_id"], name: "index_character_records_on_character_id"
-    t.index ["record_id"], name: "index_character_records_on_record_id"
-  end
-
   create_table "character_relics", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.integer "character_id"
     t.integer "relic_id"
@@ -436,7 +436,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.integer "relics_count", default: 0
     t.datetime "queued_at", precision: nil, default: "1970-01-01 00:00:00"
     t.integer "fashions_count", default: 0
-    t.integer "records_count", default: 0
+    t.integer "field_records_count", default: 0
     t.string "data_center"
     t.integer "ranked_achievement_points", default: 0
     t.integer "ranked_mounts_count", default: 0
@@ -468,6 +468,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.index ["emotes_count"], name: "index_characters_on_emotes_count"
     t.index ["facewear_count"], name: "index_characters_on_facewear_count"
     t.index ["fashions_count"], name: "index_characters_on_fashions_count"
+    t.index ["field_records_count"], name: "index_characters_on_field_records_count"
     t.index ["frames_count"], name: "index_characters_on_frames_count"
     t.index ["free_company_id"], name: "index_characters_on_free_company_id"
     t.index ["hairstyles_count"], name: "index_characters_on_hairstyles_count"
@@ -487,7 +488,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.index ["ranked_achievement_points"], name: "index_characters_on_ranked_achievement_points"
     t.index ["ranked_minions_count"], name: "index_characters_on_ranked_minions_count"
     t.index ["ranked_mounts_count"], name: "index_characters_on_ranked_mounts_count"
-    t.index ["records_count"], name: "index_characters_on_records_count"
     t.index ["relics_count"], name: "index_characters_on_relics_count"
     t.index ["server"], name: "index_characters_on_server"
     t.index ["spells_count"], name: "index_characters_on_spells_count"
@@ -623,6 +623,33 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.index ["name_tc"], name: "index_fashions_on_name_tc"
     t.index ["order"], name: "index_fashions_on_order"
     t.index ["patch"], name: "index_fashions_on_patch"
+  end
+
+  create_table "field_records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.string "name_en", null: false
+    t.string "name_de", null: false
+    t.string "name_fr", null: false
+    t.string "name_ja", null: false
+    t.text "description_en", null: false
+    t.text "description_de", null: false
+    t.text "description_fr", null: false
+    t.text "description_ja", null: false
+    t.integer "rarity", null: false
+    t.string "patch"
+    t.integer "linked_record_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.string "location"
+    t.string "name_tc"
+    t.text "description_tc"
+    t.string "image_url"
+    t.string "large_image_url"
+    t.index ["linked_record_id"], name: "index_field_records_on_linked_record_id"
+    t.index ["name_de"], name: "index_field_records_on_name_de"
+    t.index ["name_en"], name: "index_field_records_on_name_en"
+    t.index ["name_fr"], name: "index_field_records_on_name_fr"
+    t.index ["name_ja"], name: "index_field_records_on_name_ja"
+    t.index ["name_tc"], name: "index_field_records_on_name_tc"
   end
 
   create_table "frames", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
@@ -1169,33 +1196,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_19_125529) do
     t.boolean "event"
     t.string "name_tc"
     t.index ["name_en"], name: "index_quests_on_name_en"
-  end
-
-  create_table "records", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
-    t.string "name_en", null: false
-    t.string "name_de", null: false
-    t.string "name_fr", null: false
-    t.string "name_ja", null: false
-    t.text "description_en", null: false
-    t.text "description_de", null: false
-    t.text "description_fr", null: false
-    t.text "description_ja", null: false
-    t.integer "rarity", null: false
-    t.string "patch"
-    t.integer "linked_record_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.string "location"
-    t.string "name_tc"
-    t.text "description_tc"
-    t.string "image_url"
-    t.string "large_image_url"
-    t.index ["linked_record_id"], name: "index_records_on_linked_record_id"
-    t.index ["name_de"], name: "index_records_on_name_de"
-    t.index ["name_en"], name: "index_records_on_name_en"
-    t.index ["name_fr"], name: "index_records_on_name_fr"
-    t.index ["name_ja"], name: "index_records_on_name_ja"
-    t.index ["name_tc"], name: "index_records_on_name_tc"
   end
 
   create_table "relic_types", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|

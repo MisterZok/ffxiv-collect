@@ -7,7 +7,7 @@
     <div class="card">
       <div class="card-header d-flex align-items-center justify-content-between">
         <h5 class="card-title"><%= format_record_number(@record) %>. <%= @record.name %></h5>
-        <%= render 'record_link' if @record.linked_record.present? %>
+        <%= render 'field_record_link' if @record.linked_record.present? %>
       </div>
       <div class="card-body">
         <div class="d-flex">
@@ -17,8 +17,8 @@
           <div class="d-flex flex-column flex-info">
             <div class="d-flex flex-wrap">
               <div>
-                <dt><%= t('records.rarity') %></dt>
-                <dd><%= record_rarity(@record) %></dd>
+                <dt><%= t('rarity') %></dt>
+                <dd><%= field_record_rarity(@record) %></dd>
               </div>
               <div>
                 <dt><%= t('spells.location') %></dt>

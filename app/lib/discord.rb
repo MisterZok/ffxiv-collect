@@ -33,7 +33,7 @@ module Discord
       else
         name = "#{collectable[:name]} / #{collectable[:female_name]}"
       end
-    elsif type == 'record'
+    elsif type == 'field_record'
       name = "#{collectable[:id].to_s.rjust(2, '0')}. #{collectable[:name]}"
     elsif type == 'card'
       name = "#{collectable[:name]} (#{collectable[:number]})"
@@ -45,13 +45,13 @@ module Discord
       embed.description = collectable[:description]
     elsif type == 'title'
       embed.description = collectable.dig(:achievement, :description)
-    elsif type == 'record'
+    elsif type == 'field_record'
       embed.description = collectable[:description].split("\n\n").first(2).join("\n\n")
     else
       embed.description = collectable[:enhanced_description] || collectable[:description]
     end
 
-    embed.image = Discordrb::Webhooks::EmbedImage.new(url: collectable[:image]) unless type == 'record'
+    embed.image = Discordrb::Webhooks::EmbedImage.new(url: collectable[:image]) unless type == 'field_record'
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: collectable[:icon])
     embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: name, url: collectable_url(type, collectable))
 
@@ -122,7 +122,7 @@ module Discord
       embed.add_field(name: 'Achievements', inline: true, value: 'Set to private.')
     end
 
-    %i(mounts minions orchestrions spells emotes bardings hairstyles armoires fashions records survey_records).each do |category|
+    %i(mounts minions orchestrions spells emotes bardings hairstyles armoires fashions field_records survey_records).each do |category|
       next unless character[category].present? && character[category][:count] > 0
 
       count, total = character[category].values_at(:count, :total)
