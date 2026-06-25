@@ -1,7 +1,7 @@
 class Api::Triad::CardsController < ApiController
   def index
     query = Card.all.ransack(@query)
-    @cards = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @cards = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

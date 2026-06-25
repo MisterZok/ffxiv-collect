@@ -6,7 +6,7 @@ class OrchestrionsController < ApplicationController
 
   def index
     @q = Orchestrion.ransack(params[:q])
-    @orchestrions = @q.result.include_related.with_filters(cookies).ordered
+    @orchestrions = @q.result.available.include_related.with_filters(cookies).ordered
     @categories = OrchestrionCategory.with_filters(cookies).order(:order)
     @types = source_types(:orchestrion)
   end

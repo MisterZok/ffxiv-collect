@@ -1,7 +1,7 @@
 class Api::FramesController < ApiController
   def index
     query = Frame.all.ransack(@query)
-    @frames = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @frames = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

@@ -4,7 +4,7 @@ class Triad::CardsController < ApplicationController
 
   def index
     @q = Card.ransack(params[:q])
-    @cards = @q.result.include_related.with_filters(cookies).ordered.distinct
+    @cards = @q.result.available.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:card)
   end
 

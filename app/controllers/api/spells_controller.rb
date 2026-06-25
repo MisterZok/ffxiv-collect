@@ -1,7 +1,7 @@
 class Api::SpellsController < ApiController
   def index
     query = Spell.all.ransack(@query)
-    @spells = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @spells = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

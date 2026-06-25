@@ -21,13 +21,13 @@ class AchievementsController < ApplicationController
     @type = AchievementType.find(params[:id])
     @categories = @type.categories.with_filters(cookies).ordered
     @achievements = @categories.each_with_object({}) do |category, h|
-      h[category.id] = category.achievements.with_filters(cookies).includes(:item, :title).order(:order, :id)
+      h[category.id] = category.achievements.available.with_filters(cookies).includes(:item, :title).order(:order, :id)
     end
   end
 
   def items
-    @q = Achievement.where.not(item_id: nil).with_filters(cookies).ransack(params[:q])
-    @achievements = @q.result.ordered
+    @q = Achievement.where.not(item_id: nil).ransack(params[:q])
+    @achievements = @q.result.available.with_filters(cookies).ordered
     @owned = {
       count: Redis.current.hgetall('achievements-count'),
       percentage: Redis.current.hgetall('achievements')
@@ -38,8 +38,8 @@ class AchievementsController < ApplicationController
     @patches = searchable_patches(legacy: cookies[:limited] != 'hide')
     @search = ransack_with_patch_search(@patches)
 
-    @q = Achievement.with_filters(cookies).ransack(@search)
-    @achievements = @q.result.ordered
+    @q = Achievement.ransack(@search)
+    @achievements = @q.result.available.with_filters(cookies).ordered
 
     @types = AchievementType.all.ordered
   end

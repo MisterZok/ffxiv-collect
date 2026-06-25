@@ -5,7 +5,7 @@ class OutfitsController < ApplicationController
 
   def index
     @q = Outfit.ransack(params[:q])
-    @outfits = @q.result.include_related.with_filters(cookies, @character).ordered.distinct
+    @outfits = @q.result.available.include_related.with_filters(cookies, @character).ordered.distinct
     @types = source_types(:outfit)
   end
 

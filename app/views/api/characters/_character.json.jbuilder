@@ -17,16 +17,15 @@ end
 %w(mount minion orchestrion spell hairstyle emote barding armoire outfit fashion facewear frame field_record survey_record leve card npc).each do |collection|
   json.set! collection.pluralize do
     json.count public_collection?(@character, collection.pluralize) ? character.send("#{collection.pluralize}_count") : 0
-    json.total collection == 'minion' ? Minion.summonable.count : collection.classify.constantize.count
+
+    collectables = collection.classify.constantize.available
+    collectables = collectables.summonable if collection == 'minion'
+
+    json.total collectables.count
 
     if collection.match?(/mount|minion/)
       json.ranked_count character.send("ranked_#{collection.pluralize}_count")
-
-      if collection == 'minion'
-        json.ranked_total Minion.ranked.summonable.count
-      else
-        json.ranked_total collection.capitalize.constantize.ranked.count
-      end
+      json.ranked_total collectables.ranked.count
     end
 
     json.ids character.send("#{collection}_ids") if params[:ids].present?
@@ -43,8 +42,11 @@ json.relics character_relics(character)
 json.leves do
   LeveCategory.crafts.each do |craft|
     json.set! craft do
-      json.count @character.leves.joins(:category).where('leve_categories.craft_en = ?', craft).count
-      json.total Leve.joins(:category).where('leve_categories.craft_en = ?', craft).count
+      leves = Leve.available.joins(:category).where('leve_categories.craft_en = ?', craft)
+      owned_ids = @character.leve_ids
+
+      json.count leves.where(id: owned_ids).count
+      json.total leves.count
     end
   end
 end

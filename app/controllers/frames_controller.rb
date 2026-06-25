@@ -3,7 +3,7 @@ class FramesController < ApplicationController
 
   def index
     @q = Frame.ransack(params[:q])
-    @frames = @q.result.include_related.with_filters(cookies).ordered.distinct
+    @frames = @q.result.available.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:frame)
   end
 

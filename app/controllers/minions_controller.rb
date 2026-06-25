@@ -5,7 +5,7 @@ class MinionsController < ApplicationController
 
   def index
     @q = Minion.summonable.ransack(params[:q])
-    @minions = @q.result.include_related.with_filters(cookies).ordered.distinct
+    @minions = @q.result.available.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:minion)
   end
 
@@ -17,7 +17,7 @@ class MinionsController < ApplicationController
     end
 
     @q = Minion.verminion.ransack(search_params)
-    @minions = @q.result.include_related.with_filters(cookies).ordered.distinct
+    @minions = @q.result.available.include_related.with_filters(cookies).ordered.distinct
   end
 
   def dark_helmet

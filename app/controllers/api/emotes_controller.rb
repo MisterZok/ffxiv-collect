@@ -1,7 +1,7 @@
 class Api::EmotesController < ApiController
   def index
     query = Emote.all.ransack(@query)
-    @emotes = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @emotes = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

@@ -6,7 +6,7 @@ class TitlesController < ApplicationController
 
   def index
     @q = Title.ransack(params[:q])
-    @titles = @q.result.include_related.ordered.distinct
+    @titles = @q.result.available.include_related.ordered.distinct
 
     if cookies[:limited] == 'hide'
       @titles = @titles.joins(:achievement).merge(Achievement.exclude_time_limited)

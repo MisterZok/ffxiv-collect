@@ -4,7 +4,7 @@ class FieldRecordsController < ApplicationController
 
   def index
     @q = FieldRecord.ransack(params[:q])
-    @records = @q.result.include_related.ordered.distinct
+    @records = @q.result.available.include_related.ordered.distinct
   end
 
   def show

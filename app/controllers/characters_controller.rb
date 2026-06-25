@@ -18,42 +18,49 @@ class CharactersController < ApplicationController
     @scores = COLLECTIONS.each_with_object({}) do |collection, h|
       next unless @profile.send("#{collection}_count") > 0
 
-      ids = collection.classify.constantize.with_filters(cookies, @profile).pluck(:id)
-      ids -= Minion.unsummonable_ids if collection == 'minions'
+      collectables = collection.classify.constantize.available.with_filters(cookies, @profile)
+      collectables = collectables.summonable if collection == 'minions'
+
       owned_ids = @profile.send("#{collection.singularize}_ids")
-      h[collection] = { value: (owned_ids & ids).size, max: ids.size }
+
+      # Count collectables with matching IDs to ensure we respect filters/etc
+      h[collection] = {
+        value: collectables.where(id: owned_ids).count,
+        max: collectables.count
+      }
     end
 
     # Add point data to Achievements
     if @scores['achievements'].present?
-      @scores['achievements'][:points] = Achievement.with_filters(cookies, @profile)
-        .joins(:character_achievements)
-        .where('character_achievements.character_id = ?', @profile.id)
-        .sum(:points)
+      achievements = Achievement.available.with_filters(cookies, @profile)
+      owned_ids = @profile.achievement_ids
 
-      @scores['achievements'][:points_max] = Achievement.with_filters(cookies, @profile).sum(:points)
+      @scores['achievements'][:points] = achievements.where(id: owned_ids).sum(:points)
+      @scores['achievements'][:points_max] = achievements.sum(:points)
     end
 
     # Add NPC data to Cards
     if @scores['cards'].present?
-      @scores['cards'][:npcs] = NPC.valid.joins(:character_npcs)
-        .where('character_npcs.character_id = ?', @profile.id)
-        .count
+      npcs = NPC.available.valid.with_filters(cookies, @profile)
+      owned_ids = @profile.npc_ids
 
-      @scores['cards'][:npcs_max] = NPC.valid.count
+      @scores['cards'][:npcs] = npcs.where(id: owned_ids).count
+      @scores['cards'][:npcs_max] = npcs.count
     end
 
     # Add Levequests
     if @profile.leves.any?
       @crafts = LeveCategory.crafts
       @scores['leves'] = @crafts.each_with_object({}) do |craft, h|
-        h[craft] = @profile.leves.joins(:category)
+        leves = Leve.available
+          .with_filters(cookies)
+          .joins(:category)
           .where('leve_categories.craft_en = ?', craft)
-          .with_filters(cookies).count
 
-        h["#{craft}_max"] = Leve.joins(:category)
-          .where('leve_categories.craft_en = ?', craft)
-          .with_filters(cookies).count
+        owned_ids = @profile.leve_ids
+
+        h[craft] = leves.where(id: owned_ids).count
+        h["#{craft}_max"] = leves.count
       end
     end
   end

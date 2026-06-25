@@ -3,7 +3,7 @@ class Api::Triad::NPCsController < ApiController
 
   def index
     query = NPC.all.ransack(@query.except(:deck))
-    @npcs = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @npcs = query.result.available.include_related.ordered.distinct.limit(params[:limit])
     @npcs = @npcs.includes(fixed_cards: :type, variable_cards: :type) if @include_deck
   end
 

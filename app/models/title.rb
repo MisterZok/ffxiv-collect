@@ -23,6 +23,7 @@ class Title < ApplicationRecord
   translates :name, :female_name
   belongs_to :achievement, touch: true
 
+  scope :available, -> { joins(:achievement).where.not('achievements.patch' => nil) }
   scope :include_related, -> { includes(achievement: { category: :type }) }
   scope :ordered, -> { joins(:achievement).order('achievements.patch desc', order: :desc) }
 

@@ -3,7 +3,7 @@ class ArmoiresController < ApplicationController
 
   def index
     @q = Armoire.ransack(params[:q])
-    @armoires = @q.result.include_related.with_filters(cookies, @character).ordered.distinct
+    @armoires = @q.result.available.include_related.with_filters(cookies, @character).ordered.distinct
     @types = source_types(:armoire)
     @categories = ArmoireCategory.all.order(:order)
   end

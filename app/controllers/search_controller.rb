@@ -25,9 +25,9 @@ class SearchController < ApplicationController
 
     @collectables = @models.flat_map do |model|
       # The search form needs a query, so we will eventually set it to the last search
-      @q = model.include_related.with_filters(cookies, @character).ransack(@search)
+      @q = model.ransack(@search)
 
-      collectables = @q.result.ordered
+      collectables = @q.result.available.include_related.with_filters(cookies, @character).ordered
       collectables = collectables.summonable if model == Minion # Exclude variant minions
       collectables
     end

@@ -1,7 +1,7 @@
 class Api::MinionsController < ApiController
   def index
     query = Minion.summonable.ransack(@query)
-    @minions = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @minions = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

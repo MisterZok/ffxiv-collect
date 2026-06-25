@@ -37,6 +37,8 @@ class Achievement < ApplicationRecord
 
   translates :name, :description, :item_name
 
+  scope :available, -> { where.not(patch: nil) }
+
   scope :exclude_time_limited, -> do
     joins(category: :type)
       .where('achievement_types.name_en <> ?', 'Legacy')

@@ -1,7 +1,7 @@
 class Api::FieldRecordsController < ApiController
   def index
     query = FieldRecord.all.ransack(@query)
-    @field_records = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @field_records = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

@@ -4,7 +4,7 @@ class EmotesController < ApplicationController
 
   def index
     @q = Emote.ransack(params[:q])
-    @emotes = @q.result.include_related.with_filters(cookies).ordered.distinct
+    @emotes = @q.result.available.include_related.with_filters(cookies).ordered.distinct
     @types = source_types(:emote)
     @categories = EmoteCategory.all.order(:id)
   end

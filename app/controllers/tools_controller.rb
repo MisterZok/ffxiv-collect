@@ -1,7 +1,9 @@
 class ToolsController < ApplicationController
   include PrivateCollection
+
   before_action -> { check_privacy!(:mounts, :minions) }, only: [:gemstones, :materiel]
   before_action -> { check_privacy!(:mounts, :minions, :facewear, :emotes) }, only: [:market_board, :treasure]
+
   skip_before_action :set_owned!, :set_ids!
 
   def gemstones
@@ -91,7 +93,7 @@ class ToolsController < ApplicationController
 
     @collectables.each do |type, ids|
       model = type.to_s.classify.constantize
-      @collectables[type] = model.where(id: ids).include_sources
+      @collectables[type] = model.where(id: ids).available.include_sources
     end
 
     if @character.present?

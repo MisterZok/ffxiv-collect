@@ -1,7 +1,7 @@
 class Api::OutfitsController < ApiController
   def index
     query = Outfit.all.ransack(@query)
-    @outfits = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @outfits = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show

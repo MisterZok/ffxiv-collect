@@ -1,7 +1,7 @@
 class Api::FacewearController < ApiController
   def index
     query = Facewear.all.ransack(@query)
-    @facewears = query.result.include_related.ordered.distinct.limit(params[:limit])
+    @facewears = query.result.available.include_related.ordered.distinct.limit(params[:limit])
   end
 
   def show
