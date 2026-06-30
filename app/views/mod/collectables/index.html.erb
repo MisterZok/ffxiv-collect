@@ -11,6 +11,10 @@
         <%= f.search_field "name_#{I18n.locale}_cont", placeholder: t('name'), size: 30,
           class: 'form-control form-control-sm' %>
         <div class="form-group form-check">
+          <%= check_box_tag :missing_patch, 1, @missing_patch %>
+          <%= label_tag :missing_patch, t('mod.missing_patch') %>
+        </div>
+        <div class="form-group form-check">
           <%= check_box_tag :missing_source, 1, @missing_source %>
           <%= label_tag :missing_source, t('mod.missing_source') %>
         </div>

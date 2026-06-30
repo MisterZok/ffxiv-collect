@@ -367,6 +367,7 @@ en:
     dashboard: "Mod Dashboard"
     manage_collectables: "Manage Collectables"
     manage_translations: "Manage Translations"
+    missing_patch: "Missing Patch"
     missing_source: "Missing Source"
     select_type: "Select type"
     source_delete_confirm: "Are you sure you want to delete this source?"

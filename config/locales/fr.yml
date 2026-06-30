@@ -367,6 +367,7 @@ fr:
     dashboard: "Panneau de modération"
     manage_collectables: "Gérer les collectionnables"
     manage_translations: "Gérer les traductions"
+    missing_patch: "Patch manquante"
     missing_source: "Provenance manquante"
     select_type: "Choisir un type"
     source_delete_confirm: "Voulez-vous vraiment supprimer cette provenance ?"
