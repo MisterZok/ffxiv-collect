@@ -1,5 +1,6 @@
 module Lodestone
   class PrivateProfileError < StandardError; end
+  class HiddenProfileError < StandardError; end
 
   LODESTONE_URL = 'https://na.finalfantasyxiv.com/lodestone'.freeze
   PROXY_URL = Rails.application.credentials.dig(:proxy, :url).freeze
@@ -96,6 +97,11 @@ module Lodestone
       doc = character_document(character_id: character_id)
     rescue RestClient::Forbidden
       raise PrivateProfileError
+    end
+
+    # Check if the user has opted out of tracking via their Lodestone profile
+    if doc.css('.character__character_profile').text.include?('ffxivcollect:hidden')
+      raise HiddenProfileError
     end
 
     character = {

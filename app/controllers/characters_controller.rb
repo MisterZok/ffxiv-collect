@@ -199,7 +199,7 @@ class CharactersController < ApplicationController
         end
       rescue RestClient::BadGateway, RestClient::ServiceUnavailable
         flash[:error] = t('alerts.lodestone_maintenance')
-      rescue Lodestone::PrivateProfileError
+      rescue Lodestone::PrivateProfileError, Lodestone::HiddenProfileError
         flash[:error] = t('alerts.private_profile')
       rescue
         flash[:error] = t("alerts.problem_refreshing_#{key}")
@@ -222,7 +222,7 @@ class CharactersController < ApplicationController
         flash[:error] = t('alerts.character_verification_error')
         @code = @profile.verification_code(current_user)
       end
-    rescue Lodestone::PrivateProfileError
+    rescue Lodestone::PrivateProfileError, Lodestone::HiddenProfileError
       flash[:error] = t('alerts.problem_verifying_private')
     rescue StandardError => e
       flash[:error] = t('alerts.problem_verifying')
@@ -259,7 +259,7 @@ class CharactersController < ApplicationController
   def set_selected
     begin
       @selected = Character.find_by(id: params[:id]) || fetch_character(params[:id])
-    rescue Lodestone::PrivateProfileError
+    rescue Lodestone::PrivateProfileError, Lodestone::HiddenProfileError
       flash[:error] = t('alerts.private_profile')
       return redirect_back(fallback_location: root_path)
     rescue

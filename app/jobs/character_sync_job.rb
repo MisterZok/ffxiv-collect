@@ -24,7 +24,7 @@ class CharacterSyncJob < ApplicationJob
     rescue RestClient::ExceptionWithResponse => e
       Sidekiq.logger.error("There was a problem fetching character #{id}")
       Sidekiq.logger.error(e.response)
-    rescue Lodestone::PrivateProfileError
+    rescue Lodestone::PrivateProfileError, Lodestone::HiddenProfileError
       # We cannot fetch characters with private profiles
     rescue StandardError
       Sidekiq.logger.error("There was a problem fetching character #{id}")

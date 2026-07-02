@@ -216,6 +216,9 @@ class Character < ApplicationRecord
 
     begin
       data = Lodestone.character(id)
+    rescue Lodestone::HiddenProfileError => e
+      character.update!(public: false, public_profile: false, last_parsed: Time.now)
+      raise e
     rescue Lodestone::PrivateProfileError => e
       if character.present?
         character.update!(public_profile: false, last_parsed: Time.now)
