@@ -15,11 +15,12 @@
           <li><%= t('users.sign_in_benefit3') %></li>
           <li><%= t('users.sign_in_benefit4') %></li>
         </ul>
+        <hr>
         <div class="d-flex flex-column align-items-center gap-2">
-          <%= button_to fab_icon('discord', text: t('users.sign_in_with', provider: 'Discord')),
-            omniauth_authorize_path(User, :discord), class: 'btn discord' %>
-          <%= button_to fab_icon('google', text: t('users.sign_in_with', provider: 'Google')),
-            omniauth_authorize_path(User, :google_oauth2), class: 'btn google' %>
+          <% %w(discord google_oauth2).each do |provider| %>
+            <%= button_to fab_icon(Identity.icon(provider), text: t('users.sign_in_with', provider: Identity.formatted_name(provider))),
+              omniauth_authorize_path(User, provider), class: "btn #{Identity.icon(provider)}" %>
+          <% end %>
         </div>
       </div>
     </div>

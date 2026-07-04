@@ -3,7 +3,30 @@
 
 <div class="row">
   <div class="col-12 col-lg-8 col-xl-6 offset-lg-2 offset-xl-3">
-    <div class="card">
+    <div class="card shadow">
+      <div class="card-header">
+        <h5 class="card-title"><%= t('settings.authentication') %></h5>
+      </div>
+      <div class="card-body card-table">
+        <table class="table table-striped">
+          <% %w(discord google_oauth2).each do |provider| %>
+            <tr>
+              <td class="pl-3">
+                <%= provider_name(provider) %>
+              </td>
+              <td>
+                <%= identity_status(@identities, provider) %>
+              </td>
+              <td class="pr-3">
+                <%= unlink_identity_button(@identities, provider) %>
+              </td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+    </div>
+
+    <div class="card shadow mt-4">
       <div class="card-header">
         <h5 class="card-title"><%= t('settings.user') %></h5>
       </div>
@@ -22,7 +45,7 @@
     </div>
 
     <% if @character.present? && @character.verified_user?(@user) %>
-      <div class="card mt-4">
+      <div class="card shadow mt-4">
         <div class="card-header">
           <h5 class="card-title"><%= t('settings.character') %></h5>
         </div>

@@ -189,9 +189,11 @@ Rails.application.routes.draw do
   get 'faq', to: 'static#faq'
   get 'credits', to: 'static#credits'
 
-  get   'settings',           to: 'settings#edit'
-  patch 'settings/user',      to: 'settings#update_user',      as: :user_settings
-  patch 'settings/character', to: 'settings#update_character', as: :character_settings
+  get    'settings',           to: 'settings#edit'
+  delete 'settings/unlink',    to: 'settings#unlink_identity',  as: :unlink_identity
+  patch  'settings/user',      to: 'settings#update_user',      as: :user_settings
+  patch  'settings/character', to: 'settings#update_character', as: :character_settings
+
   get   'settings/user',      to: redirect('settings')
   get   'settings/character', to: redirect('settings')
 

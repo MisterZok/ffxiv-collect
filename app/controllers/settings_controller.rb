@@ -7,6 +7,26 @@ class SettingsController < ApplicationController
       link = view_context.link_to(t('alerts.verify_ownership'), verify_character_path(@character))
       flash.now[:alert_fixed] = t('alerts.settings_not_verified', link: link)
     end
+
+    @identities = @user.identities.each_with_object({}) do |identity, h|
+      h[identity.provider] = identity
+    end
+  end
+
+  def unlink_identity
+    unless @user.identities.count > 1
+      flash[:error] = t('alerts.authentication_method_needed')
+      return redirect_to settings_path
+    end
+
+    provider = params[:provider].to_sym
+
+    if User.omniauth_providers.include?(provider)
+      @user.identities.find_by(provider: provider).destroy
+      flash[:success] = t('alerts.authentication_method_deleted')
+    end
+
+    redirect_to settings_path
   end
 
   def update_user

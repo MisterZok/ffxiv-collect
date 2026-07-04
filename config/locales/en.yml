@@ -33,6 +33,8 @@ en:
               blank: "Your deck has specified an invalid rule."
   add: "Add"
   alerts:
+    authentication_method_deleted: "Your authentication method has been deleted."
+    authentication_method_needed: "You must have at least one form of authentication."
     character_already_refreshed: "Your character has already been refreshed in the past 30 minutes. Please try again later."
     character_already_verified: "Your character has already been verified."
     character_not_found: "Character could not be found."
@@ -195,6 +197,7 @@ en:
     title: "Discord Commands"
   compare: "Compare"
   complete: "Complete"
+  connect: "Connect"
   copy:
     isearch: "Copied /isearch command"
     name: "Copied item name"
@@ -487,6 +490,7 @@ en:
   search: "Search"
   select: "Select"
   settings:
+    authentication: "Authentication"
     character: "Character Settings"
     database: "Database Links"
     make_public: "Make this character's collections publicly available"

@@ -14,7 +14,24 @@
 class Identity < ApplicationRecord
   belongs_to :user
 
+  def formatted_name
+    Identity.formatted_name(provider)
+  end
+
+  def self.formatted_name(provider)
+    case provider
+    when 'google_oauth2'
+      'Google'
+    else
+      provider.capitalize
+    end
+  end
+
   def icon
+    Identity.icon(provider)
+  end
+
+  def self.icon(provider)
     case provider
     when 'google_oauth2'
       'google'
