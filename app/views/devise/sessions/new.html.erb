@@ -1,0 +1,27 @@
+<% title(t('users.sign_in')) %>
+<% description('Sign in to access more features like manual collection tracking.') %>
+
+<div class="row">
+  <div class="col-12 col-lg-8 col-xl-6 mx-auto">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title"><%= t('users.sign_in') %></h5>
+      </div>
+      <div class="card-body py-3">
+        <h5><%= t('users.sign_in_header') %></h5>
+        <ul>
+          <li><%= t('users.sign_in_benefit1') %></li>
+          <li><%= t('users.sign_in_benefit2') %></li>
+          <li><%= t('users.sign_in_benefit3') %></li>
+          <li><%= t('users.sign_in_benefit4') %></li>
+        </ul>
+        <div class="d-flex flex-column align-items-center gap-2">
+          <%= button_to fab_icon('discord', text: t('users.sign_in_with', provider: 'Discord')),
+            omniauth_authorize_path(User, :discord), class: 'btn discord' %>
+          <%= button_to fab_icon('google', text: t('users.sign_in_with', provider: 'Google')),
+            omniauth_authorize_path(User, :google_oauth2), class: 'btn google' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

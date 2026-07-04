@@ -2,20 +2,28 @@
   background-color: #292929;
 }
 
-a.discord {
+.discord {
   background-color: #3D55A0;
+
+  &:hover {
+    background-color: #324682;
+  }
 }
 
-a.discord:hover {
-  background-color: #324682;
+.google {
+  background-color: #4285F4;
+
+  &:hover {
+    background-color: #3776D6;
+  }
 }
 
-a.patreon {
+.patreon {
   background-color: #DB4534;
-}
 
-a.patreon:hover {
-  background-color: #BF3C2D;
+  &:hover {
+    background-color: #BF3C2D;
+  }
 }
 
 .socials img {

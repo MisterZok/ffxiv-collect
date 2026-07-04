@@ -638,6 +638,7 @@ de:
   user: "User"
   users:
     sign_in: "Einloggen"
+    sign_in_with: "Einloggen mit %{provider}"
     sign_out: "Abmelden"
   verify: "Verifizieren"
   verminion:

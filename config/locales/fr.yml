@@ -639,6 +639,7 @@ fr:
   user: "Utilisateur"
   users:
     sign_in: "Se connecter"
+    sign_in_with: "Se connecter avec %{provider}"
     sign_out: "Déconnexion"
   verify: "Vérifier"
   verminion:

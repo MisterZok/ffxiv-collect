@@ -622,6 +622,12 @@ en:
   user: "User"
   users:
     sign_in: "Sign In"
+    sign_in_benefit1: "Easily track multiple characters"
+    sign_in_benefit2: "Verify your character and track manual collections"
+    sign_in_benefit3: "Create custom groups to easily compare with other characters"
+    sign_in_benefit4: "Adjust settings like character privacy and pricing data center"
+    sign_in_header: "Sign in to access to more features"
+    sign_in_with: "Sign in with %{provider}"
     sign_out: "Sign Out"
   verify: "Verify"
   verminion:

@@ -588,6 +588,7 @@ tc:
   type: "類型"
   users:
     sign_in: "登入"
+    sign_in_with: "使用 %{provider} 登入"
     sign_out: "登出"
   verify: "驗證"
   verminion:
