@@ -145,7 +145,6 @@ de:
     compare: "Vergleichen"
     comparing: "Vergleiche Charaktere"
     data_center: "Datenzentrum"
-    discord_ownership: "Du hast dich als Eigentümer des Charakters mit folgendem Discord Benutzer verifiziert:"
     forget: "Charakter vergessen"
     last_parsed: "Letzte Erfassung"
     last_updated: "Letzte Aktualisierung %{timespan} her."
@@ -154,6 +153,7 @@ de:
     lodestone_id_lookup: "Lodestone ID suchen"
     lodestone_id_validation: "Die numerische ID in der URL deines Lodestone-Charakterprofils (z.B. 7660136)"
     lodestone_verify: "Wenn die oben genannten Informationen stimmen, füge bitte den Text von unten in dein %{link}, und drücke im Anschluss auf <b>Verifizieren</b>."
+    lodestone_verify_notice: "Du hast dich als Eigentümer des Charakters mit folgendem Benutzer verifiziert:"
     manage: "Verwalten des Charakters"
     not_owned: "Dein Charakter besitzt dies noch nicht"
     owned: "Dein Charakter besitzt dies bereits"
@@ -637,7 +637,7 @@ de:
   type: "Typ"
   user: "User"
   users:
-    sign_in: "Einloggen mit Discord"
+    sign_in: "Einloggen"
     sign_out: "Abmelden"
   verify: "Verifizieren"
   verminion:

@@ -17,6 +17,7 @@ gem 'websocket-extensions', '>= 0.1.5'
 
 gem 'devise'
 gem 'omniauth-discord'
+gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 gem 'faraday', '>= 2.14.2'
 

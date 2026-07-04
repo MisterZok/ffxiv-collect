@@ -39,6 +39,9 @@ mysql:
 discord:
   client_id: 123456789
   client_secret: abc123
+google:
+  client_id: 234567891
+  client_secret: def456
 ```
 
 #### Load the database

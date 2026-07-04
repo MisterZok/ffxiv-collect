@@ -256,8 +256,24 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :discord, Rails.application.credentials.dig(:discord, :client_id),
-    Rails.application.credentials.dig(:discord, :client_secret), scope: 'identify'
+  config.omniauth(
+    :discord,
+    Rails.application.credentials.dig(:discord, :client_id),
+    Rails.application.credentials.dig(:discord, :client_secret),
+    scope: 'identify'
+  )
+
+  config.omniauth(
+    :google_oauth2,
+    Rails.application.credentials.dig(:google, :client_id),
+    Rails.application.credentials.dig(:google, :client_secret),
+    {
+      scope: 'email,profile',
+      image_aspect_ratio: 'square',
+      image_size: 40,
+      prompt: 'consent',
+    }
+  )
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

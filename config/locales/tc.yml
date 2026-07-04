@@ -143,7 +143,6 @@ tc:
     compare: "比較"
     comparing: "比較中"
     data_center: "資料中心"
-    discord_ownership: "你正在以以下 Discord 使用者的身份驗證以下角色的所有權："
     forget: "忘記角色"
     last_parsed: "最後解析"
     last_updated: "最後更新於 %{timespan} 前。"
@@ -152,6 +151,7 @@ tc:
     lodestone_id_lookup: "Lodestone ID 查詢"
     lodestone_id_validation: "來自你的 Lodestone 角色個人資料網址的數字 ID（例如 7660136）"
     lodestone_verify: "如果以上資訊正確，請將以下代碼新增到你的 %{link}，然後點擊<b>驗證</b>。"
+    lodestone_verify_notice: "你正在以以下使用者的身份驗證以下角色的所有權："
     manage: "管理角色"
     not_owned: "你的角色未擁有此項目。"
     owned: "你的角色擁有此項目。"
@@ -587,7 +587,7 @@ tc:
     title: "九宮幻卡"
   type: "類型"
   users:
-    sign_in: "使用 Discord 登入"
+    sign_in: "登入"
     sign_out: "登出"
   verify: "驗證"
   verminion:

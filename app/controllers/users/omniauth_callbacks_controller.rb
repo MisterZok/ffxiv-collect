@@ -1,5 +1,18 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def discord
+    handle_callback
+  end
+
+  def failure
+    redirect_to root_path
+  end
+
+  def google_oauth2
+    handle_callback
+  end
+
+  private
+  def handle_callback
     @user = User.from_omniauth(request.env['omniauth.auth'])
     sign_in(@user)
 
@@ -12,10 +25,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       return redirect_to character_path(@user.character)
     end
 
-    redirect_to root_path
-  end
-
-  def failure
     redirect_to root_path
   end
 end

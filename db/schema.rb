@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_06_20_105112) do
+ActiveRecord::Schema[7.2].define(version: 2026_07_03_161204) do
   create_table "achievement_categories", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -735,6 +735,18 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_20_105112) do
     t.index ["patch"], name: "index_hairstyles_on_patch"
   end
 
+  create_table "identities", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.string "username"
+    t.string "avatar_url"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
+    t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
   create_table "instances", charset: "utf8", collation: "utf8_general_ci", force: :cascade do |t|
     t.string "name_en", null: false
     t.string "name_de", null: false
@@ -1436,6 +1448,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_06_20_105112) do
     t.boolean "admin", default: false
     t.boolean "mod", default: false
     t.string "database", default: "garland", null: false
+    t.integer "latest_identity_id"
     t.index ["character_id"], name: "index_users_on_character_id"
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end

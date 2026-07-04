@@ -9,22 +9,21 @@
       <% end %>
     </div>
     <span class="d-none d-sm-block">
-    <%= fa_icon('eye') if @character.present? && @peeking %>
+      <%= fa_icon('eye') if @character.present? && @peeking %>
       <%= @character.present? ? @character.name : current_user.username %>
     </span>
   </a>
   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
     <% if @character.present? %>
       <div class="d-flex flex-column menu-character mx-3">
-        <div class="d-flex flex-column">
-          <div class="d-flex justify-content-between">
-            <b><%= @character.name %></b>
-            <% if user_signed_in? %>
-              <span class="ml-2"><%= username(current_user) %></span>
-            <% end %>
-          </div>
-          <span><%= @character.server %> <%= verified(@character) if user_signed_in? && !@peeking %></span>
+        <b><%= @character.name %></b>
+        <div>
+          <%= @character.server %>
+          <%= verified(@character) if user_signed_in? && !@peeking %>
         </div>
+        <% if user_signed_in? %>
+          <div><%= username(current_user) %></div>
+        <% end %>
         <%= last_updated(@character) %>
       </div>
       <% if @peeking %>

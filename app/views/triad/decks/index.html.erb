@@ -46,7 +46,6 @@
             <tr>
               <th scope="col"><%= t('triad.decks.purpose') %></th>
               <th scope="col"><%= t('triad.decks.rating') %></th>
-              <th scope="col"><%= t('triad.decks.created_by') %></th>
               <th scope="col" class="text-center hide-xs" data-defaultsort="disabled">
                 <%= t('cards.title') %>
               </th>
@@ -62,7 +61,6 @@
               <tr>
                 <td><%= purpose(deck) %></td>
                 <td><%= deck.rating %></td>
-                <td><%= deck.user&.username&.truncate(20) %></td>
                 <td class="hide-xs">
                   <div class="d-flex justify-content-center card-list">
                     <% deck.cards.each do |card| %>

@@ -1,5 +1,4 @@
 json.(deck, :id, :notes, :rating)
-json.user deck.user&.username
 json.updated deck.updated?
 
 if deck.npc_id.present?

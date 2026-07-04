@@ -51,11 +51,15 @@ module ApplicationHelper
   end
 
   def avatar(user)
-    image_tag(user.avatar_url, class: 'avatar') if user.avatar_url.present?
+    if avatar_url = user&.avatar_url
+      image_tag(avatar_url, class: 'avatar')
+    end
   end
 
   def username(user)
-    fab_icon('discord', text: user.username) if user.present?
+    if identity = user&.latest_identity
+      fab_icon(identity.icon, text: identity.username)
+    end
   end
 
   def fa_check(condition, text = true)

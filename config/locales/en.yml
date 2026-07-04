@@ -145,7 +145,6 @@ en:
     compare: "Compare"
     comparing: "Comparing"
     data_center: "Data Center"
-    discord_ownership: "You are verifying your ownership of the following character as the following Discord user:"
     forget: "Forget Character"
     last_parsed: "Last Parsed"
     last_updated: "Last updated %{timespan} ago."
@@ -154,6 +153,7 @@ en:
     lodestone_id_lookup: "Lodestone ID Lookup"
     lodestone_id_validation: "The numeric ID from your Lodestone character profile URL (e.g. 7660136)"
     lodestone_verify: "If the information above is correct, please add the code below to your %{link}, then click <b>Verify</b>."
+    lodestone_verify_notice: "You are verifying your ownership of the following character as the following user:"
     manage: "Manage Characters"
     not_owned: "Your character does not own this"
     owned: "Your character owns this"
@@ -621,7 +621,7 @@ en:
   type: "Type"
   user: "User"
   users:
-    sign_in: "Sign in with Discord"
+    sign_in: "Sign In"
     sign_out: "Sign Out"
   verify: "Verify"
   verminion:
