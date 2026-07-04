@@ -19,20 +19,22 @@
 
 class User < ApplicationRecord
   belongs_to :character, required: false
-  has_many :user_characters
-  has_many :characters, through: :user_characters
-  has_many :verified_characters, -> (user) { where(verified_user: user) }, through: :user_characters, source: :character
+  belongs_to :latest_identity, class_name: 'Identity', foreign_key: :latest_identity_id, required: false
+
+  has_many :decks, primary_key: :uid, foreign_key: :user_uid
+  has_many :identities
   has_many :modifications, class_name: 'PaperTrail::Version', foreign_key: :whodunnit
   has_many :owned_groups, class_name: 'Group', foreign_key: :owner_id
-  has_many :decks, primary_key: :uid, foreign_key: :user_uid
+  has_many :user_characters
   has_many :votes
-  has_many :identities
-  belongs_to :latest_identity, class_name: 'Identity', foreign_key: :latest_identity_id, required: false
+
+  has_many :characters, through: :user_characters
+  has_many :verified_characters, -> (user) { where(verified_user: user) }, through: :user_characters, source: :character
 
   delegate :avatar_url, to: :latest_identity, allow_nil: true
   delegate :username, to: :latest_identity, allow_nil: true
 
-  devise :timeoutable, :omniauthable, omniauth_providers: %i(discord google_oauth2)
+  devise :omniauthable, :timeoutable, omniauth_providers: %i(discord google_oauth2)
 
   def self.from_omniauth(auth)
     # Clean up any special characters in the username
