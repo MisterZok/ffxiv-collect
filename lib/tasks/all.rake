@@ -124,8 +124,6 @@ def updated?(model, data)
   end
 
   if updated = data != current
-    # return updated # TODO: revert this
-
     puts "  Found new data for #{model.name_en} (#{model.id}):"
     diff = data.map do |k, v|
       "#{k}: #{current[k]} → #{v}" if current[k] != v
