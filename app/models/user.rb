@@ -36,7 +36,7 @@ class User < ApplicationRecord
 
   devise :omniauthable, :timeoutable, omniauth_providers: %i(discord google_oauth2)
 
-  def self.from_omniauth(auth)
+  def self.from_omniauth(auth, current_user = nil)
     # Clean up any special characters in the username
     username = auth.info.name.encode(Encoding.find('ASCII'), invalid: :replace, undef: :replace, replace: '')
     email = auth.info.email
@@ -53,10 +53,20 @@ class User < ApplicationRecord
     identity = Identity.find_by(key_fields)
 
     if identity.present?
+      existing_user = identity.user
+
+      attributes.merge!(user_id: current_user.id) if current_user.present?
       identity.update!(attributes)
+
       user = identity.user
+
+      # If we have moved the identity to a new user, delete the old one if it has become orphaned with no identities
+      if existing_user != user && existing_user.identities.empty?
+        existing_user.destroy!
+      end
     else
-      user = User.create!
+      # Attach the identity to the current user if they are signed in, otherwise make a new user
+      user = current_user || User.create!
       identity = user.identities.create!(key_fields.merge(attributes))
     end
 

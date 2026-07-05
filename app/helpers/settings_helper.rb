@@ -17,7 +17,6 @@ module SettingsHelper
     if identity.present?
       fa_icon('check-circle', text: identity.username)
     else
-      # TODO: this needs a different redirect path + logic so we can add it to the current user instead of signing in
       button_to t('connect'), omniauth_authorize_path(User, provider), class: "btn btn-secondary btn-sm"
     end
   end
