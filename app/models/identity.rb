@@ -42,7 +42,7 @@ class Identity < ApplicationRecord
 
   def self.ransackable_attributes(auth_object = nil)
     if auth_object == :admin
-      %w(username)
+      %w(username uid)
     else
       []
     end

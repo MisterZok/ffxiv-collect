@@ -79,7 +79,7 @@ class User < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     if auth_object == :admin
-      %w(latest_identity)
+      %w(identities)
     else
       []
     end

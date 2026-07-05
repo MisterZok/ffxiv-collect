@@ -1,37 +1,51 @@
-<div class="card">
-  <div class="card-header">
-    <div class="d-flex align-items-center">
-      <%= link_to :admin_users, class: 'unstyled mr-auto pt-1' do %>
-        <h5>Manage Users</h5>
-      <% end %>
-      <%= search_form_for(@q, url: admin_users_path, class: 'form form-inline admin-search-form') do |f| %>
-        <%= f.search_field :latest_identity_username_cont, placeholder: 'Username', size: 30, class: 'form-control form-control-sm' %>
-        <%= f.search_field :uid_eq, placeholder: 'Discord ID', size: 30, class: 'form-control form-control-sm' %>
-        <%= f.submit 'Search', class: 'btn btn-secondary btn-sm ml-2' %>
-      <% end %>
+<div class="row">
+  <div class="col-10 offset-1">
+    <div class="card">
+      <div class="card-header">
+        <div class="d-flex align-items-center">
+          <%= link_to :admin_users, class: 'unstyled mr-auto pt-1' do %>
+            <h5>Manage Users</h5>
+          <% end %>
+          <%= search_form_for(@q, url: admin_users_path, class: 'form form-inline admin-search-form') do |f| %>
+            <%= f.search_field :id_eq, placeholder: 'ID', class: 'form-control form-control-sm' %>
+            <%= f.search_field :identities_username_cont, placeholder: 'Username', class: 'form-control form-control-sm' %>
+            <%= f.search_field :identities_uid_eq, placeholder: 'UID', class: 'form-control form-control-sm' %>
+            <%= f.submit 'Search', class: 'btn btn-secondary btn-sm ml-2' %>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-body card-table">
+        <table class="table table-striped table-sm">
+          <tr>
+            <th></th> <!-- Avatar -->
+            <th>ID</th>
+            <th>Identities</th>
+            <th>Character</th>
+            <th>Created</th>
+          </tr>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user_avatar(user) %></td>
+              <td><%= user.id %></td>
+              <td>
+                <ul class="list-unstyled mb-0">
+                  <% user.identities.sort_by(&:provider).each do |identity| %>
+                    <li>
+                      <%= fab_icon(identity.icon, text: identity.username) %>
+                      (<%= identity.uid %>)
+                    </li>
+                  <% end %>
+                </ul>
+              </td>
+              <td><%= link_to(user.character.name, character_path(user.character_id)) if user.character.present? %></td>
+              <td><%= format_date(user.created_at) %></td>
+            </tr>
+          <% end %>
+        </table>
+      </div>
+      <div class="card-footer d-flex justify-content-center mb-0">
+        <%= will_paginate(@users) %>
+      </div>
     </div>
-  </div>
-  <div class="card-body card-table">
-    <table class="table table-striped table-sm">
-      <tr>
-        <th></th> <!-- Avatar -->
-        <th>Username</th>
-        <th>Discord ID</th>
-        <th>Character</th>
-        <th>Created</th>
-      </tr>
-      <% @users.each do |user| %>
-        <tr>
-          <td><%= user_avatar(user) %></td>
-          <td><%= username(user) %></td>
-          <td><%= user.uid %></td>
-          <td><%= link_to(user.character.name, character_path(user.character_id)) if user.character.present? %></td>
-          <td><%= format_date(user.created_at) %></td>
-        </tr>
-      <% end %>
-    </table>
-  </div>
-  <div class="card-footer d-flex justify-content-center mb-0">
-    <%= will_paginate(@users) %>
   </div>
 </div>
