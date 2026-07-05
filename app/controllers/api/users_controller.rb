@@ -15,7 +15,7 @@ class Api::UsersController < ApiController
 
   private
   def set_character_id
-    user = User.find_by(uid: params[:id] || params[:user_id])
+    user = Identity.find_by(provider: 'discord', uid: params[:id] || params[:user_id])&.user
 
     if user.present?
       if user.character_id.present?
