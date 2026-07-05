@@ -66,8 +66,10 @@ class User < ApplicationRecord
       end
     else
       # Attach the identity to the current user if they are signed in, otherwise make a new user
-      user = current_user || User.create!
-      identity = user.identities.create!(key_fields.merge(attributes))
+      ActiveRecord::Base.transaction do
+        user = current_user || User.create!
+        identity = user.identities.create!(key_fields.merge(attributes))
+      end
     end
 
     user.update!(latest_identity_id: identity.id)
