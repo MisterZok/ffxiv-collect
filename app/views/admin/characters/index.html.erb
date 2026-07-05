@@ -36,7 +36,7 @@
       </tr>
       <% @characters.each do |character| %>
         <tr>
-          <td><%= image_tag(character.avatar, class: 'avatar') %></td>
+          <td><%= avatar(character) %></td>
           <td><%= character.name %></td>
           <td><%= character.server %></td>
           <td><%= character.id %></td>

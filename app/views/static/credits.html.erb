@@ -19,7 +19,7 @@
               <%= render partial: 'contributor', collection: @sourcers, as: :character %>
               <div class="character">
                 <% if @character.present? %>
-                  <%= image_tag(@character.avatar, class: 'avatar mr-2') %>
+                  <%= avatar(@character) %>
                 <% end %>
                 <%= link_to t('credits.you'), 'https://discord.gg/DkYqtWWpUr', target: '_blank',
                   class: ('and-you' unless @character.present?) %>

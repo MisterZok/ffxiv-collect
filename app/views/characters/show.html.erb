@@ -29,7 +29,7 @@
           <div class="portrait mr-4 d-none d-lg-block">
             <%= link_to(Lodestone.profile_link(@profile), target: '_blank') do %>
               <% if @profile.portrait.present? %>
-                <%= image_tag(@profile.portrait) %>
+                <%= image_tag(@profile.portrait, referrerpolicy: 'no-referrer') %>
               <% else %>
                 <%= image_tag(image_path('portrait_private.png')) %>
               <% end %>
@@ -37,7 +37,7 @@
           </div>
           <div class="d-flex flex-column w-100">
             <div class="d-flex align-items-center">
-              <%= image_tag(@profile.avatar, class: 'avatar-profile mr-3 d-lg-none') %>
+              <%= image_tag(@profile.avatar, class: 'avatar-profile mr-3 d-lg-none', referrerpolicy: 'no-referrer') %>
               <div class="d-flex flex-column">
                 <h5 class="mb-1">
                   <%= @profile.name %>

@@ -3,9 +3,9 @@
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <div>
       <% if @character.present? %>
-        <%= image_tag(@character.avatar, class: 'avatar') %>
+        <%= avatar(@character) %>
       <% else %>
-        <%= avatar(current_user) %>
+        <%= user_avatar(current_user) %>
       <% end %>
     </div>
     <span class="d-none d-sm-block">

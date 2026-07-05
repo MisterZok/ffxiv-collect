@@ -50,9 +50,9 @@ module ApplicationHelper
     date&.utc&.strftime('%b %-d, %Y')
   end
 
-  def avatar(user)
+  def user_avatar(user)
     if avatar_url = user&.avatar_url
-      image_tag(avatar_url, class: 'avatar')
+      image_tag(avatar_url, class: 'avatar', referrerpolicy: 'no-referrer')
     end
   end
 

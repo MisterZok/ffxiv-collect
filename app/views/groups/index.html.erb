@@ -31,7 +31,7 @@
                     <div class="d-flex flex-wrap align-items-center my-2">
                       <% group.characters.sort_by(&:name).first(10).each do |character| %>
                         <%= link_to character_path(character), class: 'group-avatar small' do %>
-                          <%= image_tag(character.avatar, data: { toggle: 'tooltip' }, title: character.name) %>
+                          <%= avatar(character, tooltip: true) %>
                         <% end %>
                       <% end %>
                       <% if group.characters.size > 10 %>

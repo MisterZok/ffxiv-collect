@@ -55,7 +55,7 @@
         <tr>
           <th>
             <%= link_to character_path(character), class: 'group-avatar small' do %>
-              <%= image_tag(character.avatar, data: { toggle: 'tooltip' }, title: character.name) %>
+              <%= avatar(character, tooltip: true) %>
               <% if character.stale? %>
                 <%= far_icon('clock', class: 'status', data: { toggle: 'tooltip' }, title: t('groups.stale')) %>
               <% end %>

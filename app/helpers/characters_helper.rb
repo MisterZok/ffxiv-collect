@@ -1,4 +1,11 @@
 module CharactersHelper
+  def avatar(character, tooltip: false)
+    attributes = { class: 'avatar', referrerpolicy: 'no-referrer' }
+    attributes.merge!(data: { toggle: 'tooltip' }, title: character.name) if tooltip
+
+    image_tag(character.avatar, attributes)
+  end
+
   def character_free_company_link(character)
     if free_company = character.free_company
       link_to(fa_icon('users', text: free_company.formatted_name),
