@@ -44,7 +44,7 @@ module ManualCollection
         flash.now[:alert_fixed] = t('alerts.not_verified', link: link)
       end
     else
-      link = view_context.link_to(t('alerts.signed_in'), user_discord_omniauth_authorize_path, method: :post)
+      link = view_context.link_to(t('alerts.signed_in'), new_user_session_path)
       flash.now[:alert_fixed] = t('alerts.sign_in_to_track', link: link)
     end
   end
