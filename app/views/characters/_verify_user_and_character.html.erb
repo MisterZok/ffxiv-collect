@@ -6,12 +6,8 @@
     <b><%= character.name %></b><br>
     <%= character.server %>
   </div>
-  <% if local_assigns[:uid].present? %>
-    <b class="ml-3"><%= fab_icon('discord', text: uid) %></b>
-  <% else %>
-    <div class="mx-3">
-      <%= user_avatar(user) %>
-    </div>
-    <%= username(user) %>
-  <% end %>
+  <div class="mx-3">
+    <%= user_avatar(user) %>
+  </div>
+  <%= username(user) %>
 </div>
