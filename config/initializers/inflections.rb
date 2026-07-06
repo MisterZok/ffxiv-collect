@@ -19,6 +19,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'NPC'
   inflect.acronym 'NPCs'
   inflect.acronym 'XIV'
+  inflect.acronym 'XIVAuth'
 
   inflect.irregular 'Import', 'Import'
 

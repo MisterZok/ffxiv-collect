@@ -20,6 +20,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env['omniauth.auth'], current_user)
 
     if user_signed_in?
+      message = t('alerts.authentication_method_added')
+
+      if params[:action] == 'xivauth'
+        message = "#{message} #{t('alerts.sign_in_characters')}"
+      end
+
+      flash[:success] = message
+
       return redirect_to settings_path
     else
       sign_in(@user)
@@ -29,6 +37,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         @user.update(character_id: cookies[:character])
         @user.characters << Character.find_by(id: cookies[:character]) unless @user.characters.exists?(cookies[:character])
       end
+
+      message = t('alerts.sign_in_success')
+
+      if params[:action] == 'xivauth'
+        message = "#{message} #{t('alerts.sign_in_characters')}"
+      end
+
+      flash[:success] = message
 
       # Use the user's selected character profile as their landing page if available
       if @user.character.present?

@@ -74,6 +74,14 @@ class User < ApplicationRecord
 
     user.update!(latest_identity_id: identity.id)
 
+    if auth.provider == 'xivauth'
+      character_ids = auth.extra.characters&.pluck(:lodestone_id)
+
+      if character_ids.present?
+        XIVAuthCharactersSyncJob.perform_later(user.id, character_ids)
+      end
+    end
+
     user
   end
 
