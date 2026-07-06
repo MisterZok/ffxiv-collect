@@ -11,6 +11,10 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     handle_callback
   end
 
+  def xivauth
+    handle_callback
+  end
+
   private
   def handle_callback
     @user = User.from_omniauth(request.env['omniauth.auth'], current_user)

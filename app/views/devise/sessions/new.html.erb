@@ -16,11 +16,13 @@
           <li><%= t('users.sign_in_benefit4') %></li>
         </ul>
         <hr>
-        <div class="d-flex flex-column align-items-center gap-2">
-          <% %w(discord google_oauth2).each do |provider| %>
-            <%= button_to fab_icon(Identity.icon(provider), text: t('users.sign_in_with', provider: Identity.formatted_name(provider))),
-              omniauth_authorize_path(User, provider), class: "btn #{Identity.icon(provider)}" %>
-          <% end %>
+        <div class="d-flex justify-content-center">
+          <div class="d-inline-flex flex-column gap-2">
+            <% User.omniauth_providers.sort.each do |provider| %>
+              <%= link_to fa_icon(Identity.icon(provider), text: t('users.sign_in_with', provider: Identity.formatted_name(provider)), type: Identity.icon_type(provider)),
+                omniauth_authorize_path(User, provider), method: :post, class: "btn #{provider}" %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>

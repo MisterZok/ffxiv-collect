@@ -9,7 +9,7 @@
       </div>
       <div class="card-body card-table">
         <table class="table table-striped">
-          <% %w(discord google_oauth2).each do |provider| %>
+          <% User.omniauth_providers.sort.each do |provider| %>
             <tr>
               <td class="pl-3">
                 <%= provider_name(provider) %>

@@ -34,7 +34,7 @@ class User < ApplicationRecord
   delegate :avatar_url, to: :latest_identity, allow_nil: true
   delegate :username, to: :latest_identity, allow_nil: true
 
-  devise :omniauthable, :timeoutable, omniauth_providers: %i(discord google_oauth2)
+  devise :omniauthable, :timeoutable, omniauth_providers: %i(discord google_oauth2 xivauth)
 
   def self.from_omniauth(auth, current_user = nil)
     # Clean up any special characters in the username

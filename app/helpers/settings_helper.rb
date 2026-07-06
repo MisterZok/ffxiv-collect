@@ -8,7 +8,7 @@ module SettingsHelper
   end
 
   def provider_name(provider)
-    fab_icon(Identity.icon(provider), text: Identity.formatted_name(provider))
+    fa_icon(Identity.icon(provider), text: Identity.formatted_name(provider), type: Identity.icon_type(provider))
   end
 
   def identity_status(identities, provider)

@@ -9,7 +9,7 @@ class SettingsController < ApplicationController
     end
 
     @identities = @user.identities.each_with_object({}) do |identity, h|
-      h[identity.provider] = identity
+      h[identity.provider.to_sym] = identity
     end
   end
 

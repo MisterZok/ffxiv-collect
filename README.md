@@ -42,6 +42,9 @@ discord:
 google:
   client_id: 234567891
   client_secret: def456
+xivauth:
+  client_id: 345678912
+  client_secret: ghi789
 ```
 
 #### Load the database

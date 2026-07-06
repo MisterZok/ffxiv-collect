@@ -31,7 +31,7 @@
                 <ul class="list-unstyled mb-0">
                   <% user.identities.sort_by(&:provider).each do |identity| %>
                     <li>
-                      <%= fab_icon(identity.icon, text: identity.username) %>
+                      <%= fa_icon(identity.icon, text: identity.username, type: identity.icon_type) %>
                       (<%= identity.uid %>)
                     </li>
                   <% end %>

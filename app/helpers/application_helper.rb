@@ -58,7 +58,7 @@ module ApplicationHelper
 
   def username(user)
     if identity = user&.latest_identity
-      fab_icon(identity.icon, text: identity.username)
+      fa_icon(identity.icon, text: identity.username, type: identity.icon_type)
     end
   end
 

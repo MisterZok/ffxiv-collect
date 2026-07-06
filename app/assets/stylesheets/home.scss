@@ -10,7 +10,7 @@
   }
 }
 
-.google {
+.google_oauth2 {
   background-color: #4285F4;
 
   &:hover {
@@ -23,6 +23,14 @@
 
   &:hover {
     background-color: #BF3C2D;
+  }
+}
+
+.xivauth {
+  background-color: #00A8E8;
+
+  &:hover {
+    background-color: #0099CA;
   }
 }
 

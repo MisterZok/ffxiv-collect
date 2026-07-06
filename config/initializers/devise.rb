@@ -1,3 +1,5 @@
+require Rails.root.join('app/lib/xivauth')
+
 # frozen_string_literal: true
 
 # Use this hook to configure devise mailer, warden hooks and so forth.
@@ -272,6 +274,15 @@ Devise.setup do |config|
       image_aspect_ratio: 'square',
       image_size: 40,
       prompt: 'consent',
+    }
+  )
+
+  config.omniauth(
+    :xiv_auth,
+    Rails.application.credentials.dig(:xivauth, :client_id),
+    Rails.application.credentials.dig(:xivauth, :client_secret),
+    {
+      scope: 'user character:all',
     }
   )
 
