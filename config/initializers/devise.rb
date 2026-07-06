@@ -262,7 +262,9 @@ Devise.setup do |config|
     :discord,
     Rails.application.credentials.dig(:discord, :client_id),
     Rails.application.credentials.dig(:discord, :client_secret),
-    scope: 'identify'
+    {
+      scope: 'identify'
+    }
   )
 
   config.omniauth(
