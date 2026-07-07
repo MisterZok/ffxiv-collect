@@ -33,6 +33,9 @@ fr:
               blank: "Vous avez spécifié une règle invalide pour votre deck."
   add: "Ajouter"
   alerts:
+    authentication_method_added: "Votre méthode d'authentification a été ajoutée."
+    authentication_method_deleted: "Votre méthode d'authentification a été supprimée."
+    authentication_method_needed: "Vous devez avoir au minimum une forme d'authentification."
     character_already_refreshed: "Les informations de votre personnage ont déjà été actualisées ces dernières 30 minutes. Veuillez réessayer plus tard."
     character_already_verified: "Votre personnage a déjà été vérifié."
     character_not_found: "Votre personnage est introuvable."
@@ -91,6 +94,8 @@ fr:
     settings_error: "Une erreur est survenue lors de la mise à jour de vos paramètres."
     settings_not_verified: "Si vous voulez changer les paramètres de votre personnage, utilisez %{link}."
     settings_updated: "Vos paramètres ont été mis à jour."
+    sign_in_characters: "Les personnages sélectionnés seront bientôt disponibles."
+    sign_in_success: "Vous êtes authentifiée."
     sign_in_to_track: "Vous devez être %{link} pour ajouter des éléments à votre collection."
     signed_in: "connecté"
     verify_ownership: "l'authentification de personnage"
@@ -195,6 +200,7 @@ fr:
     title: "Commandes Discord"
   compare: "Comparer"
   complete: "Achevé"
+  connect: "Connexion"
   copy:
     isearch: "Commande /isearch copiée"
     name: "Nom d'objet copié"
@@ -488,6 +494,7 @@ fr:
   search: "Rechercher"
   select: "Sélectionner"
   settings:
+    authentication: "Authentification"
     character: "Paramètres du personnage"
     database: "Liens de base de données"
     make_public: "Rendre les collections de ce personnage visibles par tous"
@@ -639,6 +646,12 @@ fr:
   user: "Utilisateur"
   users:
     sign_in: "Se connecter"
+    sign_in_benefit1: "Gérez facilement plusieurs personnages"
+    sign_in_benefit2: "Vérifiez votre personnage et gérez vos collections"
+    sign_in_benefit3: "Ajoutez et vérifiez tous vos personnages automatiquement grâce à XIVAuth"
+    sign_in_benefit4: "Créez des groupes personnalisés pour facilement comparer avec d'autres personnages"
+    sign_in_benefit5: "Ajustez les paramètres comme la visibilité des informations de personnages ou le monde d'origine de l'hôtel des ventes"
+    sign_in_header: "Connectez-vous pour accéder a plus de fonctionnalités"
     sign_in_with: "Se connecter avec %{provider}"
     sign_out: "Déconnexion"
   verify: "Vérifier"

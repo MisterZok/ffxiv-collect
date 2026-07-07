@@ -33,6 +33,9 @@ de:
               blank: "Dein Deck ist einer ungültigen Regel zugeordnet."
   add: "Hinzuzufügen"
   alerts:
+    authentication_method_added: "Deine Authentifizierungsmethode wurde hinzugefügt."
+    authentication_method_deleted: "Deine Authentifizierungsmethode wurde gelöscht."
+    authentication_method_needed: "Du musst über mindestens eine Authentifizierungsmethode verfügen."
     character_already_refreshed: "Dein Charakter wurde bereits in den letzten 30 Minuten aktualisiert. Bitte versuch es später noch einmal."
     character_already_verified: "Dein Charakter wurde bereits verifiziert."
     character_not_found: "Charakter konnte nicht gefunden werden."
@@ -91,6 +94,8 @@ de:
     settings_error: "Es ist ein Problem beim Aktualisieren deiner Einstellungen aufgetreten."
     settings_not_verified: "Wenn du deine Einstellungen für den Charakter ändern möchtest, bitte %{link}."
     settings_updated: "Deine Einstellungen wurden gespeichert."
+    sign_in_characters: "Alle ausgewählten Charaktere sind in Kürze verfügbar."
+    sign_in_success: "Du bist angemeldet."
     sign_in_to_track: "Du musst %{link} sein um manuelle Sammlungen benutzen zu können."
     signed_in: "eingeloggt"
     verify_ownership: "verifiziere bitte deinen Charakter"
@@ -195,6 +200,7 @@ de:
     title: "Discord Befehle"
   compare: "Vergleichen"
   complete: "abgeschlossen"
+  connect: "Verbinden"
   copy:
     isearch: "/isearch Befehl kopiert"
     name: "Name des Items kopiert"
@@ -487,6 +493,7 @@ de:
   search: "Suche"
   select: "Auswählen"
   settings:
+    authentication: "Authentifizierung"
     character: "Charakter Einstellung"
     database: "Datenbank Links"
     make_public: "Setze die Charakter Sammlung öffentlich"
@@ -638,6 +645,12 @@ de:
   user: "User"
   users:
     sign_in: "Einloggen"
+    sign_in_benefit1: "Tracke ganz einfach mehrere Charaktere"
+    sign_in_benefit2: "Verifiziere deinen Charakter, um manuelle Sammlungen zu tracken."
+    sign_in_benefit3: "Füge alle deine Charaktere automatisch hinzu und verifiziere sie mit XIVAuth."
+    sign_in_benefit4: "Erstelle benutzerdefinierte Gruppen, um einfach mit anderen Charakteren vergleichen zu können."
+    sign_in_benefit5: "Passe Einstellungen wie die Charakter-Privatsphäre und das Datenzentrum für Preisdaten an"
+    sign_in_header: "Melde dich an, um auf weitere Funktionen zuzugreifen."
     sign_in_with: "Einloggen mit %{provider}"
     sign_out: "Abmelden"
   verify: "Verifizieren"
