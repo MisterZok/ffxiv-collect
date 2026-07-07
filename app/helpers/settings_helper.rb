@@ -7,10 +7,6 @@ module SettingsHelper
     options_for_select(Character.data_centers, character.pricing_data_center)
   end
 
-  def provider_name(provider)
-    fa_icon(Identity.icon(provider), text: Identity.formatted_name(provider), type: Identity.icon_type(provider))
-  end
-
   def identity_status(identities, provider)
     identity = identities[provider]
 

@@ -12,7 +12,7 @@
           <% User.omniauth_providers.sort.each do |provider| %>
             <tr>
               <td class="pl-3">
-                <%= provider_name(provider) %>
+                <%= provider_icon(provider, Identity.formatted_provider(provider)) %>
               </td>
               <td>
                 <%= identity_status(@identities, provider) %>

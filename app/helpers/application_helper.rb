@@ -24,6 +24,19 @@ module ApplicationHelper
     link_to icon, path, class: "nav-link#{' bold' if bold}"
   end
 
+  def provider_icon(provider, text)
+    icon = case provider.to_s
+    when 'discord'
+      fab_icon('discord')
+    when 'google_oauth2'
+      fab_icon('google')
+    when 'xivauth'
+      fa_icon('key')
+    end
+
+    "#{icon} #{text}".html_safe
+  end
+
   def safe_image_url(src, options = {})
     begin
       image_url(src, options)
@@ -58,7 +71,7 @@ module ApplicationHelper
 
   def username(user)
     if identity = user&.latest_identity
-      fa_icon(identity.icon, text: identity.username, type: identity.icon_type)
+      provider_icon(identity.provider, identity.username)
     end
   end
 

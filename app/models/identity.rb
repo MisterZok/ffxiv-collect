@@ -14,11 +14,11 @@
 class Identity < ApplicationRecord
   belongs_to :user
 
-  def formatted_name
-    Identity.formatted_name(provider)
+  def formatted_provider
+    Identity.formatted_provider(provider)
   end
 
-  def self.formatted_name(provider)
+  def self.formatted_provider(provider)
     case provider.to_s
     when 'google_oauth2'
       'Google'
@@ -26,34 +26,6 @@ class Identity < ApplicationRecord
       'XIVAuth'
     else
       provider.to_s.capitalize
-    end
-  end
-
-  def icon
-    Identity.icon(provider)
-  end
-
-  def self.icon(provider)
-    case provider.to_s
-    when 'google_oauth2'
-      'google'
-    when 'xivauth'
-      'key'
-    else
-      provider.to_s
-    end
-  end
-
-  def icon_type
-    Identity.icon_type(provider)
-  end
-
-  def self.icon_type(provider)
-    case provider.to_s
-    when 'xivauth'
-      'fa'
-    else
-      'fab'
     end
   end
 

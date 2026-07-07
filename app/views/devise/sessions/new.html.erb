@@ -20,7 +20,7 @@
         <div class="d-flex justify-content-center">
           <div class="d-inline-flex flex-column gap-2">
             <% User.omniauth_providers.sort.each do |provider| %>
-              <%= link_to fa_icon(Identity.icon(provider), text: t('users.sign_in_with', provider: Identity.formatted_name(provider)), type: Identity.icon_type(provider)),
+              <%= link_to provider_icon(provider, t('users.sign_in_with', provider: Identity.formatted_provider(provider))),
                 omniauth_authorize_path(User, provider), method: :post, class: "btn #{provider}" %>
             <% end %>
           </div>
