@@ -22,7 +22,14 @@ class SettingsController < ApplicationController
     provider = params[:provider].to_sym
 
     if User.omniauth_providers.include?(provider)
-      @user.identities.find_by(provider: provider).destroy
+      identity = @user.identities.find_by(provider: provider)
+      identity.destroy!
+
+      # Replace the user's latest identity if needed
+      if @user.latest_identity_id == identity.id
+        @user.update!(latest_identity: @user.identities.last)
+      end
+
       flash[:success] = t('alerts.authentication_method_deleted')
     end
 
