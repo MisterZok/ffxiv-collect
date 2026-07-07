@@ -53,17 +53,11 @@ class User < ApplicationRecord
     identity = Identity.find_by(key_fields)
 
     if identity.present?
-      existing_user = identity.user
-
+      # If a user connects an existing identity, move it to them
       attributes.merge!(user_id: current_user.id) if current_user.present?
+
       identity.update!(attributes)
-
       user = identity.user
-
-      # If we have moved the identity to a new user, delete the old one if it has become orphaned with no identities
-      if existing_user != user && existing_user.identities.empty?
-        existing_user.destroy!
-      end
     else
       # Attach the identity to the current user if they are signed in, otherwise make a new user
       ActiveRecord::Base.transaction do
