@@ -3,7 +3,7 @@ require 'omniauth-oauth2'
 # Provide the strategy locally until the gem is ready
 module OmniAuth
   module Strategies
-    class XivAuth < OmniAuth::Strategies::OAuth2
+    class XIVAuth < OmniAuth::Strategies::OAuth2
       DEFAULT_SCOPE = "user".freeze
 
       option :name, "xivauth"

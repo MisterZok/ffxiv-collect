@@ -1,4 +1,4 @@
-require Rails.root.join('app/lib/xivauth')
+require Rails.root.join('app/lib/omniauth/strategies/xivauth')
 
 # frozen_string_literal: true
 
@@ -262,30 +262,25 @@ Devise.setup do |config|
     :discord,
     Rails.application.credentials.dig(:discord, :client_id),
     Rails.application.credentials.dig(:discord, :client_secret),
-    {
-      scope: 'identify'
-    }
+    scope: 'identify'
   )
 
   config.omniauth(
     :google_oauth2,
     Rails.application.credentials.dig(:google, :client_id),
     Rails.application.credentials.dig(:google, :client_secret),
-    {
-      scope: 'email,profile',
-      image_aspect_ratio: 'square',
-      image_size: 40,
-      prompt: 'consent',
-    }
+    scope: 'email,profile',
+    image_aspect_ratio: 'square',
+    image_size: 40,
+    prompt: 'consent',
   )
 
   config.omniauth(
-    :xiv_auth,
+    :xivauth,
     Rails.application.credentials.dig(:xivauth, :client_id),
     Rails.application.credentials.dig(:xivauth, :client_secret),
-    {
-      scope: 'user character:all',
-    }
+    scope: 'user character:all',
+    strategy_class: OmniAuth::Strategies::XIVAuth
   )
 
   # ==> Warden configuration
