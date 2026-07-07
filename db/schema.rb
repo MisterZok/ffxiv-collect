@@ -1448,7 +1448,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_07_03_161204) do
     t.boolean "admin", default: false
     t.boolean "mod", default: false
     t.string "database", default: "garland", null: false
-    t.integer "latest_identity_id"
+    t.integer "current_identity_id"
     t.index ["character_id"], name: "index_users_on_character_id"
     t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
   end

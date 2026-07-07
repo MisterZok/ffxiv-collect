@@ -14,12 +14,12 @@
 #  admin              :boolean          default(FALSE)
 #  mod                :boolean          default(FALSE)
 #  database           :string(255)      default("garland"), not null
-#  latest_identity_id :integer
+#  current_identity_id :integer
 #
 
 class User < ApplicationRecord
   belongs_to :character, required: false
-  belongs_to :latest_identity, class_name: 'Identity', foreign_key: :latest_identity_id, required: false
+  belongs_to :current_identity, class_name: 'Identity', foreign_key: :current_identity_id, required: false
 
   has_many :decks, primary_key: :uid, foreign_key: :user_uid
   has_many :identities
@@ -31,8 +31,8 @@ class User < ApplicationRecord
   has_many :characters, through: :user_characters
   has_many :verified_characters, -> (user) { where(verified_user: user) }, through: :user_characters, source: :character
 
-  delegate :avatar_url, to: :latest_identity, allow_nil: true
-  delegate :username, to: :latest_identity, allow_nil: true
+  delegate :avatar_url, to: :current_identity, allow_nil: true
+  delegate :username, to: :current_identity, allow_nil: true
 
   devise :omniauthable, :timeoutable, omniauth_providers: %i(discord google_oauth2 xivauth)
 
@@ -66,7 +66,7 @@ class User < ApplicationRecord
       end
     end
 
-    user.update!(latest_identity_id: identity.id)
+    user.update!(current_identity_id: identity.id)
 
     if auth.provider == 'xivauth'
       character_ids = auth.extra.characters&.pluck(:lodestone_id)

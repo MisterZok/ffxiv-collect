@@ -25,9 +25,9 @@ class SettingsController < ApplicationController
       identity = @user.identities.find_by(provider: provider)
       identity.destroy!
 
-      # Replace the user's latest identity if needed
-      if @user.latest_identity_id == identity.id
-        @user.update!(latest_identity: @user.identities.last)
+      # Replace the user's current identity if needed
+      if @user.current_identity_id == identity.id
+        @user.update!(current_identity: @user.identities.last)
       end
 
       flash[:success] = t('alerts.authentication_method_deleted')

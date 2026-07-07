@@ -70,7 +70,7 @@ module ApplicationHelper
   end
 
   def username(user)
-    if identity = user&.latest_identity
+    if identity = user&.current_identity
       provider_icon(identity.provider, identity.username)
     end
   end
