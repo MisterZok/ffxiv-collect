@@ -33,7 +33,7 @@
     <% if action_name == 'index' && @character.present? && @rankings.present? && @character[@metric] != -1 && @character[@metric] < @rankings.last[:score] %>
       <tr class="my-rankings mine">
         <td></td>
-        <td><%= avatar(character) %></td>
+        <td><%= avatar(@character) %></td>
         <td><%= link_to(@character.name, character_path(@character), class: 'name') %></td>
         <td><%= @character.data_center %></td>
         <td><%= @character.server %></td>
