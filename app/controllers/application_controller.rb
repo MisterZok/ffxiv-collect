@@ -107,7 +107,7 @@ class ApplicationController < ActionController::Base
     super
 
     payload[:character_id] = @character&.id
-    payload[:user_id] = current_user&.uid
+    payload[:user_id] = current_user&.id
   end
 
   def display_announcements
